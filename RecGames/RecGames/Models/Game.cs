@@ -11,12 +11,16 @@ namespace RecGames.Models
         [Key]
         public int GameID { get; set; }
         public string Name { get; set; }
-        public string ControllerSupport { get; set; }
+        public string ControllersSupported { get; set; }
         public string Platforms { get; set; }
         public string Developers { get; set; }
         public string Publishers { get; set; }
+        public string Genre { get; set; }
+        public string LaunchDate { get; set; }
+        public int TotalAchievements { get; set; }
         public int Recommendations { get; set; }
         public int MetacriticScore { get; set; }
-        public int PriceID { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }
