@@ -18,10 +18,14 @@ namespace RecGames.DAL
 
         public DbSet<Game> Games { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Price> Prices { get; set; }
+        public DbSet<UserGame> UsersGames { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
     }
 }

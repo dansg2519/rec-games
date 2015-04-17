@@ -13,5 +13,7 @@ namespace RecGames.Models
         public string Audio { get; set; }
         public string Interface { get; set; }
         public string Subtitle { get; set; }
+
+        public virtual ICollection<Game> Games { get; set; }
     }
 }

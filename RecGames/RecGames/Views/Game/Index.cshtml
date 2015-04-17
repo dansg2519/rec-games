@@ -1,0 +1,87 @@
+﻿@model IEnumerable<RecGames.Models.Game>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ControllersSupported)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Platforms)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Developers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Publishers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LaunchDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAchievements)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recommendations)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MetacriticScore)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ControllersSupported)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Platforms)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Developers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Publishers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LaunchDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAchievements)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Recommendations)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MetacriticScore)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GameID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GameID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GameID })
+        </td>
+    </tr>
+}
+
+</table>
