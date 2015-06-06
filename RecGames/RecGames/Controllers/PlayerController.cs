@@ -8,13 +8,13 @@ using RecGames.Models;
 
 namespace RecGames.Controllers
 {
-    public class PlayerInfoController : ApiController
+    public class PlayerController : ApiController
     {
         private const string SteamKey = "3E2BA9478DC190757ABE4D1DABEA9802";
         private const string SteamId = "76561197960435530";
 
-        // GET api/PlayerInfo
-        public IHttpActionResult Get()
+        [HttpGet]
+        public IHttpActionResult Info()
         {
             string playerInfoJson;
             using (WebClient client = new WebClient())
@@ -26,8 +26,8 @@ namespace RecGames.Controllers
             return this.Ok(playerInfoJson);
         }
 
-        // GET api/PlayerInfo/PlayerOwnedGames
-        public IHttpActionResult GetPlayerOwnedGames()
+        [HttpGet]
+        public IHttpActionResult OwnedGames()
         {
             string playerOwnedGamesJson;
             using (WebClient client = new WebClient())
@@ -39,5 +39,16 @@ namespace RecGames.Controllers
             return this.Ok(playerOwnedGamesJson);
         }
 
+        [HttpGet]
+        public IHttpActionResult RecentlyPlayedGames()
+        {
+            string recentlyPlayedGames;
+            using (WebClient client = new WebClient())
+            {
+                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + SteamKey + "&steamid=" + SteamId);
+            }
+
+            return this.Ok(recentlyPlayedGames);
+        }
     }
 }

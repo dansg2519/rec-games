@@ -179,7 +179,7 @@
     <Compile Include="Controllers\GameInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PlayerInfoController.cs" />
+    <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="DAL\RecGameContext.cs" />
     <Compile Include="DAL\RecGamesInitializer.cs" />
     <Compile Include="Global.asax.cs">
