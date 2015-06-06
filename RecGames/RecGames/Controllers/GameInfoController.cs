@@ -15,9 +15,9 @@ namespace RecGames.Controllers
         private const string SteamKey = "3E2BA9478DC190757ABE4D1DABEA9802";
         HtmlDocument htmlDocument = new HtmlDocument();
 
-
+        [HttpGet]
         // GET api/GameInfo
-        public IHttpActionResult Get(int? id)
+        public IHttpActionResult Details(int? id)
         {
             string gameInfoJson;
             using (WebClient client = new WebClient())
