@@ -14,7 +14,8 @@ namespace RecGames.Controllers
         private const string SteamId = "76561197960435530";
 
         [HttpGet]
-        public IHttpActionResult Info()
+        [ActionName("Info")]
+        public IHttpActionResult GetInfo()
         {
             string playerInfoJson;
             using (WebClient client = new WebClient())
@@ -27,7 +28,8 @@ namespace RecGames.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult OwnedGames()
+        [ActionName("OwnedGames")]
+        public IHttpActionResult GetOwnedGames()
         {
             string playerOwnedGamesJson;
             using (WebClient client = new WebClient())
@@ -40,7 +42,8 @@ namespace RecGames.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult RecentlyPlayedGames()
+        [ActionName("RecentlyPlayedGames")]
+        public IHttpActionResult GetRecentlyPlayedGames()
         {
             string recentlyPlayedGames;
             using (WebClient client = new WebClient())
