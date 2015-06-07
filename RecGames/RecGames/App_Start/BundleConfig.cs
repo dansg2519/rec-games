@@ -8,6 +8,13 @@ namespace RecGames
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            const string ANGULAR_APP_ROOT = "~/Scripts/app/";
+            const string VIRTUAL_BUNDLE_PATH = ANGULAR_APP_ROOT + "main.js";
+
+            bundles.Add(new ScriptBundle(VIRTUAL_BUNDLE_PATH).Include(
+                        ANGULAR_APP_ROOT + "app.js").IncludeDirectory(
+                        ANGULAR_APP_ROOT, "*.js", searchSubdirectories: true));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
