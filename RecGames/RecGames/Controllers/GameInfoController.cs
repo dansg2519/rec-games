@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Web.Http;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using RecGames.Models;
+using RecGames.Helpers;
 
 namespace RecGames.Controllers
 {
@@ -20,10 +23,22 @@ namespace RecGames.Controllers
         public IHttpActionResult Details(int? id)
         {
             string gameInfoJson;
+            Game game = new Game();
             using (WebClient client = new WebClient())
             {
 
                 gameInfoJson = client.DownloadString(@"http://store.steampowered.com/api/appdetails/?appids="+ id.ToString());
+
+                JObject jObject = JObject.Parse(gameInfoJson);
+                JObject idObject = (JObject)jObject[id.ToString()];
+                JObject dataObject = (JObject)idObject["data"];
+
+
+                game.GameID = (int)dataObject["steam_appid"];
+                game.Name = (string)dataObject["name"];
+                game.ControllersSupported = (string)dataObject["controller_support"];
+                game.Platforms = GameHelpers.SupportedPlatforms((JObject) dataObject["platforms"]);
+                
             }
 
             return this.Ok(gameInfoJson);
