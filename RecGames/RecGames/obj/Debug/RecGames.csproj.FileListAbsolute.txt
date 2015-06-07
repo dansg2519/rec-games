@@ -30,7 +30,6 @@ C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\WebGrease.dll
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\EntityFramework.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\EntityFramework.SqlServer.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\System.Web.Helpers.xml
-C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\System.Web.Mvc.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\System.Web.Razor.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\System.Web.WebPages.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames\bin\System.Web.WebPages.Deployment.xml
