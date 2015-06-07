@@ -31,9 +31,56 @@ namespace RecGames.Helpers
             }
 
             return platforms;
-            
         }
         
+        public static string GameDevelopers(JArray developersArray)
+        {
+            string developers = String.Empty;
+
+            List<string> developersList = developersArray.ToObject<List<string>>();
+
+            try
+            {
+                developers = developersList[0];
+                if (developersList.Count > 1)
+                {
+                    for (int index = 1; index < developersList.Count; index++)
+                    {
+                        developers += "," + developersList[index];
+                    }
+                }
+                return developers;
+            }
+            catch (System.NullReferenceException)
+            {
+                return String.Empty;
+            }
+        }
+
+        public static string GamePublishers(JArray publishersArray)
+        {
+            List<string> publishersList = publishersArray.ToObject<List<string>>();
+
+            string publishers;
+
+            try
+            {
+                publishers = publishersList[0];
+                if (publishersList.Count > 1)
+                {
+                    for (int index = 1; index < publishersList.Count; index++)
+                    {
+                        publishers += "," + publishersList[index];
+                    }
+                }
+
+                return publishers;
+            }
+            catch (System.NullReferenceException)
+            {
+                return String.Empty;
+            }
+        }
     }
     
 }

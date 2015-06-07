@@ -38,6 +38,12 @@ namespace RecGames.Controllers
                 game.Name = (string)dataObject["name"];
                 game.ControllersSupported = (string)dataObject["controller_support"];
                 game.Platforms = GameHelpers.SupportedPlatforms((JObject) dataObject["platforms"]);
+                game.Developers = GameHelpers.GameDevelopers((JArray)dataObject["developers"]);
+                game.Publishers = GameHelpers.GamePublishers((JArray)dataObject["publishers"]);
+                game.MetacriticScore = (int)dataObject["metacritic"]["score"];
+                game.Recommendations = (int)dataObject["recommendations"]["total"];
+                game.TotalAchievements = (int)dataObject["achievements"]["total"];
+                game.LaunchDate = (string)dataObject["release_date"]["date"];
                 
             }
 
