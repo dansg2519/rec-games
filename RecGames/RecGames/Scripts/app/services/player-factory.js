@@ -25,7 +25,7 @@
     dataFactory.getRecentlyPlayedGames = function () {
         return $http.get(urlBase + 'recentlyPlayedGames')
             .success(function (data) {
-                return data;
+                return console.log(data);
             })
             .error(function (err) {
                 return err;

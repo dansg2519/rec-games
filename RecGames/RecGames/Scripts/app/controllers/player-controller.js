@@ -4,14 +4,21 @@
     }
     
     $scope.info = function () {
-        var data = playerFactory.getInfo();
-        return console.log(data);
+        playerFactory.getInfo().success(function(data) {
+            $scope.playerInfo = data.response.players[0];
+        });
     };
 
     $scope.ownedGames = function () {
-        playerFactory.getOwnedGames;
+        playerFactory.getOwnedGames().success(function (data) {
+            $scope.playerOwnedGames = data.response.games;
+        });
     };
 
-    $scope.recentlyPlayedGames = playerFactory.getRecentlyPlayedGames;    
-    }]);
+    $scope.recentlyPlayedGames = function () {
+        playerFactory.getRecentlyPlayedGames().success(function (data) {
+            $scope.playerRecentlyPlayedGames = data.response.games;
+        });
+    };
+}]);
 

@@ -11,7 +11,11 @@
 <div ng-app="RecGamesApp">
     <div ng-controller="playerController">
         <button ng-click="info()">hello</button>
-        <p>{{info}}</p>
+        <p>Hello {{playerInfo}}</p>
+        <button ng-click="ownedGames()">games</button>
+        <p>Hello {{playerOwnedGames}}</p>
+        <button ng-click="recentlyPlayedGames()">recent games played</button>
+        <p>Hello {{playerRecentlyPlayedGames}}</p>
     </div>    
 </div>
 
