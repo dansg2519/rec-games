@@ -22,7 +22,6 @@ C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\Microsoft.O
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\RecGames.pdb
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.Helpers.xml
-C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.Mvc.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.Razor.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.WebPages.xml
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
@@ -40,3 +39,12 @@ C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\Microsoft.O
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\obj\Debug\RecGames.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\obj\Debug\RecGames.Tests.dll
 C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\obj\Debug\RecGames.Tests.pdb
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.Http.dll
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.Http.WebHost.dll
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.Http.xml
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Web.Http.WebHost.xml
+C:\Users\Daniel\Coder\C#\rec-games\RecGames\RecGames.Tests\bin\Debug\System.Net.Http.Formatting.xml

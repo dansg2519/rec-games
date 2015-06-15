@@ -191,6 +191,31 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\GameHelpers.cs" />
+    <Compile Include="Migrations\201506140329043_InitialCreate.cs" />
+    <Compile Include="Migrations\201506140329043_InitialCreate.Designer.cs">
+      <DependentUpon>201506140329043_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506140436047_InitialCreate1.cs" />
+    <Compile Include="Migrations\201506140436047_InitialCreate1.Designer.cs">
+      <DependentUpon>201506140436047_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506141953331_Version1.cs" />
+    <Compile Include="Migrations\201506141953331_Version1.Designer.cs">
+      <DependentUpon>201506141953331_Version1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506142043521_VersionWithoutNotNullables.cs" />
+    <Compile Include="Migrations\201506142043521_VersionWithoutNotNullables.Designer.cs">
+      <DependentUpon>201506142043521_VersionWithoutNotNullables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506142118398_VersionWithoutNotNullables2.cs" />
+    <Compile Include="Migrations\201506142118398_VersionWithoutNotNullables2.Designer.cs">
+      <DependentUpon>201506142118398_VersionWithoutNotNullables2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506142120298_VersionWithoutNotNullables3.cs" />
+    <Compile Include="Migrations\201506142120298_VersionWithoutNotNullables3.Designer.cs">
+      <DependentUpon>201506142120298_VersionWithoutNotNullables3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -281,6 +306,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506140329043_InitialCreate.resx">
+      <DependentUpon>201506140329043_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506140436047_InitialCreate1.resx">
+      <DependentUpon>201506140436047_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141953331_Version1.resx">
+      <DependentUpon>201506141953331_Version1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506142043521_VersionWithoutNotNullables.resx">
+      <DependentUpon>201506142043521_VersionWithoutNotNullables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506142118398_VersionWithoutNotNullables2.resx">
+      <DependentUpon>201506142118398_VersionWithoutNotNullables2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506142120298_VersionWithoutNotNullables3.resx">
+      <DependentUpon>201506142120298_VersionWithoutNotNullables3.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
