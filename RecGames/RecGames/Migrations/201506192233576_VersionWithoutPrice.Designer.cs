@@ -7,13 +7,13 @@ namespace RecGames.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class VersionWithoutNotNullables3 : IMigrationMetadata
+    public sealed partial class VersionWithoutPrice : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(VersionWithoutNotNullables3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(VersionWithoutPrice));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506142120298_VersionWithoutNotNullables3"; }
+            get { return "201506192233576_VersionWithoutPrice"; }
         }
         
         string IMigrationMetadata.Source

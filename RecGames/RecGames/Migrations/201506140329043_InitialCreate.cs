@@ -11,7 +11,7 @@ namespace RecGames.Migrations
                 "dbo.Game",
                 c => new
                     {
-                        GameID = c.Int(nullable: false),
+                        GameID = c.Int(nullable: false, identity:true),
                         Name = c.String(),
                         ControllersSupported = c.String(),
                         Platforms = c.String(),

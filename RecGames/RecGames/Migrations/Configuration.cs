@@ -7,6 +7,7 @@ namespace RecGames.Migrations
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.IO;
     using System.Linq;
     using System.Net;
 
@@ -45,24 +46,34 @@ namespace RecGames.Migrations
                 }
                 var appsId = fullList.Distinct().ToList();
 
-                //var games = new List<Game>();
-                for (int i = 0; i < appsId.Count; i++)
+                using (var writer = new StreamWriter("appsId.txt"))
                 {
-                    var games = new List<Game>();
-                    getGames(client, games, appsId[i]);
-                    games.ForEach(g => context.Games.AddOrUpdate(d => d.GameID, g));
-                    context.SaveChanges();
-                }                
+                    // Loop through ten numbers.
+                    for (int i = 0; i < appsId.Count; i++)
+                    {
+                        // Write format string to file.
+                        writer.Write("{0\n} ", appsId[i]);
+                    }
+                }
 
-                    //games.Add(
-                    //    new Game
-                    //    {
-                    //        GameID = 202930,
-                    //        Name = "Witcher3"
-                    //    }
-                    //);
-                    //games.ForEach(g => context.Games.AddOrUpdate(i => i.GameID, g));
-                    //context.SaveChanges();
+                //var games = new List<Game>();
+                //for (int i = 0; i < appsId.Count; i++)
+                //{
+                //    var games = new List<Game>();
+                //    getGames(client, games, appsId[i]);
+                //    games.ForEach(g => context.Games.AddOrUpdate(d => d.GameID, g));
+                //    context.SaveChanges();
+                //}                
+
+                //games.Add(
+                //    new Game
+                //    {
+                //        GameID = 202930,
+                //        Name = "Witcher3"
+                //    }
+                //);
+                //games.ForEach(g => context.Games.AddOrUpdate(i => i.GameID, g));
+                //context.SaveChanges();
             }
         }
 
