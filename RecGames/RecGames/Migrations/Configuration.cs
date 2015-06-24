@@ -36,34 +36,20 @@ namespace RecGames.Migrations
             //
             using (WebClient client = new WebClient())
             {
-                string appsJson = client.DownloadString(@"http://api.steampowered.com/ISteamApps/GetAppList/v0001/");
-                JObject jObjectApps = JObject.Parse(appsJson);
-                JArray jArrayApps = (JArray)jObjectApps["applist"]["apps"]["app"];
-                List<string> fullList = new List<string>();
-                foreach (var item in jArrayApps)
-                {
-                    fullList.Add((string)item["appid"]);
-                }
-                var appsId = fullList.Distinct().ToList();
+                List<string> appsId = new List<string>();
+                //saveAppsIds(client, appsId);
 
-                using (var writer = new StreamWriter("appsId.txt"))
-                {
-                    // Loop through ten numbers.
-                    for (int i = 0; i < appsId.Count; i++)
-                    {
-                        // Write format string to file.
-                        writer.Write("{0\n} ", appsId[i]);
-                    }
-                }
+                appsId = getAppsId();
 
                 //var games = new List<Game>();
-                //for (int i = 0; i < appsId.Count; i++)
-                //{
-                //    var games = new List<Game>();
-                //    getGames(client, games, appsId[i]);
-                //    games.ForEach(g => context.Games.AddOrUpdate(d => d.GameID, g));
-                //    context.SaveChanges();
-                //}                
+                for (int i = 17950; i <= 17995; i++)
+                {
+                    var games = new List<Game>();
+                    getGames(client, games, appsId[i]);
+                    games.ForEach(g => context.Games.AddOrUpdate(d => d.GameID, g));
+                    context.SaveChanges();
+                }
+                //linha 500 A 1407 nao adicionou nada, muitos arquivos tipo movie
 
                 //games.Add(
                 //    new Game
@@ -74,6 +60,39 @@ namespace RecGames.Migrations
                 //);
                 //games.ForEach(g => context.Games.AddOrUpdate(i => i.GameID, g));
                 //context.SaveChanges();
+            }
+        }
+
+        private static List<string> getAppsId()
+        {
+            List<string> appsId;
+            using (StreamReader reader = new StreamReader(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\appsId.txt"))
+            {
+                string[] fileAppsId = reader.ReadToEnd().Split('\n');
+                appsId = fileAppsId.ToList();
+            }
+
+            return appsId;
+        }
+
+        private static void saveAppsIds(WebClient client, List<string> appsId)
+        {
+            string appsJson = client.DownloadString(@"http://api.steampowered.com/ISteamApps/GetAppList/v0001/");
+            JObject jObjectApps = JObject.Parse(appsJson);
+            JArray jArrayApps = (JArray)jObjectApps["applist"]["apps"]["app"];
+            List<string> fullList = new List<string>();
+            foreach (var item in jArrayApps)
+            {
+                fullList.Add((string)item["appid"]);
+            }
+            appsId = fullList.Distinct().ToList();
+
+            using (var writer = new StreamWriter(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\appsId.txt"))
+            {
+                for (int i = 0; i < appsId.Count; i++)
+                {
+                    writer.Write("{0}\n", appsId[i]);
+                }
             }
         }
 
