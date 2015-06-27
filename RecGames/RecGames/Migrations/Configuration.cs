@@ -1,5 +1,6 @@
 namespace RecGames.Migrations
 {
+    using HtmlAgilityPack;
     using Newtonsoft.Json.Linq;
     using RecGames.Helpers;
     using RecGames.Models;
@@ -10,6 +11,7 @@ namespace RecGames.Migrations
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Text.RegularExpressions;
 
     internal sealed class Configuration : DbMigrationsConfiguration<RecGames.DAL.RecGameContext>
     {
@@ -41,32 +43,24 @@ namespace RecGames.Migrations
 
                 appsId = getAppsId();
 
-                //var games = new List<Game>();
-                for (int i = 17950; i <= 17995; i++)
+                for (int i = 2000; i < appsId.Count; i++)
                 {
                     var games = new List<Game>();
-                    getGames(client, games, appsId[i]);
+                    var tags = new List<Tag>();
+                    getGames(context, client, games, tags, appsId[i]);
                     games.ForEach(g => context.Games.AddOrUpdate(d => d.GameID, g));
                     context.SaveChanges();
+                    tags.ForEach(t => context.Tags.AddOrUpdate(a => a.TagID, t));
+                    context.SaveChanges();
                 }
-                //linha 500 A 1407 nao adicionou nada, muitos arquivos tipo movie
-
-                //games.Add(
-                //    new Game
-                //    {
-                //        GameID = 202930,
-                //        Name = "Witcher3"
-                //    }
-                //);
-                //games.ForEach(g => context.Games.AddOrUpdate(i => i.GameID, g));
-                //context.SaveChanges();
+                //linha 500 A 1407 nao adicionou nada, muitos arquivos tipo movie 
             }
         }
 
         private static List<string> getAppsId()
         {
             List<string> appsId;
-            using (StreamReader reader = new StreamReader(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\appsId.txt"))
+            using (StreamReader reader = new StreamReader(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\gamesId.txt"))
             {
                 string[] fileAppsId = reader.ReadToEnd().Split('\n');
                 appsId = fileAppsId.ToList();
@@ -96,7 +90,7 @@ namespace RecGames.Migrations
             }
         }
 
-        private static void getGames(WebClient client, List<Game> games, string appsId)
+        private static void getGames(RecGames.DAL.RecGameContext context, WebClient client, List<Game> games, List<Tag> tags, string appsId)
         {
             try
             {
@@ -112,7 +106,6 @@ namespace RecGames.Migrations
                     {
                         var game = new Game();
                         game.GameID = (int)jObjectAppData["steam_appid"];
-                        System.Console.WriteLine(game.GameID);
                         game.Name = (string)jObjectAppData["name"];
                         //Tem jsons sem controller_support
                         game.ControllersSupported = (string)jObjectAppData["controller_support"];
@@ -124,11 +117,11 @@ namespace RecGames.Migrations
                         //game.TotalAchievements = (int)jObjectAppData["achievements"]["total"];
                         game.LaunchDate = (string)jObjectAppData["release_date"]["date"];
 
-                        //Não sei como price vai funcionar
-                        //var price = new Price();
-                        //price.Currency = (string)jObjectAppData["price_overview"]["currency"];
-                        //price.Value = (int)jObjectAppData["price_overview"]["initial"];
-
+                        //game.PriceCurrency = (string)jObjectAppData["price_overview"]["currency"];
+                        //game.PriceValue = (int)jObjectAppData["price_overview"]["initial"];
+                        
+                        game.Tags = new List<Tag>();
+                        getTags(context, client, tags, appsId, game);
                         games.Add(game);
                     }
                 }
@@ -136,6 +129,50 @@ namespace RecGames.Migrations
             catch (WebException e)
             {
                 System.Console.WriteLine(e.Message);
+            }
+        }
+
+        private static void getTags(RecGames.DAL.RecGameContext context, WebClient client, List<Tag> tags, string appsId, Game game)
+        {
+            string html = client.DownloadString(@"http://store.steampowered.com/app/" + appsId);
+
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(html);
+
+            HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//*[@id='game_highlights']/div[2]/div/div[5]/div[2]");
+
+            List<string> tagsFromHtml = new List<string>();
+            try
+            {
+                string tagsText = Regex.Replace(htmlNode.InnerText, "\t", "");
+                tagsText = Regex.Replace(tagsText, @"^\r\n\r\n", "");
+                tagsText = Regex.Replace(tagsText, @"\r\n?", "\n");
+                tagsText = Regex.Replace(tagsText, @"\+\n", "");
+                tagsFromHtml = tagsText.Split('\n').ToList();
+            }
+            catch (System.NullReferenceException)
+            {
+                //Console.WriteLine("Não possui tags");
+            }
+
+            foreach (var tagsItem in tagsFromHtml)
+            {
+                var tag = new Tag();
+                int appsIdNumber = int.Parse(appsId);
+
+                if (context.Tags.Any(t => t.TagName == tagsItem))
+                {
+                    tag = context.Tags.Single(t => t.TagName == tagsItem);
+                    tag.Games.Add(context.Games.FirstOrDefault(g => g.GameID == appsIdNumber));
+                } else {
+                    tag.TagName = tagsItem;
+
+                    tag.Games = new List<Game>();
+                    tag.Games.Add(context.Games.FirstOrDefault(g => g.GameID == appsIdNumber));
+                }
+
+                game.Tags.Add(tag);
+                tags.Add(tag);
             }
         }
     }

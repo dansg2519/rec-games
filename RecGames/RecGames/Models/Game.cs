@@ -22,9 +22,9 @@ namespace RecGames.Models
         public int TotalAchievements { get; set; }
         public int Recommendations { get; set; }
         public int MetacriticScore { get; set; }
-        //public int PriceID { get; set; }
+        public string PriceCurrency { get; set; }
+        public double PriceValue { get; set; }
 
-        //public virtual Price Price { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<Language> Languages { get; set; }
         public virtual ICollection<UserGame> UsersGames { get; set; }
