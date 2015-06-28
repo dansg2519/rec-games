@@ -1,6 +1,7 @@
 ﻿app.factory('playerFactory', ['$http', function($http) {
     var urlBase = '/api/player/';
     var dataFactory = {};
+    var postPlayerPortrait = {};
 
     dataFactory.getInfo = function () {
         return $http.get(urlBase + 'info')
@@ -13,11 +14,10 @@
     };
 
     dataFactory.getOwnedGames = function () {
-        return $http.get(urlBase + 'ownedgames')
+        return $http.get(urlBase + 'ownedGames')
             .success(function (data) {
                 return data;
-            })
-            .error(function (err) {
+            }).error(function (err) {
                 return err;
             });
     }
@@ -28,6 +28,15 @@
                 return console.log(data);
             })
             .error(function (err) {
+                return err;
+            });
+    }
+
+    dataFactory.postPlayerPortrait = function (ownedGames) {
+        return $http.post(urlBase + 'playerPortrait', ownedGames)
+            .success(function (data) {
+                return data;
+            }).error(function (err) {
                 return err;
             });
     }

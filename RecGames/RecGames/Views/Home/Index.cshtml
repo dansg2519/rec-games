@@ -10,12 +10,13 @@
 
 <div ng-app="RecGamesApp">
     <div ng-controller="playerController">
-        <button ng-click="info()">hello</button>
-        <p>Hello {{playerInfo}}</p>
-        <button ng-click="ownedGames()">games</button>
-        <p>Hello {{playerOwnedGames}}</p>
-        <button ng-click="recentlyPlayedGames()">recent games played</button>
-        <p>Hello {{playerRecentlyPlayedGames}}</p>
+        <p>Hello: {{playerInfo}}</p>
+        <ul>
+            <li ng-repeat="ownedGame in playerOwnedGames">
+                Games: {{ownedGame.name}}
+            </li>
+        </ul>        
+        <p>Recent Games: {{playerRecentlyPlayedGames}}</p>
     </div>    
 </div>
 

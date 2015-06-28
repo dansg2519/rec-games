@@ -3,22 +3,19 @@
         return console.log("Hello World");
     }
     
-    $scope.info = function () {
-        playerFactory.getInfo().success(function(data) {
-            $scope.playerInfo = data.response.players[0];
-        });
-    };
+    playerFactory.getInfo().success(function(data) {
+        $scope.playerInfo = data.response.players[0];
+    });
 
-    $scope.ownedGames = function () {
-        playerFactory.getOwnedGames().success(function (data) {
-            $scope.playerOwnedGames = data.response.games;
+    playerFactory.getOwnedGames().success(function (data) {
+        $scope.playerOwnedGames = data.response.games;
+        playerFactory.postPlayerPortrait(data.response.games).success(function (dataPost) {
+            $scope.playerPortrait = dataPost.response;
         });
-    };
+    });
 
-    $scope.recentlyPlayedGames = function () {
-        playerFactory.getRecentlyPlayedGames().success(function (data) {
-            $scope.playerRecentlyPlayedGames = data.response.games;
-        });
-    };
+    playerFactory.getRecentlyPlayedGames().success(function (data) {
+        $scope.playerRecentlyPlayedGames = data.response.games;
+    });
 }]);
 

@@ -7,6 +7,7 @@ using System.Web.Http;
 using RecGames.Models;
 using System.Web.Http.Description;
 using Newtonsoft.Json.Linq;
+using RecGames.DAL;
 
 namespace RecGames.Controllers
 {
@@ -14,6 +15,8 @@ namespace RecGames.Controllers
     {
         private const string SteamKey = "3E2BA9478DC190757ABE4D1DABEA9802";
         private const string SteamId = "76561197960435530";
+        private const int TopTags = 5;
+        private RecGameContext db = new RecGameContext();
 
         [HttpGet]
         [ActionName("Info")]
@@ -58,6 +61,31 @@ namespace RecGames.Controllers
 
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
             return this.Ok(recentlyPlayedGamesJson);
+        }
+
+        [HttpPost]
+        [ActionName("PlayerPortrait")]
+        public IHttpActionResult PostPlayerPortrait(List<Game> gamesOwned)
+        {
+            var playerTags = new List<string>();
+            foreach (var game in gamesOwned)
+            {
+                var groupTags = db.Games.Where(g => g.GameID == game.GameID).Select(g => g.Tags).ToList();
+                foreach (var tags in groupTags)
+                {
+                    foreach (var tag in tags)
+                    {
+                        playerTags.Add(tag.TagName);
+                    }                    
+                }
+            }
+
+            var topTags = playerTags.GroupBy(x => x)
+                                    .ToDictionary(x => x.Key, x => x.Count())
+                                    .OrderByDescending(x => x.Value)
+                                    .Take(TopTags)
+                                    .ToDictionary(x => x.Key, x => x.Value).Keys;
+            return this.Ok();
         }
     }
 }

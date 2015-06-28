@@ -43,7 +43,7 @@ namespace RecGames.Migrations
 
                 appsId = getAppsId();
 
-                for (int i = 2000; i < appsId.Count; i++)
+                for (int i = 0; i < appsId.Count; i++)
                 {
                     var games = new List<Game>();
                     var tags = new List<Tag>();

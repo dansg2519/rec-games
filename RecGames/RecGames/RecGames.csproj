@@ -191,6 +191,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\GameHelpers.cs" />
+    <Compile Include="Helpers\PlayerHelpers.cs" />
     <Compile Include="Migrations\201506262348400_Reset.cs" />
     <Compile Include="Migrations\201506262348400_Reset.Designer.cs">
       <DependentUpon>201506262348400_Reset.cs</DependentUpon>
