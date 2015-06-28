@@ -8,6 +8,7 @@ using RecGames.Models;
 using System.Web.Http.Description;
 using Newtonsoft.Json.Linq;
 using RecGames.DAL;
+using System.Web.Script.Serialization;
 
 namespace RecGames.Controllers
 {
@@ -30,7 +31,7 @@ namespace RecGames.Controllers
             }
 
             JObject playerInfoJson = JObject.Parse(playerInfo);
-            return this.Ok(playerInfoJson);
+            return Ok(playerInfoJson);
         }
 
         [HttpGet]
@@ -45,7 +46,7 @@ namespace RecGames.Controllers
             }
 
             JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
-            return this.Ok(playerOwnedGamesJson);
+            return Ok(playerOwnedGamesJson);
         }
 
         [HttpGet]
@@ -58,9 +59,8 @@ namespace RecGames.Controllers
                 recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + SteamKey + "&steamid=" + SteamId);
             }
 
-
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
-            return this.Ok(recentlyPlayedGamesJson);
+            return Ok(recentlyPlayedGamesJson);
         }
 
         [HttpPost]
@@ -85,7 +85,16 @@ namespace RecGames.Controllers
                                     .OrderByDescending(x => x.Value)
                                     .Take(TopTags)
                                     .ToDictionary(x => x.Key, x => x.Value).Keys;
-            return this.Ok();
+            //var playerPortrait = new JObject();
+            //foreach (var tag in topTags)
+            //{
+            //    var jArray = new JArray();
+            //    jArray.Add(tag);
+            //    playerPortrait.Add(jArray);
+            //}
+
+            var output = new JavaScriptSerializer().Serialize(topTags);
+            return Ok(output);
         }
     }
 }

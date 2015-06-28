@@ -10,7 +10,7 @@
     playerFactory.getOwnedGames().success(function (data) {
         $scope.playerOwnedGames = data.response.games;
         playerFactory.postPlayerPortrait(data.response.games).success(function (dataPost) {
-            $scope.playerPortrait = dataPost.response;
+            $scope.playerPortrait = angular.fromJson(dataPost);
         });
     });
 

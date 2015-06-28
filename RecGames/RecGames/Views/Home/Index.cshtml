@@ -11,6 +11,12 @@
 <div ng-app="RecGamesApp">
     <div ng-controller="playerController">
         <p>Hello: {{playerInfo}}</p>
+        <p>Hello: {{playerPortrait}}</p>
+        <ul>
+            <li ng-repeat="characteristic in playerPortrait">
+                Characteristic: {{characteristic}}
+            </li>
+        </ul>
         <ul>
             <li ng-repeat="ownedGame in playerOwnedGames">
                 Games: {{ownedGame.name}}
