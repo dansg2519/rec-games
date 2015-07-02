@@ -9,6 +9,10 @@
 </div>
 
 <div ng-app="RecGamesApp">
+    <div ng-controller="gameController">
+        <button ng-click="getRecommendedGames()">Recommend</button>
+        <p>{{test}}</p>
+    </div>
     <div ng-controller="playerController">
         <p>Hello: {{playerInfo}}</p>
         <p>Hello: {{playerPortrait}}</p>
@@ -23,7 +27,7 @@
             </li>
         </ul>        
         <p>Recent Games: {{playerRecentlyPlayedGames}}</p>
-    </div>    
+    </div>
 </div>
 
 <div class="row">
@@ -53,4 +57,6 @@
     @Scripts.Render("~/Scripts/app/app.js");
     @Scripts.Render("~/Scripts/app/controllers/player-controller.js");
     @Scripts.Render("~/Scripts/app/services/player-factory.js");
+    @Scripts.Render("~/Scripts/app/controllers/game-controller.js");
+    @Scripts.Render("~/Scripts/app/services/game-factory.js");
 }

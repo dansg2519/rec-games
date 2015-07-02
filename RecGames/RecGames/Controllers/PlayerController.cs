@@ -65,10 +65,10 @@ namespace RecGames.Controllers
 
         [HttpPost]
         [ActionName("PlayerPortrait")]
-        public IHttpActionResult PostPlayerPortrait(List<Game> gamesOwned)
+        public IHttpActionResult PostPlayerPortrait(List<Game> ownedGames)
         {
             var playerTags = new List<string>();
-            foreach (var game in gamesOwned)
+            foreach (var game in ownedGames)
             {
                 var groupTags = db.Games.Where(g => g.GameID == game.GameID).Select(g => g.Tags).ToList();
                 foreach (var tags in groupTags)
@@ -85,16 +85,9 @@ namespace RecGames.Controllers
                                     .OrderByDescending(x => x.Value)
                                     .Take(TopTags)
                                     .ToDictionary(x => x.Key, x => x.Value).Keys;
-            //var playerPortrait = new JObject();
-            //foreach (var tag in topTags)
-            //{
-            //    var jArray = new JArray();
-            //    jArray.Add(tag);
-            //    playerPortrait.Add(jArray);
-            //}
 
-            var output = new JavaScriptSerializer().Serialize(topTags);
-            return Ok(output);
+            var playerPortrait = new JavaScriptSerializer().Serialize(topTags);
+            return Ok(playerPortrait);
         }
     }
 }
