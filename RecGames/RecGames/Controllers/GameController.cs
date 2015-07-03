@@ -9,6 +9,8 @@ using RecGames.DAL;
 using RecGames.Models;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
+using RecGames.Helpers;
+using System.Web.Script.Serialization;
 
 namespace RecGames.Controllers
 {
@@ -20,8 +22,25 @@ namespace RecGames.Controllers
         [ActionName("RecommendedGames")]
         public IHttpActionResult PostRecommendedGames(JObject playerData)
         {
+            var ownedGamesIds = playerData.GetValue("owned_games").Select(o => o.SelectToken("appid").ToObject<int>()).ToList();
+            var playerPortrait = playerData.GetValue("player_portrait").Select(p => p.ToString()).ToList();
 
-            //var playerNotOwnedGames = db.Games.Where(g => !playerOwnedGames.Contains(g));
+            //ideia:pegar todos os jogos que o jogador não tem; pegar todos os jogos que não tem nenhuma tag que descrevem o jogador;
+            //remover de todos os jogos que não tem, os que não tem nenhuma tag que descrevem o jogador, para assim obter 
+            //jogos que o jogador não tem mas tem alguma das tags que o descrevem
+            var playerNotOwnedGamesIds = db.Games.Where(g => !ownedGamesIds.Contains(g.GameID)).Select(g => g.GameID).ToList();
+            var gamesIdsNotMatchingPortrait = db.Games.Where(g => g.Tags.All(t => !playerPortrait.Contains(t.TagName))).Select(g => g.GameID).ToList();
+
+            //linha abaixo usada pra avaliar comportamento correto da query
+            //var tags = db.Games.Where(g => gamesIdsNotMatchingPortrait.Contains(g.GameID)).SelectMany(g => g.Tags.Select(t => t.TagName)).ToList();
+
+            playerNotOwnedGamesIds.RemoveAll(g => gamesIdsNotMatchingPortrait.Contains(g));
+
+            var playerNotOwnedGames = db.Games.Where(g => playerNotOwnedGamesIds.Contains(g.GameID)).ToList();
+            var gamesIdsToRecommend = GameHelpers.CalculateRecommendationScore(playerPortrait, playerNotOwnedGames);
+            var gamesToRecommend = db.Games.Where(g => gamesIdsToRecommend.Contains(g.GameID)).ToList();
+            //var a = new JavaScriptSerializer().Serialize(gamesToRecommend);
+            //JObject gamesToRecommendJson = JObject.Parse(new JavaScriptSerializer().Serialize(gamesToRecommend));
             return Ok();
         }
     }

@@ -70,13 +70,10 @@ namespace RecGames.Controllers
             var playerTags = new List<string>();
             foreach (var game in ownedGames)
             {
-                var groupTags = db.Games.Where(g => g.GameID == game.GameID).Select(g => g.Tags).ToList();
-                foreach (var tags in groupTags)
+                var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
+                foreach (var tag in tags)
                 {
-                    foreach (var tag in tags)
-                    {
-                        playerTags.Add(tag.TagName);
-                    }                    
+                    playerTags.Add(tag.TagName);                    
                 }
             }
 
