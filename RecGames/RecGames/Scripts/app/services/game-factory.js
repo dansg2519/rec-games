@@ -16,15 +16,5 @@
             });
     }
 
-    dataFactory.getRecommendedGame = function () {
-        return $http.get(urlBase + 'recommendedGame')
-            .success(function (data) {
-                return data;
-            })
-            .error(function (err) {
-                return err;
-            });
-    }
-
     return dataFactory;
 }]);

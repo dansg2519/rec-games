@@ -11,7 +11,11 @@
 <div ng-app="RecGamesApp">
     <div ng-controller="gameController">
         <button ng-click="getRecommendedGames()">Recommend</button>
-        <p>{{test}}</p>
+        <ul>
+            <li ng-repeat="game in gamesToRecommend">
+                Game: {{game}}
+            </li>
+        </ul>
     </div>
     <div ng-controller="playerController">
         <p>Hello: {{playerInfo}}</p>

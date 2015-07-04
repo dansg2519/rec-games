@@ -2,10 +2,8 @@
     $scope.getRecommendedGames = function () {
         var player = playerFactory.getPlayer();
         gameFactory.postRecommendedGames(player).success(function (data) {
-            $scope.playerRecentlyPlayedGames = data;
+            $scope.gamesToRecommend = data;
         });
     }
-
-    $scope.test = "OI";
 }]);
 

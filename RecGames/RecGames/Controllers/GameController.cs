@@ -11,6 +11,8 @@ using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using RecGames.Helpers;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace RecGames.Controllers
 {
@@ -39,9 +41,9 @@ namespace RecGames.Controllers
             var playerNotOwnedGames = db.Games.Where(g => playerNotOwnedGamesIds.Contains(g.GameID)).ToList();
             var gamesIdsToRecommend = GameHelpers.CalculateRecommendationScore(playerPortrait, playerNotOwnedGames);
             var gamesToRecommend = db.Games.Where(g => gamesIdsToRecommend.Contains(g.GameID)).ToList();
-            //var a = new JavaScriptSerializer().Serialize(gamesToRecommend);
-            //JObject gamesToRecommendJson = JObject.Parse(new JavaScriptSerializer().Serialize(gamesToRecommend));
-            return Ok();
+            var gamesToRecommendJson = GameHelpers.SetUpGamesToRecommendJson(gamesToRecommend);
+
+            return Ok(gamesToRecommendJson);
         }
     }
 

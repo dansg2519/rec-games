@@ -29,6 +29,26 @@ namespace RecGames.Helpers
             return gamesIdsToRecommend;
         }
 
+        public static JArray SetUpGamesToRecommendJson(List<Game> gamesToRecommend)
+        {
+            JArray gamesToRecommendJson = new JArray(gamesToRecommend.Select(g => (
+                new JObject(
+                    new JProperty("game_name", g.Name),
+                    new JProperty("developers", g.Developers),
+                    new JProperty("genre", g.Genre),
+                    new JProperty("publishers", g.Publishers),
+                    new JProperty("launch_date", g.LaunchDate),
+                    new JProperty("metacritic_score", g.MetacriticScore),
+                    new JProperty("recommendations", g.Recommendations),
+                    new JProperty("total_achievements", g.TotalAchievements),
+                    new JProperty("price_value", g.PriceValue),
+                    new JProperty("price_currency", g.PriceCurrency),
+                    new JProperty("platforms", g.Platforms),
+                    new JProperty("tags", g.Tags.Select(t => t.TagName))))));
+
+            return gamesToRecommendJson;
+        }
+
         public static string SupportedPlatforms(JObject platformObject)
         {
             string platforms;
