@@ -9,12 +9,12 @@ using System.Web.Http.Description;
 using Newtonsoft.Json.Linq;
 using RecGames.DAL;
 using System.Web.Script.Serialization;
+using Resources;
 
 namespace RecGames.Controllers
 {
     public class PlayerController : ApiController
     {
-        private const string SteamKey = "3E2BA9478DC190757ABE4D1DABEA9802";
         private const string SteamId = "76561197960435530";
         private const int TopTags = 5;
         private RecGameContext db = new RecGameContext();
@@ -27,7 +27,7 @@ namespace RecGames.Controllers
             using (WebClient client = new WebClient())
             {
                 //steamId = "76561197960435530";
-                playerInfo = client.DownloadString(@"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + SteamKey + "&steamids=" + SteamId);
+                playerInfo = client.DownloadString(@"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Strings.SteamKey + "&steamids=" + SteamId);
             }
 
             JObject playerInfoJson = JObject.Parse(playerInfo);
@@ -42,7 +42,7 @@ namespace RecGames.Controllers
             using (WebClient client = new WebClient())
             {
                 //steamId = "76561197960435530";
-                playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
+                playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
             }
 
             JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
@@ -56,7 +56,7 @@ namespace RecGames.Controllers
             string recentlyPlayedGames;
             using (WebClient client = new WebClient())
             {
-                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + SteamKey + "&steamid=" + SteamId);
+                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
             }
 
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
