@@ -9,6 +9,12 @@
 </div>
 
 <div ng-app="RecGamesApp">
+    <form name="steamIdForm" ng-submit="submitSteamId(steamIdForm.steamId)" ng-controller="steamIdController">
+        Enter SteamID:<br>
+        <input type="number" ng-model="steamId" name="steamId" required/>
+        <br>
+        <input type="submit" name="sendSteamId" value="Send"/>
+    </form>
     <div ng-controller="gameController">
         <button ng-click="getRecommendedGames()">Recommend</button>
         <ul>
@@ -59,6 +65,7 @@
 @section scripts {
     @Scripts.Render("~/Scripts/angular.js");
     @Scripts.Render("~/Scripts/app/app.js");
+    @Scripts.Render("~/Scripts/app/controllers/steamid-controller.js")
     @Scripts.Render("~/Scripts/app/controllers/player-controller.js");
     @Scripts.Render("~/Scripts/app/services/player-factory.js");
     @Scripts.Render("~/Scripts/app/controllers/game-controller.js");

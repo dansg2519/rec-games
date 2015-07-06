@@ -64,6 +64,13 @@ namespace RecGames.Controllers
         }
 
         [HttpPost]
+        [ActionName("SteamId")]
+        public IHttpActionResult PostSteamId([FromBody]int steamId)
+        {            
+            return Ok(steamId);
+        }
+
+        [HttpPost]
         [ActionName("PlayerPortrait")]
         public IHttpActionResult PostPlayerPortrait(List<Game> ownedGames)
         {
