@@ -71,11 +71,8 @@ namespace RecGames.Controllers
             bool validSteamId;
             using (WebClient client = new WebClient())
             {
-                string html = client.DownloadString(@"http://steamcommunity.com/id/" + steamId + @"/badges");
-                validSteamId = html.Contains(@"The specified profile could not be found.");
-            }
-            if (validSteamId)
-            {
+                string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + steamId);
+                validSteamId = !html.Contains(@"The specified profile could not be found.");
                 SteamId = steamId;
             }
                 

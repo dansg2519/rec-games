@@ -1,8 +1,9 @@
 ﻿<div>
-    <form name="steamIdForm" novalidate ng-submit="submitSteamId(steamIdForm.steamId)" ng-controller="steamIdController">
+    <form name="steamIdForm" ng-submit="submitSteamId(steamIdForm.steamId)" ng-controller="steamIdController">
         Enter SteamID:<br>
         <input type="text" ng-model="steamId" name="steamId" required />
+        <span ng-show="steamIdForm.steamId.$error.steamid_invalid">This Steam Id format is invalid!</span>
         <br>
-        <input type="submit" name="sendSteamId" value="Send" ui-sref="player"/>
+        <input type="submit" name="sendSteamId" value="Send" />
     </form>
 </div>
