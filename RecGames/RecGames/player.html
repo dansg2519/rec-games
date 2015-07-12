@@ -1,0 +1,23 @@
+﻿<div ng-controller="gameController">
+    <button ng-click="getRecommendedGames()">Recommend</button>
+    <ul>
+        <li ng-repeat="game in gamesToRecommend">
+            Game: {{game}}
+        </li>
+    </ul>
+</div>
+<div ng-controller="playerController">
+    <p>Hello: {{playerInfo}}</p>
+    <p>Hello: {{playerPortrait}}</p>
+    <ul>
+        <li ng-repeat="characteristic in playerPortrait">
+            Characteristic: {{characteristic}}
+        </li>
+    </ul>
+    <ul>
+        <li ng-repeat="ownedGame in playerOwnedGames">
+            Games: {{ownedGame.name}}
+        </li>
+    </ul>
+    <p>Recent Games: {{playerRecentlyPlayedGames}}</p>
+</div>

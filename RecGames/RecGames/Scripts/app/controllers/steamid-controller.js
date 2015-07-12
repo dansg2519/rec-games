@@ -1,13 +1,10 @@
-﻿app.controller('steamIdController', ['$scope', '$http', function ($scope, $http) {
-    var urlBase = '/api/player/';
-
-    $scope.submitSteamId = function (steamId) {
-        $http.post(urlBase + 'steamId', steamId.$modelValue)
-            .success(function (data) {
-                return data;
-            })
-            .error(function (err) {
-                return err;
-            });
+﻿app.controller('steamIdController', ['$scope', 'playerFactory', function ($scope, playerFactory) {
+    $scope.submitSteamId = function(steamId) {
+        playerFactory.postSteamId(steamId.$modelValue).success(function (data){
+            $scope.validSteamId = data;
+            if ($scope.validSteamId) {
+                $scope.signup_form.$valid = true;
+            }
+        });
     }
 }]);

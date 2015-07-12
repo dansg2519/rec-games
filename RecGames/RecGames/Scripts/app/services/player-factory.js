@@ -38,6 +38,16 @@
                 return err;
             });
     }
+    
+    dataFactory.postSteamId = function (steamId) {
+        return $http.post(urlBase + 'steamId', steamId)
+            .success(function (data) {
+                return data;
+            })
+            .error(function (err) {
+                return err;
+            });
+    }
 
     dataFactory.postPlayerPortrait = function (ownedGames) {
         return $http.post(urlBase + 'playerPortrait', ownedGames)

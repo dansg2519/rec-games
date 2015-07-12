@@ -10,12 +10,13 @@ using Newtonsoft.Json.Linq;
 using RecGames.DAL;
 using System.Web.Script.Serialization;
 using Resources;
+using HtmlAgilityPack;
 
 namespace RecGames.Controllers
 {
     public class PlayerController : ApiController
     {
-        private const string SteamId = "76561197960435530";
+        private static string SteamId = "76561197960435530";
         private const int TopTags = 5;
         private RecGameContext db = new RecGameContext();
 
@@ -65,9 +66,20 @@ namespace RecGames.Controllers
 
         [HttpPost]
         [ActionName("SteamId")]
-        public IHttpActionResult PostSteamId([FromBody]int steamId)
-        {            
-            return Ok(steamId);
+        public IHttpActionResult PostSteamId([FromBody]string steamId)
+        {
+            bool validSteamId;
+            using (WebClient client = new WebClient())
+            {
+                string html = client.DownloadString(@"http://steamcommunity.com/id/" + steamId + @"/badges");
+                validSteamId = html.Contains(@"The specified profile could not be found.");
+            }
+            if (validSteamId)
+            {
+                SteamId = steamId;
+            }
+                
+            return Ok(validSteamId);
         }
 
         [HttpPost]

@@ -9,61 +9,12 @@
 </div>
 
 <div ng-app="RecGamesApp">
-    <form name="steamIdForm" ng-submit="submitSteamId(steamIdForm.steamId)" ng-controller="steamIdController">
-        Enter SteamID:<br>
-        <input type="number" ng-model="steamId" name="steamId" required/>
-        <br>
-        <input type="submit" name="sendSteamId" value="Send"/>
-    </form>
-    <div ng-controller="gameController">
-        <button ng-click="getRecommendedGames()">Recommend</button>
-        <ul>
-            <li ng-repeat="game in gamesToRecommend">
-                Game: {{game}}
-            </li>
-        </ul>
-    </div>
-    <div ng-controller="playerController">
-        <p>Hello: {{playerInfo}}</p>
-        <p>Hello: {{playerPortrait}}</p>
-        <ul>
-            <li ng-repeat="characteristic in playerPortrait">
-                Characteristic: {{characteristic}}
-            </li>
-        </ul>
-        <ul>
-            <li ng-repeat="ownedGame in playerOwnedGames">
-                Games: {{ownedGame.name}}
-            </li>
-        </ul>        
-        <p>Recent Games: {{playerRecentlyPlayedGames}}</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <div ui-view></div>
 </div>
 
 @section scripts {
     @Scripts.Render("~/Scripts/angular.js");
+    @Scripts.Render("~/Scripts/angular-ui-router.min.js");
     @Scripts.Render("~/Scripts/app/app.js");
     @Scripts.Render("~/Scripts/app/controllers/steamid-controller.js")
     @Scripts.Render("~/Scripts/app/controllers/player-controller.js");
