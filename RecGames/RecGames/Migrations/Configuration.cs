@@ -110,16 +110,48 @@ namespace RecGames.Migrations
                         //Tem jsons sem controller_support
                         game.ControllersSupported = (string)jObjectAppData["controller_support"];
                         game.Platforms = GameHelpers.SupportedPlatforms((JObject)jObjectAppData["platforms"]);
-                        //game.Developers = GameHelpers.GameDevelopers((JArray)jObjectAppData["developers"]);
                         game.Publishers = GameHelpers.GamePublishers((JArray)jObjectAppData["publishers"]);
-                        //game.MetacriticScore = (int)jObjectAppData["metacritic"]["score"];
-                        //game.Recommendations = (int)jObjectAppData["recommendations"]["total"];
-                        //game.TotalAchievements = (int)jObjectAppData["achievements"]["total"];
                         game.LaunchDate = (string)jObjectAppData["release_date"]["date"];
+
+                        try
+                        {
+                            game.Developers = GameHelpers.GameDevelopers((JArray)jObjectAppData["developers"]);
+                        }
+                        catch (NullReferenceException)
+                        {
+                            game.Developers = string.Empty;
+                        }
+
+                        try
+                        {
+                            game.MetacriticScore = (int)jObjectAppData["metacritic"]["score"];
+                        }
+                        catch (NullReferenceException)
+                        {
+                            game.MetacriticScore = default(int);
+                        }
+
+                        try
+                        {
+                            game.Recommendations = (int)jObjectAppData["recommendations"]["total"];
+                        }
+                        catch (NullReferenceException)
+                        {
+                            game.Recommendations = default(int);
+                        }
+
+                        try
+                        {
+                            game.TotalAchievements = (int)jObjectAppData["achievements"]["total"];
+                        }
+                        catch (NullReferenceException)
+                        {
+                            game.TotalAchievements = default(int);
+                        }
 
                         //game.PriceCurrency = (string)jObjectAppData["price_overview"]["currency"];
                         //game.PriceValue = (int)jObjectAppData["price_overview"]["initial"];
-                        
+
                         game.Tags = new List<Tag>();
                         getTags(context, client, tags, appsId, game);
                         games.Add(game);

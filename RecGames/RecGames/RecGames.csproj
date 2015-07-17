@@ -217,6 +217,10 @@
     <Content Include="..\..\..\..\..\AppData\Local\Temp\~vs813B.sql">
       <Link>~vs813B.sql</Link>
     </Content>
+    <Content Include="App_Data\RecGamesDB.mdf" />
+    <Content Include="App_Data\RecGamesDB_log.ldf">
+      <DependentUpon>RecGamesDB.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -292,9 +296,7 @@
     <Content Include="Views\Game\Edit.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
