@@ -17,13 +17,15 @@ namespace RecGames.Controllers
 
         private const string SteamKey = "3E2BA9478DC190757ABE4D1DABEA9802";
         HtmlDocument htmlDocument = new HtmlDocument();
+        public Game game { get; set; }
+        public List<string> tags;
 
         [HttpGet]
         // GET api/GameInfo
         public IHttpActionResult Details(int? id)
         {
             string gameInfoJson;
-            Game game = new Game();
+            game = new Game();
             using (WebClient client = new WebClient())
             {
 
@@ -54,7 +56,7 @@ namespace RecGames.Controllers
         [HttpGet]
         public IHttpActionResult Tags(int? id)
         {
-            List<string> tags = new List<string>();
+            tags = new List<string>();
             string title;
 
             using (WebClient client = new WebClient())
