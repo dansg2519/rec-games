@@ -85,5 +85,25 @@ namespace RecGames.Tests.Helpers
             Assert.AreEqual(GameHelpers.GameDevelopers(developers), "");
         }
 
+        [TestMethod]
+        public void TestGamePublishersMustReturnStringWithThePublishers()
+        {
+            string jsonText = "[\"Valve\", \"Source\"]";
+
+            var publishers = JArray.Parse(jsonText);
+
+            Assert.AreEqual(GameHelpers.GamePublishers(publishers), "Valve,Source");
+        }
+
+        [TestMethod]
+        public void TestGamePublishersMustReturnEmptyStringInCaseOfEmptyPublishersArray()
+        {
+            string jsonText = "[]";
+
+            var publishers = JArray.Parse(jsonText);
+
+            Assert.AreEqual(GameHelpers.GamePublishers(publishers), "");
+        }
+
     }
 }
