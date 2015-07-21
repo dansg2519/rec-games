@@ -95,7 +95,7 @@ namespace RecGames.Helpers
                 }
                 return developers;
             }
-            catch (System.NullReferenceException)
+            catch (System.Exception)
             {
                 return String.Empty;
             }

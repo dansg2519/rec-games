@@ -65,5 +65,25 @@ namespace RecGames.Tests.Helpers
             Assert.AreEqual(GameHelpers.SupportedPlatforms(platforms), "");
         }
 
+        [TestMethod]
+        public void TestGameDevelopersMustReturnStringWithTheDevelopers()
+        {
+            string jsonText = "[\"Valve\", \"Source\"]";
+
+            var developers = JArray.Parse(jsonText);
+
+            Assert.AreEqual(GameHelpers.GameDevelopers(developers), "Valve,Source");
+        }
+
+        [TestMethod]
+        public void TestGameDevelopersMustReturnEmptyStringInCaseOfEmptyDevelopersArray()
+        {
+            string jsonText = "[]";
+
+            var developers = JArray.Parse(jsonText);
+
+            Assert.AreEqual(GameHelpers.GameDevelopers(developers), "");
+        }
+
     }
 }
