@@ -95,7 +95,7 @@ namespace RecGames.Helpers
                 }
                 return developers;
             }
-            catch (NullReferenceException) {
+            catch (Exception) {
                 return String.Empty;
             }
         }
@@ -119,7 +119,7 @@ namespace RecGames.Helpers
 
                 return publishers;
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return String.Empty;
             }
