@@ -30,5 +30,15 @@ namespace RecGames.Models
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<Language> Languages { get; set; }
         public virtual ICollection<UserGame> UsersGames { get; set; }
+
+        public Game() { }
+        public Game(int GameID, string Name, int MetacriticScore, ICollection<Tag> Tags, int Recommendations)
+        {
+            this.GameID = GameID;
+            this.Name = Name;
+            this.MetacriticScore = MetacriticScore;
+            this.Recommendations = Recommendations;
+            this.Tags = Tags;
+        }
     }
 }

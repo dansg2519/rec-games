@@ -18,5 +18,12 @@ namespace RecGames.Models
         public string TagName { get; set; }
 
         public virtual ICollection<Game> Games { get; set; }
+
+        public Tag() { }
+        public Tag(int TagID, string TagName)
+        {
+            this.TagID = TagID;
+            this.TagName = TagName;
+        }
     }
 }
