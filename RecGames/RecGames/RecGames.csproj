@@ -33,11 +33,11 @@
     <PublishDatabases>true</PublishDatabases>
     <PublishDatabaseSettings>
       <Objects>
-        <ObjectGroup Name="RecGameContext-Deployment" Order="2">
+        <ObjectGroup Name="RecGameContext-Deployment" Order="1" xmlns="">
           <Destination Path="" />
           <Object Type="DbFullSql">
-            <PreSource Path="Data Source=DANIEL\SQLEXPRESS%3bAttachDbFilename=|DataDirectory|\RecGamesDB.mdf%3bInitial Catalog=RecGamesDB%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
-            <Source Path="obj\Debug\AutoScripts\RecGameContext-Deployment_SchemaAndData.sql" Transacted="True" />
+            <PreSource Path="Server=tcp:recgamesdb.database.windows.net,1433%3bInitial Catalog=RecGamesDB%3bUser ID=recgames%40recgamesdb%3bPassword=25051902R%24o%3bTrusted_Connection=False%3bEncrypt=True%3bConnection Timeout=30%3b" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\RecGameContext-Deployment_SchemaOnly.sql" Transacted="True" />
           </Object>
         </ObjectGroup>
       </Objects>
@@ -225,9 +225,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\..\AppData\Local\Temp\~vs813B.sql">
-      <Link>~vs813B.sql</Link>
-    </Content>
     <Content Include="App_Data\RecGamesDB.mdf" />
     <Content Include="App_Data\RecGamesDB_log.ldf">
       <DependentUpon>RecGamesDB.mdf</DependentUpon>
