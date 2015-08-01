@@ -1,0 +1,21 @@
+﻿.player-info-container {
+    margin-bottom: 25px;
+}
+
+.player-name-container {
+    display: inline-block;
+}
+
+.player-personaname {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.player-realname {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.player-characteristic {
+    font-weight: bold;
+}

@@ -7,10 +7,15 @@
     </ul>
 </div>
 <div ng-controller="playerController">
-    <p>Hello: {{playerInfo}}</p>
-    <p>Hello: {{playerPortrait}}</p>
+    <div class="player-info-container">
+        <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
+        <div class="player-name-container">
+            <h2 class="player-personaname">{{playerInfo.personaname}}</h2>
+            <h3 class="player-realname">{{playerInfo.realname}}</h3>
+        </div>
+    </div>
     <ul>
-        <li ng-repeat="characteristic in playerPortrait">
+        <li ng-repeat="characteristic in playerPortrait" class="player-characteristic">
             Characteristic: {{characteristic}}
         </li>
     </ul>
