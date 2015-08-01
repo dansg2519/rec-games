@@ -33,7 +33,8 @@ namespace RecGames
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/app/playerView.css"));
+                      "~/Content/app/playerView.css",
+                      "~/Content/app/recgames.css"));
         }
     }
 }

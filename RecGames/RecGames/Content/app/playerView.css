@@ -16,6 +16,12 @@
     font-size: 25px;
 }
 
-.player-characteristic {
+.player-characteristic-tag {
     font-weight: bold;
+}
+
+.player-info-container .player-characteristic-container {
+    display: inline-block;
+    float: right;
+    margin-right: 50px;
 }
