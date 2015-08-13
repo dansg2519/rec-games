@@ -2,7 +2,12 @@
     <button ng-click="getRecommendedGames()">Recommend</button>
     <ul>
         <li ng-repeat="game in gamesToRecommend">
-            Game: {{game}}
+            <div>
+                <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
+                <p>Metacritic score: {{game.metacritic_score}}</p>
+                <p>Number of Recommendations: {{game.recommendations}}</p>
+                <p>{{game.justification}}</p>
+            </div>
         </li>
     </ul>
 </div>
