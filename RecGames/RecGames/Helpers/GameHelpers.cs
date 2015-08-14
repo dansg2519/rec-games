@@ -46,7 +46,7 @@ namespace RecGames.Helpers
                     new JProperty("price_currency", g.PriceCurrency),
                     new JProperty("platforms", g.Platforms),
                     new JProperty("game_steam_url", @"http://store.steampowered.com/app/" + g.GameID.ToString()),
-                    new JProperty("justification", String.Format(Strings.Justification, g.Name, string.Join(",", g.Tags.Select(t => t.TagName).ToArray()), @"http://store.steampowered.com/app/" + g.GameID.ToString())),
+                    new JProperty("justification", string.Format(Strings.Justification, g.Name, string.Join(",", g.Tags.Select(t => t.TagName).ToArray()))),
                     new JProperty("tags", g.Tags.Select(t => t.TagName))))));
 
             return gamesToRecommendJson;

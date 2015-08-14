@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Justification" xml:space="preserve">
-    <value>We are recommeding "{0}" because it has: "{1}". If you want to know more about it: "{2}"</value>
+    <value>We are recommeding "{0}" because it has: "{1}".</value>
   </data>
   <data name="SteamKey" xml:space="preserve">
     <value>3E2BA9478DC190757ABE4D1DABEA9802</value>
