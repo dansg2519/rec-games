@@ -1,62 +1,68 @@
-﻿<div ng-controller="gameController">
-    <button ng-click="getRecommendedGames()">Recommend</button>
-    <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
-        <table class="table">
-            <tbody>
-                <tr ng-repeat="game in gamesToRecommend">
-                    <td>
-                        <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
-                        <p>Metacritic score: {{game.metacritic_score}}</p>
-                        <p>Number of Recommendations: {{game.recommendations}}</p>
-                        <p>{{game.justification}}</p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div ng-controller="playerController">
-    <div class="player-info-container">
-        <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
-        <div class="player-name-container">
-            <h2 class="player-personaname">{{playerInfo.personaname}}</h2>
-            <h3 class="player-realname">{{playerInfo.realname}}</h3>
-        </div>
-        <div class="player-characteristic-container">
-            <h3 class="player-characteristic-title">Your most common tags:</h3>
-            <ul>
-                <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
-                    Characteristic: {{characteristic}}
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="container">
-                <h4>Games:</h4>
-                <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
-                    <table class="table">
-                        <tbody>
-                            <tr ng-repeat="ownedGame in playerOwnedGames">
-                                <td>{{ownedGame.name}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+﻿<div ng-controller="playerController">
+    <div ng-controller="gameController">
+        <button ng-click="getRecommendedGames()">Recommend</button>
+        <div class="player-info-container">
+            <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
+            <div class="player-name-container">
+                <h2 class="player-personaname">{{playerInfo.personaname}}</h2>
+                <h3 class="player-realname">{{playerInfo.realname}}</h3>
+            </div>
+            <div class="player-characteristic-container">
+                <h3 class="player-characteristic-title">Your most common tags:</h3>
+                <ul>
+                    <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
+                        Characteristic: {{characteristic}}
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <div class="col-sm-4">
-            <div class="recent-games-container">
-                <h4>Recent Games:</h4>
-                <div ng-repeat="recentGame in playerRecentlyPlayedGames">
-                    <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{recentGame.appid}}/{{recentGame.img_logo_url}}.jpg" />
-                    <p>{{recentGame.name}}</p>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="container">
+                    <h4>Games:</h4>
+                    <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
+                        <table class="table">
+                            <tbody>
+                                <tr ng-repeat="ownedGame in playerOwnedGames">
+                                    <td>{{ownedGame.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-sm-4">
+                <div class="recent-games-container">
+                    <h4>Recent Games:</h4>
+                    <div ng-repeat="recentGame in playerRecentlyPlayedGames">
+                        <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{recentGame.appid}}/{{recentGame.img_logo_url}}.jpg" />
+                        <p>{{recentGame.name}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="container">
+                    <h4>Games:</h4>
+                    <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
+                        <table class="table">
+                            <tbody>
+                                <tr ng-repeat="game in gamesToRecommend">
+                                    <td>
+                                        <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
+                                        <p>Metacritic score: {{game.metacritic_score}}</p>
+                                        <p>Number of Recommendations: {{game.recommendations}}</p>
+                                        <p>{{game.justification}}</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-
 </div>
