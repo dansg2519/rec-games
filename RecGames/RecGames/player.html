@@ -1,15 +1,19 @@
 ﻿<div ng-controller="gameController">
     <button ng-click="getRecommendedGames()">Recommend</button>
-    <ul>
-        <li ng-repeat="game in gamesToRecommend">
-            <div>
-                <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
-                <p>Metacritic score: {{game.metacritic_score}}</p>
-                <p>Number of Recommendations: {{game.recommendations}}</p>
-                <p>{{game.justification}}</p>
-            </div>
-        </li>
-    </ul>
+    <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
+        <table class="table">
+            <tbody>
+                <tr ng-repeat="game in gamesToRecommend">
+                    <td>
+                        <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
+                        <p>Metacritic score: {{game.metacritic_score}}</p>
+                        <p>Number of Recommendations: {{game.recommendations}}</p>
+                        <p>{{game.justification}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div ng-controller="playerController">
     <div class="player-info-container">
@@ -27,7 +31,7 @@
             </ul>
         </div>
     </div>
-   
+
     <div class="row">
         <div class="col-sm-4">
             <div class="container">
@@ -44,7 +48,7 @@
             </div>
         </div>
 
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             <div class="recent-games-container">
                 <h4>Recent Games:</h4>
                 <div ng-repeat="recentGame in playerRecentlyPlayedGames">
@@ -54,5 +58,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>
