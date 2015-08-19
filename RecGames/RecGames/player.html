@@ -1,11 +1,11 @@
 ﻿<div ng-controller="playerController">
     <div ng-controller="gameController">
-        <button ng-click="getRecommendedGames()">Recommend</button>
         <div class="player-info-container">
             <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
             <div class="player-name-container">
                 <h2 class="player-personaname">{{playerInfo.personaname}}</h2>
                 <h3 class="player-realname">{{playerInfo.realname}}</h3>
+                <button ng-click="getRecommendedGames()" class="btn btn-primary">Recommend Games</button>
             </div>
             <div class="player-characteristic-container">
                 <h3 class="player-characteristic-title">Your most common tags:</h3>
@@ -45,7 +45,7 @@
 
             <div class="col-sm-4">
                 <div class="container">
-                    <h4>Games:</h4>
+                    <h4>Recommended Games:</h4>
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
                         <table class="table">
                             <tbody>
