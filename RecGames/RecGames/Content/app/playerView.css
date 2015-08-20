@@ -1,5 +1,12 @@
 ﻿.player-info-container {
     margin-bottom: 25px;
+    margin-top: 25px;
+    padding-left: 10px;
+}
+
+.player-avatar {
+    margin-top: -50px;
+    padding-right: 50px;
 }
 
 .player-name-container {
@@ -18,6 +25,7 @@
 
 .player-characteristic-tag {
     font-weight: bold;
+    display: flex;
 }
 
 .player-info-container .player-characteristic-container {
