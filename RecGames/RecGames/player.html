@@ -1,21 +1,19 @@
 ﻿<div ng-controller="playerController" class="player-info-container">
     <div ng-controller="gameController">
-            <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
-            <div class="player-name-container">
-                <h2 class="player-personaname">{{playerInfo.personaname}}</h2>
-                <h3 class="player-realname">{{playerInfo.realname}}</h3>
-                <button ng-click="getRecommendedGames()" class="btn btn-primary">Recommend Games</button>
-            </div>
-            <div class="player-characteristic-container">
-                <h3 class="player-characteristic-title">Your most common tags:</h3>
-                <ul>
-                    <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
-                        Characteristic: {{characteristic}}
-                    </li>
-                </ul>
-            </div>
+        <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
+        <div class="player-name-container">
+            <h2 class="player-personaname">{{playerInfo.personaname}}</h2>
+            <h3 class="player-realname">{{playerInfo.realname}}</h3>
+            <button ng-click="getRecommendedGames()" class="btn btn-primary">Recommend Games</button>
         </div>
-
+        <div class="player-characteristic-container">
+            <h3 class="player-characteristic-title">Your most common tags:</h3>
+            <ul>
+                <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
+                    Characteristic: {{characteristic}}
+                </li>
+            </ul>
+        </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="container">
@@ -41,7 +39,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-4">
                 <div class="container">
                     <h4>Recommended Games:</h4>
@@ -61,5 +58,6 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
