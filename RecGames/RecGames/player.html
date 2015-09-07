@@ -39,8 +39,7 @@
 
             <div class="col-sm-4">
                 <div class="recent-games-container">
-                    <h4>Recent Games:</h4>
-                    <p>{{recentGamesText}}</p>
+                    <h4>{{recentGamesText}}</h4>
                     <div ng-repeat="recentGame in playerRecentlyPlayedGames">
                         <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{recentGame.appid}}/{{recentGame.img_logo_url}}.jpg" />
                         <p>{{recentGame.name}}</p>
