@@ -5,6 +5,10 @@
     
     playerFactory.getInfo().success(function(data) {
         $scope.playerInfo = data.response.players[0];
+        $scope.showTags = false;
+        setTimeout(function () {
+            $scope.showTags = true;
+        }, 2000);
     });
 
     playerFactory.getOwnedGames().success(function (data) {

@@ -1,4 +1,7 @@
-﻿<div ng-controller="playerController" class="player-info-container">
+﻿<script type="text/javascript">
+    
+</script>
+<div ng-controller="playerController" class="player-info-container">
     <div ng-controller="gameController">
         <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
         <div class="player-name-container">
@@ -6,9 +9,10 @@
             <h3 class="player-realname">{{playerInfo.realname}}</h3>
             <button ng-click="getRecommendedGames()" class="btn btn-primary">Recommend Games</button>
         </div>
-        <div class="player-characteristic-container">
-            <h3 class="player-characteristic-title">Your most common tags:</h3>
-            <ul>
+        <div class="player-characteristic-container" ng-cloak>
+            <h3 class="player-characteristic-title" ng-hide="showTags">Loading Player Portrait...</h3>
+            <h3 class="player-characteristic-title" ng-show="showTags">Your most common tags:</h3>
+            <ul ng-cloak>
                 <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
                     Characteristic: {{characteristic}}
                 </li>
@@ -33,6 +37,7 @@
             <div class="col-sm-4">
                 <div class="recent-games-container">
                     <h4>Recent Games:</h4>
+                    <p>{{recentGamesText}}</p>
                     <div ng-repeat="recentGame in playerRecentlyPlayedGames">
                         <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{recentGame.appid}}/{{recentGame.img_logo_url}}.jpg" />
                         <p>{{recentGame.name}}</p>
