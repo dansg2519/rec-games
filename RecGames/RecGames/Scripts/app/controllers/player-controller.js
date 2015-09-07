@@ -5,16 +5,16 @@
     
     playerFactory.getInfo().success(function(data) {
         $scope.playerInfo = data.response.players[0];
-        $scope.showTags = false;
-        setTimeout(function () {
-            $scope.showTags = true;
-        }, 2000);
     });
 
     playerFactory.getOwnedGames().success(function (data) {
         $scope.playerOwnedGames = data.response.games;
+        $scope.tagsText = "Loading Portrait Tags...";
         playerFactory.postPlayerPortrait(data.response.games).success(function (dataPost) {
             $scope.playerPortrait = angular.fromJson(dataPost);
+            $scope.tagsText = "Your Common Tags:";
+            $('.recommend-button').css('z-index', '3');
+            
         });
     });
 

@@ -68,12 +68,20 @@ namespace RecGames.Controllers
         [ActionName("SteamId")]
         public IHttpActionResult PostSteamId([FromBody]string steamId)
         {
-            bool validSteamId;
+            bool validSteamId = false;
             using (WebClient client = new WebClient())
             {
-                string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + steamId);
-                validSteamId = !html.Contains(@"The specified profile could not be found.");
-                SteamId = steamId;
+                try
+                {
+                    string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + steamId);
+                    validSteamId = !html.Contains(@"The specified profile could not be found.");
+                    SteamId = steamId;
+                }
+                catch(System.Net.WebException)
+                {
+
+                }
+                
             }
                 
             return Ok(validSteamId);

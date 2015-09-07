@@ -1,17 +1,20 @@
 ﻿<script type="text/javascript">
     
 </script>
-<div ng-controller="playerController" class="player-info-container">
+<div ng-controller="playerController" class="app-container">
     <div ng-controller="gameController">
         <img src="{{playerInfo.avatarfull}}" class="player-avatar" />
         <div class="player-name-container">
             <h2 class="player-personaname">{{playerInfo.personaname}}</h2>
             <h3 class="player-realname">{{playerInfo.realname}}</h3>
-            <button ng-click="getRecommendedGames()" class="btn btn-primary">Recommend Games</button>
+            <div class="recommend-button-container">
+                <div class="recommend-button-overlay"></div>
+                <button ng-click="getRecommendedGames()" class="recommend-button btn btn-primary">Recommend Games</button>
+            </div>
         </div>
+        
         <div class="player-characteristic-container" ng-cloak>
-            <h3 class="player-characteristic-title" ng-hide="showTags">Loading Player Portrait...</h3>
-            <h3 class="player-characteristic-title" ng-show="showTags">Your most common tags:</h3>
+            <h3 class="player-characteristic-title">{{tagsText}}</h3>
             <ul ng-cloak>
                 <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
                     Characteristic: {{characteristic}}

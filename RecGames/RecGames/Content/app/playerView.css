@@ -1,11 +1,10 @@
-﻿.player-info-container {
+﻿.app-container {
     margin-bottom: 25px;
     margin-top: 25px;
     padding-left: 10px;
 }
 
 .player-avatar {
-    margin-top: -50px;
     padding-right: 50px;
 }
 
@@ -28,8 +27,27 @@
     display: flex;
 }
 
-.player-info-container .player-characteristic-container {
+.player-characteristic-container {
     display: inline-block;
     float: right;
     margin-right: 50px;
+}
+
+
+.recommend-button-container {
+    position: relative;
+}
+
+.recommend-button {
+    z-index: 1;
+    position: absolute;
+}
+
+.recommend-button-overlay {
+    z-index: 2;
+    background-color: #fff;
+    opacity: 0.4;
+    position: absolute;
+    width: 160px;
+    height:35px;
 }
