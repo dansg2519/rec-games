@@ -6,7 +6,7 @@
         var playerData = {
                              owned_games: player.ownedGames.response.games,
                              player_portrait: angular.fromJson(player.portrait)
-                         };
+        };
         return $http.post(urlBase + 'recommendedGames', playerData)
             .success(function (data) {
                 return data;

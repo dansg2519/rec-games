@@ -1,4 +1,4 @@
-﻿var app = angular.module('RecGamesApp', ['ui.router']);
+﻿var app = angular.module('RecGamesApp', ['ui.router', 'ngProgress']);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider.state('start', {
