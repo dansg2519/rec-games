@@ -11,6 +11,7 @@ using RecGames.DAL;
 using System.Web.Script.Serialization;
 using Resources;
 using HtmlAgilityPack;
+using System.Diagnostics;
 
 namespace RecGames.Controllers
 {
@@ -73,9 +74,30 @@ namespace RecGames.Controllers
             {
                 try
                 {
-                    string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + steamId);
-                    validSteamId = !html.Contains(@"The specified profile could not be found.");
-                    SteamId = steamId;
+                    long n;
+                    bool isNumeric = Int64.TryParse(steamId, out n);
+                    Debug.WriteLine(">>>>>>>>>>>>>>>>>> steam id = " + steamId);
+                    if(isNumeric)
+                    {
+                        string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + steamId);
+                        validSteamId = !html.Contains(@"The specified profile could not be found.");
+                        SteamId = steamId;
+                        Debug.Write(">>>>>>>>>>>>>>>>>>>>>>>Profiles Id type");
+                    }
+                    else
+                    {
+                        Debug.Write(">>>>>>>>>>> "+steamId);
+                        string html = client.DownloadString(@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + Strings.SteamKey + "&vanityurl=" + steamId);
+                        Debug.WriteLine(">>>>>>>>>>>>>>>>>>> parsing...");
+                        JObject response = JObject.Parse(html);
+                        if((int) response["success"] == 1)
+                        {
+                            SteamId = (string) response["steamid"];
+                            validSteamId = true;
+                        }
+                        Debug.Write(">>>>>>>>>>>>>>>>>>>>>>>>Custom Id type");
+                    }
+                    
                 }
                 catch(System.Net.WebException)
                 {
