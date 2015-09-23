@@ -40,7 +40,7 @@
     }
     
     dataFactory.postSteamId = function (steamId) {
-        return $http.post(urlBase + 'steamId', steamId)
+        return $http.post(urlBase + 'steamId', JSON.stringify(steamId))
             .success(function (data) {
                 return data;
             })
