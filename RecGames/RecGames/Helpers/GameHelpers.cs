@@ -30,6 +30,24 @@ namespace RecGames.Helpers
             return gamesIdsToRecommend;
         }
 
+        public static List<int> CalculateRecommendationScore2(List<string> playerPortrait, List<Game> playerNotOwnedGames)
+        {
+            var gamesRecommendationScores = new Dictionary<int, float>();
+            foreach (var game in playerNotOwnedGames)
+            {
+                float recommendationScore = 0.0f;
+                var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
+
+                recommendationScore += tagsMatch * 10.0f;
+                recommendationScore += game.Recommendations * 0.000025f;
+
+                gamesRecommendationScores.Add(game.GameID, recommendationScore);
+            }
+
+            var gamesIdsToRecommend = gamesRecommendationScores.OrderByDescending(p => p.Value).Take(TopGamesToRecommend).Select(p => p.Key).ToList();
+            return gamesIdsToRecommend;
+        }
+
         public static JArray SetUpGamesToRecommendJson(List<Game> gamesToRecommend)
         {
             JArray gamesToRecommendJson = new JArray(gamesToRecommend.Select(g => (

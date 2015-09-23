@@ -6,7 +6,8 @@
         $scope.progressbar.start();
         gameFactory.postRecommendedGames(player).success(function (data) {
             $scope.progressbar.complete();
-            $scope.gamesToRecommend = data;
+            $scope.gamesToRecommend = data.recommendation1;
+            $scope.gamesToRecommend2 = data.recommendation2;
         });
     }
 }]);
