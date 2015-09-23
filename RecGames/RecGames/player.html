@@ -17,12 +17,32 @@
             <h3 class="player-characteristic-title">{{tagsText}}</h3>
             <ul ng-cloak>
                 <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
-                    Characteristic: {{characteristic}}
+                    C: {{characteristic}}
                 </li>
             </ul>
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
+                <div class="recent-games-container">
+                    <h4>{{recentGamesText}}</h4>
+                    <div ng-repeat="recentGame in playerRecentlyPlayedGames">
+                        <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{recentGame.appid}}/{{recentGame.img_logo_url}}.jpg" />
+                        <p>{{recentGame.name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="recent-games-container">
+                    <h4>{{recentGamesText}}</h4>
+                    <div ng-repeat="recentGame in playerRecentlyPlayedGames">
+                        <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{recentGame.appid}}/{{recentGame.img_logo_url}}.jpg" />
+                        <p>{{recentGame.name}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
                 <div class="container">
                     <h4>Games:</h4>
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
@@ -36,17 +56,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-4">
-                <div class="recent-games-container">
-                    <h4>{{recentGamesText}}</h4>
-                    <div ng-repeat="recentGame in playerRecentlyPlayedGames">
-                        <img src="http://media.steampowered.com/steamcommunity/public/images/apps/{{recentGame.appid}}/{{recentGame.img_logo_url}}.jpg" />
-                        <p>{{recentGame.name}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="container">
                     <h4>Recommended Games:</h4>
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
