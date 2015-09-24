@@ -85,7 +85,8 @@ namespace RecGames.Controllers
                     else
                     {
                         string html = client.DownloadString(@"http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" + Strings.SteamKey + "&vanityurl=" + steamId);
-                        JObject response = JObject.Parse(html);
+                        JObject resolve = JObject.Parse(html);
+                        JObject response = (JObject) resolve["response"];
                         if((int) response["success"] == 1)
                         {
                             SteamId = (string) response["steamid"];

@@ -14,3 +14,8 @@ footer {
     border-top: 1px solid #808080;
     width: 1140px;
 }
+
+.steam-id-form-help {
+    float: left;
+    margin-left: 120px;
+}

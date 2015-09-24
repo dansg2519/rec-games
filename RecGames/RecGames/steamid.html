@@ -1,12 +1,14 @@
 ﻿<div class="steam-id-form-container">
-    <form name="steamIdForm" ng-submit="submitSteamId(steamIdForm.steamId)" ng-controller="steamIdController"  class="form-horizontal">
+    <form name="steamIdForm" novalidate ng-submit="submitSteamId(steamIdForm.steamId)" ng-controller="steamIdController"  class="form-horizontal">
         <label class="control-label col-sm-2" for="steamid">SteamID:</label>
-        <input type="text" ng-model="steamId" name="steamId" class="form-control col-sm-8" required />
         <span ng-show="steamIdForm.steamId.$error.steamid_invalid">This Steam Id format is invalid!</span>
         <div class="form-group">
+            <input type="text" ng-model="steamId" name="steamId" placeholder="steamId" class="form-control col-sm-8" required />
+            
             <div class="col-sm-1">
                 <input type="submit" name="sendSteamId" class="btn btn-primary" value="Send" />
-            </div>
+            </div>     
         </div>
+        <p class="help-block steam-id-form-helper" id="helpBlock">"Ex: steamcommunity.com/id/steamId or steamcommunity.com/profiles/steamId</p>
     </form>
 </div>
