@@ -1,6 +1,6 @@
-﻿app.controller('gameController', ['$scope', 'gameFactory', 'playerFactory', 'ngProgressFactory', function ($scope, gameFactory, playerFactory, ngProgressFactory) {
+﻿app.controller('gameController', ['$rootScope', '$scope', 'gameFactory', 'playerFactory', 'ngProgressFactory', function ($rootScope, $scope, gameFactory, playerFactory, ngProgressFactory) {
 
-    $scope.getRecommendedGames = function () {
+    $rootScope.getRecommendedGames = function () {
         $scope.progressbar = ngProgressFactory.createInstance();
         var player = playerFactory.getPlayer();
         $scope.progressbar.start();

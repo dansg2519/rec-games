@@ -1,4 +1,4 @@
-﻿app.controller('playerController', ['$scope', 'playerFactory', function ($scope, playerFactory) {
+﻿app.controller('playerController', ['$rootScope', '$scope', 'playerFactory', function ($rootScope, $scope, playerFactory) {
     $scope.hello = function () {
         return console.log("Hello World");
     }
@@ -14,7 +14,7 @@
             $scope.playerPortrait = angular.fromJson(dataPost);
             $scope.tagsText = "Your Common Tags:";
             $('.recommend-button').css('z-index', '3');
-            
+            $rootScope.getRecommendedGames();
         });
     });
 
