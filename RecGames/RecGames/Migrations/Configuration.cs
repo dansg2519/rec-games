@@ -150,7 +150,14 @@ namespace RecGames.Migrations
                         }
 
                         //game.PriceCurrency = (string)jObjectAppData["price_overview"]["currency"];
-                        //game.PriceValue = (int)jObjectAppData["price_overview"]["initial"];
+                        try
+                        {
+                            game.PriceValue = (int)jObjectAppData["price_overview"]["initial"];
+                        }
+                        catch (NullReferenceException)
+                        {
+                            game.PriceValue = default(int);
+                        }
 
                         game.Tags = new List<Tag>();
                         getTags(context, client, tags, appsId, game);
