@@ -50,7 +50,7 @@ namespace RecGames.Helpers
             return gamesIdsToRecommend;
         }
 
-        public static JArray SetUpGamesToRecommendJson(List<Game> gamesToRecommend)
+        public static JArray SetUpGamesToRecommendJson(List<Game> gamesToRecommend, List<string> playerPortrait)
         {
             JArray gamesToRecommendJson = new JArray(gamesToRecommend.Select(g => (
                 new JObject(
@@ -67,7 +67,9 @@ namespace RecGames.Helpers
                     new JProperty("platforms", g.Platforms),
                     new JProperty("game_steam_url", @"http://store.steampowered.com/app/" + g.GameID.ToString()),
                     new JProperty("justification", string.Format(Strings.Justification, g.Name, string.Join(",", g.Tags.Select(t => t.TagName).ToArray()), g.Recommendations, g.MetacriticScore)),
-                    new JProperty("tags", g.Tags.Select(t => t.TagName))))));
+                    new JProperty("tags", g.Tags.Select(t => t.TagName)),
+                    new JProperty("common_tags", string.Join(",", g.Tags.Select(t => t.TagName).ToArray().Intersect(playerPortrait))),
+                    new JProperty("tags_string", string.Join(",", g.Tags.Select(t => t.TagName).ToArray()))))));
 
             return gamesToRecommendJson;
         }

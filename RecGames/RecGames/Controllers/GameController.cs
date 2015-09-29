@@ -41,11 +41,11 @@ namespace RecGames.Controllers
             var playerNotOwnedGames = db.Games.Where(g => playerNotOwnedGamesIds.Contains(g.GameID)).ToList();
             var gamesIdsToRecommend = GameHelpers.CalculateRecommendationScore(playerPortrait, playerNotOwnedGames);
             var gamesToRecommend = db.Games.Where(g => gamesIdsToRecommend.Contains(g.GameID)).ToList();
-            var gamesToRecommendJson = GameHelpers.SetUpGamesToRecommendJson(gamesToRecommend);
+            var gamesToRecommendJson = GameHelpers.SetUpGamesToRecommendJson(gamesToRecommend, playerPortrait);
 
             var gamesIdsToRecommend2 = GameHelpers.CalculateRecommendationScore2(playerPortrait, playerNotOwnedGames);
             var gamesToRecommend2 = db.Games.Where(g => gamesIdsToRecommend2.Contains(g.GameID)).ToList();
-            var gamesToRecommendJson2 = GameHelpers.SetUpGamesToRecommendJson(gamesToRecommend2);
+            var gamesToRecommendJson2 = GameHelpers.SetUpGamesToRecommendJson(gamesToRecommend2, playerPortrait);
 
             var gamesToRecommendPack = new JObject();
             gamesToRecommendPack.Add("recommendation1", gamesToRecommendJson);
