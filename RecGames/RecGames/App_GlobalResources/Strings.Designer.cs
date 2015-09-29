@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We are recommeding &quot;{0}&quot; because it has: &quot;{1}&quot;..
+        ///   Looks up a localized string similar to We are recommeding the game &quot;{0}&quot; because it has as characteristics : &quot;{1}&quot;. Besides, this game was recommended by &quot;{2}&quot; users and received an average score of &quot;{3}&quot; by critics. Go to the game&apos;s page by clicking on its name..
         /// </summary>
         internal static string Justification {
             get {

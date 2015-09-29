@@ -38,8 +38,10 @@ namespace RecGames.Helpers
                 float recommendationScore = 0.0f;
                 var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
 
-                recommendationScore += tagsMatch * 10.0f;
-                recommendationScore += game.Recommendations * 0.000025f;
+                recommendationScore += tagsMatch * 3.2f;
+                recommendationScore += game.Recommendations * 0.000015f;
+                recommendationScore += game.MetacriticScore * 0.22f;
+                recommendationScore += (game.PriceValue == 0) ? (float)(300) : (float)(300 / (game.PriceValue / 100));
 
                 gamesRecommendationScores.Add(game.GameID, recommendationScore);
             }
@@ -64,7 +66,7 @@ namespace RecGames.Helpers
                     new JProperty("price_currency", g.PriceCurrency),
                     new JProperty("platforms", g.Platforms),
                     new JProperty("game_steam_url", @"http://store.steampowered.com/app/" + g.GameID.ToString()),
-                    new JProperty("justification", string.Format(Strings.Justification, g.Name, string.Join(",", g.Tags.Select(t => t.TagName).ToArray()))),
+                    new JProperty("justification", string.Format(Strings.Justification, g.Name, string.Join(",", g.Tags.Select(t => t.TagName).ToArray()), g.Recommendations, g.MetacriticScore)),
                     new JProperty("tags", g.Tags.Select(t => t.TagName))))));
 
             return gamesToRecommendJson;
