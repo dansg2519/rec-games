@@ -69,7 +69,8 @@ namespace RecGames.Helpers
                     new JProperty("justification", string.Format(Strings.Justification, g.Name, string.Join(",", g.Tags.Select(t => t.TagName).ToArray()), g.Recommendations, g.MetacriticScore)),
                     new JProperty("tags", g.Tags.Select(t => t.TagName)),
                     new JProperty("common_tags", string.Join(",", g.Tags.Select(t => t.TagName).ToArray().Intersect(playerPortrait))),
-                    new JProperty("tags_string", string.Join(",", g.Tags.Select(t => t.TagName).ToArray()))))));
+                    new JProperty("tags_string", string.Join(",", g.Tags.Select(t => t.TagName).ToArray())),
+                    new JProperty("uncommon_tags", string.Join(",", g.Tags.Select(t => t.TagName).ToArray().Except(playerPortrait)))))));
 
             return gamesToRecommendJson;
         }
