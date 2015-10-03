@@ -19,3 +19,13 @@ footer {
     float: left;
     margin-left: 120px;
 }
+
+@media (max-width: 540px) {
+    .steam-id-form-help {
+        margin: 0 auto;
+        font-size: 0.857em;
+    }
+    .steam-id-form-input {
+        margin: 0 auto;
+    }
+}

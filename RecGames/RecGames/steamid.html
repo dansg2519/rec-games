@@ -3,7 +3,7 @@
         <label class="control-label col-sm-2" for="steamid">SteamID:</label>
         <span ng-show="steamIdForm.steamId.$error.steamid_invalid">This Steam Id format is invalid!</span>
         <div class="form-group">
-            <input type="text" ng-model="steamId" name="steamId" placeholder="Enter your Id or custom URL" class="form-control col-sm-8" required />
+            <input type="text" ng-model="steamId" name="steamId" placeholder="Enter your Id or custom URL" class="form-control col-sm-8 steam-id-form-input" required />
             
             <div class="col-sm-1">
                 <input type="submit" name="sendSteamId" class="btn btn-primary" value="Send" />
