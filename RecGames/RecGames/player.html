@@ -33,6 +33,11 @@
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
                         <table class="table">
                             <tbody>
+                                <tr ng-hide="recommendReady">
+                                    <td>
+                                        <p>Loading Recommended Game List...</p>
+                                    </td>
+                                </tr>
                                 <tr ng-repeat="game in gamesToRecommend">
                                     <td>
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
@@ -54,6 +59,11 @@
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
                         <table class="table">
                             <tbody>
+                                <tr ng-hide="recommendReady">
+                                    <td>
+                                        <p>Loading Recommended Game List...</p>
+                                    </td>
+                                </tr>
                                 <tr ng-repeat="game in gamesToRecommend2">
                                     <td>
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
