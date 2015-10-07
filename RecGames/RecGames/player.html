@@ -24,12 +24,13 @@
             </div>
         </div>
         
-        <a href="https://docs.google.com/forms/d/14ZaO2A2LOPuEOfgHiqEBAB7MQ5ttKSAdJaV_WPDFjh4/viewform">Ajude-nos a melhorar nosso sistema respondendo a este formulário!</a>
+        <p style="font-size: 24px">Os dois grupos abaixo são diferentes conjuntos de jogos recomendados.</p>
+        <a href="https://docs.google.com/forms/d/14ZaO2A2LOPuEOfgHiqEBAB7MQ5ttKSAdJaV_WPDFjh4/viewform" style="font-size: 24px">Ajude-nos a melhorar nosso sistema analisando os dois conjuntos e respondendo a este formulário! Obrigado!</a>
 
         <div class="row">
             <div class="col-sm-6">
                 <div class="container">
-                    <h4>Recommended Games:</h4>
+                    <h4>Recommended Games(based on your characteristics):</h4>
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
                         <table class="table">
                             <tbody>
@@ -41,6 +42,7 @@
                                 <tr ng-repeat="game in gamesToRecommend">
                                     <td>
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
+                                        <p>Price: {{game.price_value}}</p>
                                         <p>Metacritic score: {{game.metacritic_score}}</p>
                                         <p>Number of Recommendations: {{game.recommendations}}</p>
                                         <p>
@@ -55,7 +57,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="container">
-                    <h4>Recommended Games:</h4>
+                    <h4>Recommended Games(based on the price and your characteristics):</h4>
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
                         <table class="table">
                             <tbody>
@@ -67,6 +69,7 @@
                                 <tr ng-repeat="game in gamesToRecommend2">
                                     <td>
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
+                                        <p>Price: {{game.price_value}}</p>
                                         <p>Metacritic score: {{game.metacritic_score}}</p>
                                         <p>Number of Recommendations: {{game.recommendations}}</p>
                                         <p>
@@ -80,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col-sm-6">
                 <div class="container">
                     <h4>Games:</h4>
@@ -104,6 +107,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>

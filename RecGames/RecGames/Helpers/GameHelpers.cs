@@ -62,7 +62,7 @@ namespace RecGames.Helpers
                     new JProperty("metacritic_score", g.MetacriticScore),
                     new JProperty("recommendations", g.Recommendations),
                     new JProperty("total_achievements", g.TotalAchievements),
-                    new JProperty("price_value", g.PriceValue),
+                    new JProperty("price_value", (g.PriceValue/100)),
                     new JProperty("price_currency", g.PriceCurrency),
                     new JProperty("platforms", g.Platforms),
                     new JProperty("game_steam_url", @"http://store.steampowered.com/app/" + g.GameID.ToString()),
