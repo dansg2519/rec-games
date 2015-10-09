@@ -149,6 +149,15 @@ namespace RecGames.Migrations
                             game.TotalAchievements = default(int);
                         }
 
+                        try
+                        {
+                            game.HeaderImage = (string)jObjectAppData["header_image"];
+                        }
+                        catch (NullReferenceException)
+                        {
+                            game.HeaderImage = string.Empty;
+                        }
+
                         //game.PriceCurrency = (string)jObjectAppData["price_overview"]["currency"];
                         try
                         {

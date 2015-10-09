@@ -21,6 +21,7 @@ namespace RecGames.Models
         public string Publishers { get; set; }
         public string Genre { get; set; }
         public string LaunchDate { get; set; }
+        public string HeaderImage { get; set; }
         public int TotalAchievements { get; set; }
         public int Recommendations { get; set; }
         public int MetacriticScore { get; set; }
