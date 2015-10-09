@@ -41,6 +41,7 @@
                                 </tr>
                                 <tr ng-repeat="game in gamesToRecommend">
                                     <td>
+                                        <img src="{{game.header_image}}" />
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
                                         <p>Price: {{game.price_value}}</p>
                                         <p>Metacritic score: {{game.metacritic_score}}</p>
@@ -68,6 +69,7 @@
                                 </tr>
                                 <tr ng-repeat="game in gamesToRecommend2">
                                     <td>
+                                        <img src="{{game.header_image}}"/>
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
                                         <p>Price: {{game.price_value}}</p>
                                         <p>Metacritic score: {{game.metacritic_score}}</p>
