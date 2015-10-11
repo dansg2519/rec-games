@@ -33,6 +33,7 @@ namespace RecGames.Helpers
         public static List<int> CalculateRecommendationScore2(List<string> playerPortrait, List<Game> playerNotOwnedGames)
         {
             var gamesRecommendationScores = new Dictionary<int, float>();
+
             foreach (var game in playerNotOwnedGames)
             {
                 float recommendationScore = 0.0f;
@@ -41,7 +42,17 @@ namespace RecGames.Helpers
                 recommendationScore += tagsMatch * 32f;
                 recommendationScore += game.Recommendations * 0.000015f;
                 recommendationScore += game.MetacriticScore * 0.22f;
-                recommendationScore += (game.PriceValue == 0) ? (float)(300) : (float)(300 / (game.PriceValue / 100));
+
+                var priceRange = SetPriceRange();
+                foreach (var priceLimit in priceRange)
+                {
+                    if ((game.PriceValue / 100) <= priceLimit.Key)
+                    {
+                        recommendationScore += 300 / priceLimit.Value;
+                        break;
+                    }
+                }                
+                //recommendationScore += (game.PriceValue == 0) ? (float)(300) : (float)(300 / (game.PriceValue / 100));
 
                 gamesRecommendationScores.Add(game.GameID, recommendationScore);
             }
@@ -147,6 +158,19 @@ namespace RecGames.Helpers
             {
                 return String.Empty;
             }
+        }
+
+
+        public static Dictionary<double, int> SetPriceRange()
+        {
+            var priceRange = new Dictionary<double, int>();
+            priceRange.Add(10.99, 5);
+            priceRange.Add(21.24, 7);
+            priceRange.Add(42.48, 10);
+            priceRange.Add(84.96, 15);
+            priceRange.Add(10000, 22);
+
+            return priceRange;
         }
     }
     
