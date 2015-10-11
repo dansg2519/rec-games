@@ -38,7 +38,7 @@ namespace RecGames.Helpers
                 float recommendationScore = 0.0f;
                 var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
 
-                recommendationScore += tagsMatch * 3.2f;
+                recommendationScore += tagsMatch * 32f;
                 recommendationScore += game.Recommendations * 0.000015f;
                 recommendationScore += game.MetacriticScore * 0.22f;
                 recommendationScore += (game.PriceValue == 0) ? (float)(300) : (float)(300 / (game.PriceValue / 100));
