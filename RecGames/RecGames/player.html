@@ -24,8 +24,10 @@
             </div>
         </div>
         
-        <p style="font-size: 24px">Os dois grupos abaixo são diferentes conjuntos de jogos recomendados.</p>
-        <a href="https://docs.google.com/forms/d/14ZaO2A2LOPuEOfgHiqEBAB7MQ5ttKSAdJaV_WPDFjh4/viewform" style="font-size: 24px">Ajude-nos a melhorar nosso sistema analisando os dois conjuntos e respondendo a este formulário! Obrigado!</a>
+        <p style="font-size: 24px">The following two groups are different sets of recommended games.</p>
+        <a href="https://docs.google.com/forms/d/14ZaO2A2LOPuEOfgHiqEBAB7MQ5ttKSAdJaV_WPDFjh4/viewform" style="font-size: 24px">
+            Help us improve our system by analyzing the two sets and responding to this form! Thank you!
+        </a>
 
         <div class="row">
             <div class="col-sm-6">
@@ -41,7 +43,7 @@
                                 </tr>
                                 <tr ng-repeat="game in gamesToRecommend">
                                     <td>
-                                        <img src="{{game.header_image}}" />
+                                        <!--<img src="{{game.header_image}}" />-->
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
                                         <p>Price: {{game.price_value}}</p>
                                         <p>Metacritic score: {{game.metacritic_score}}</p>
@@ -69,7 +71,7 @@
                                 </tr>
                                 <tr ng-repeat="game in gamesToRecommend2">
                                     <td>
-                                        <img src="{{game.header_image}}"/>
+                                        <!--<img src="{{game.header_image}}"/>-->
                                         <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
                                         <p>Price: {{game.price_value}}</p>
                                         <p>Metacritic score: {{game.metacritic_score}}</p>
