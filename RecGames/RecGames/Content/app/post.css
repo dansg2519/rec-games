@@ -63,6 +63,11 @@
     font-family: 'Open Sans', 'PT Serif';
     color: #0094ff;
     width: 90%;
+    text-decoration: none;
+}
+
+a:link .justification-text {
+    text-decoration: none;
 }
 
 .score-num, .score-text, .recommendation-text, .price-text {
@@ -70,6 +75,8 @@
     font-weight: bold;
     font-family: 'Open Sans', 'PT Serif';
 }
+
+
 
 .score-text {
     margin-top: 6px;
@@ -85,4 +92,15 @@
     font-weight: bold;
     margin-top: 3px;
     padding: 0 5px 0;
+}
+
+.post-container:hover .game-title, 
+.post-container:hover .justification-text {
+    color: #2fcbff;
+}
+
+.post-container:hover .score-container, 
+.post-container:hover .recommendation-container, 
+.post-container:hover .price-container {
+    background-color: #2fcbff;
 }
