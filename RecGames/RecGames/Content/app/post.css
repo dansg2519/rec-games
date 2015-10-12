@@ -1,0 +1,88 @@
+﻿.post-container {
+    width: 100%;
+    border: 2px solid #676767;
+    clear: both;
+}
+
+.game-image {
+    width: 320px;
+    height: auto;
+    margin: 20px;
+    display: inline-block;
+}
+
+.score-container, .price-container, .recommendation-container {
+    background-color: #0094ff;
+    margin: 20px;
+    border: 1px solid #000;
+}
+
+.score-container {
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    float: right;
+    text-align: center;
+}
+
+.price-container {
+    width: 160px;
+    height: 55px;
+    float: right;
+    display: inline-block;
+    margin: 10px 20px 20px;
+    text-align: center;
+}
+
+.price-text {
+    margin-top: 6px;
+}
+
+.recommendation-container {
+    width: 256px;
+    height: 45px;
+    display: inline-block;
+}
+
+.game-title {
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+    font-family: 'Open Sans', 'PT Serif';
+    color: #0094ff;
+    width: 8.0em;
+}
+
+.game-description {
+    display: inline-block;
+}
+
+.justification-text {
+    margin: 0px 20px;
+    font-weight: bold;
+    font-family: 'Open Sans', 'PT Serif';
+    color: #0094ff;
+    width: 90%;
+}
+
+.score-num, .score-text, .recommendation-text, .price-text {
+    color: #fff;
+    font-weight: bold;
+    font-family: 'Open Sans', 'PT Serif';
+}
+
+.score-text {
+    margin-top: 6px;
+}
+
+.score-num{
+    margin-top: 0;
+}
+
+.users-recommended {
+    font-family: 'Open Sans';
+    color: #fff;
+    font-weight: bold;
+    margin-top: 3px;
+    padding: 0 5px 0;
+}

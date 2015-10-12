@@ -35,7 +35,8 @@ namespace RecGames
                       "~/Content/site.css",
                       "~/Content/ngProgress.css",
                       "~/Content/app/playerView.css",
-                      "~/Content/app/recgames.css"));
+                      "~/Content/app/recgames.css",
+                      "~/Content/app/post.css"));
         }
     }
 }

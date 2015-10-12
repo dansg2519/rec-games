@@ -30,7 +30,7 @@
         </a>
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="container">
                     <h4>Recommended Games(based on your characteristics):</h4>
                     <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
@@ -58,31 +58,36 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <div class="container">
                     <h4>Recommended Games(based on the price and your characteristics):</h4>
-                    <div class="panel panel-primary" style="height: 400px; overflow-y: scroll;">
-                        <table class="table">
-                            <tbody>
-                                <tr ng-hide="recommendReady">
-                                    <td>
-                                        <p>Loading Recommended Game List...</p>
-                                    </td>
-                                </tr>
-                                <tr ng-repeat="game in gamesToRecommend2">
-                                    <td>
-                                        <!--<img src="{{game.header_image}}"/>-->
-                                        <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
-                                        <p>Price: {{game.price_value}}</p>
-                                        <p>Metacritic score: {{game.metacritic_score}}</p>
-                                        <p>Number of Recommendations: {{game.recommendations}}</p>
-                                        <p>
-                                            We are recommeding the game <b>{{game.game_name}}</b> because it has as characteristics like <b>{{game.common_tags}}</b> which you may enjoy and also it has <b>{{game.uncommon_tags}}</b> as characteristics. Besides, this game was <b>recommended by {{game.recommendations}} users</b> and received an average <b>score of {{game.metacritic_score}}</b> by critics. Go to the game's page by clicking on its name.
-                                        </p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <table class="table">
+                        <tbody>
+                            <tr ng-hide="recommendReady">
+                                <td>
+                                    <p>Loading Recommended Game List...</p>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="game in gamesToRecommend2">
+                                <td>
+                                    <div ng-app>
+                                        <div ng-include="'post.html'"></div>
+                                    </div>
+
+                                    <!--<img src="{{game.header_image}}"/>
+                    <a href="{{game.game_steam_url}}" target="_blank">{{game.game_name}}</a>
+                    <p>Price: {{game.price_value}}</p>
+                    <p>Metacritic score: {{game.metacritic_score}}</p>
+                    <p>Number of Recommendations: {{game.recommendations}}</p>
+                    <p>
+                        We are recommeding the game <b>{{game.game_name}}</b> because it has as characteristics like <b>{{game.common_tags}}</b> which you may enjoy and also it has <b>{{game.uncommon_tags}}</b> as characteristics. Besides, this game was <b>recommended by {{game.recommendations}} users</b> and received an average <b>score of {{game.metacritic_score}}</b> by critics. Go to the game's page by clicking on its name.
+                    </p>  -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="panel panel-primary">
+                        
                     </div>
                 </div>
             </div>
