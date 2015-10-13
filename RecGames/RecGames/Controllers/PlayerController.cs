@@ -41,17 +41,30 @@ namespace RecGames.Controllers
         public IHttpActionResult GetOwnedGames()
         {
             string playerOwnedGames;
+            string recentlyPlayedGames;
+
             using (WebClient client = new WebClient())
             {
                 //steamId = "76561197960435530";
                 playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
             }
 
+            using (WebClient client = new WebClient())
+            {
+                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
+            }
+
+            JObject playerOwnedGamesPack = new JObject();
+
+            JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
             JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
-            return Ok(playerOwnedGamesJson);
+
+            playerOwnedGamesPack.Add("owned_games", playerOwnedGamesJson);
+            playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJson);
+            return Ok(playerOwnedGamesPack);
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [ActionName("RecentlyPlayedGames")]
         public IHttpActionResult GetRecentlyPlayedGames()
         {
@@ -63,7 +76,7 @@ namespace RecGames.Controllers
 
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
             return Ok(recentlyPlayedGamesJson);
-        }
+        }*/
 
         [HttpPost]
         [ActionName("SteamId")]
@@ -107,15 +120,27 @@ namespace RecGames.Controllers
 
         [HttpPost]
         [ActionName("PlayerPortrait")]
-        public IHttpActionResult PostPlayerPortrait(List<Game> ownedGames)
+        public IHttpActionResult PostPlayerPortrait(JObject myGames)
         {
             var playerTags = new List<string>();
+            var ownedGames = myGames["owned_games"]["response"]["games"].ToObject<List<Game>>();
+            var recentlyPlayedGames = myGames["recently_played_games"]["response"]["games"].ToObject<List<Game>>();
+
             foreach (var game in ownedGames)
             {
                 var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
                 foreach (var tag in tags)
                 {
                     playerTags.Add(tag.TagName);                    
+                }
+            }
+
+            foreach (var game in recentlyPlayedGames)
+            {
+                var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
+                foreach (var tag in tags)
+                {
+                    playerTags.Add(tag.TagName);
                 }
             }
 

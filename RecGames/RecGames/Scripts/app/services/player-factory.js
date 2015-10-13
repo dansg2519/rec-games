@@ -21,14 +21,15 @@
     dataFactory.getOwnedGames = function () {
         return $http.get(urlBase + 'ownedGames')
             .success(function (data) {
-                player['ownedGames'] = data;
+                player['ownedGames'] = data.owned_games;
+                player['recentlyPlayedGames'] = data.recently_played_games;
                 return data;
             }).error(function (err) {
                 return err;
             });
     }
 
-    dataFactory.getRecentlyPlayedGames = function () {
+/*    dataFactory.getRecentlyPlayedGames = function () {
         return $http.get(urlBase + 'recentlyPlayedGames')
             .success(function (data) {
                 player['recentlyPlayedGames'] = data;
@@ -37,7 +38,7 @@
             .error(function (err) {
                 return err;
             });
-    }
+    }*/
     
     dataFactory.postSteamId = function (steamId) {
         return $http.post(urlBase + 'steamId', JSON.stringify(steamId))
