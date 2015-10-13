@@ -10,9 +10,11 @@
     playerFactory.getOwnedGames().success(function (data) {
         $scope.playerOwnedGames = data.response.games;
         $scope.tagsText = "Loading Portrait Tags...";
+        $scope.tagsReady = false;
         playerFactory.postPlayerPortrait(data.response.games).success(function (dataPost) {
             $scope.playerPortrait = angular.fromJson(dataPost);
             $scope.tagsText = "Your Common Tags:";
+            $scope.tagsReady = true;
             $('.recommend-button').css('z-index', '3');
             $rootScope.getRecommendedGames();
         });

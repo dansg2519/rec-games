@@ -35,6 +35,10 @@
 .player-characteristic-tag {
     font-weight: bold;
     display: flex;
+    background-color: #fff;
+    border: 1px solid;
+    padding-left: 5px;
+    margin-bottom: 5px;
 }
 
 .player-characteristic-container {
