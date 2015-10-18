@@ -37,11 +37,38 @@ namespace RecGames.Helpers
             foreach (var game in playerNotOwnedGames)
             {
                 float recommendationScore = 0.0f;
-                var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
 
+                var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
                 recommendationScore += tagsMatch * 32f;
-                recommendationScore += game.Recommendations * 0.000015f;
+
+                var recommendationsRange = SetRecommendationsRange();
+                foreach (var recommendationsLimit in recommendationsRange)
+                {
+                    if (game.Recommendations <= recommendationsLimit.Key)
+                    {
+                        recommendationScore += (float)Math.Log10(game.Recommendations) * recommendationsLimit.Value;
+                        break;
+                    }
+                }
+                //recommendationScore += game.Recommendations * 0.000015f;
+
                 recommendationScore += game.MetacriticScore * 0.22f;
+/*                var metacriticScoreRange = SetMetacriticScoreRange();
+                if (game.MetacriticScore > 0)
+                {
+                    foreach (var metacriticScoreLimit in metacriticScoreRange)
+                    {
+                        if (game.MetacriticScore <= metacriticScoreLimit.Key)
+                        {
+                            recommendationScore += 300 / metacriticScoreLimit.Value;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                        
+                }*/
 
                 var priceRange = SetPriceRange();
                 foreach (var priceLimit in priceRange)
@@ -171,6 +198,27 @@ namespace RecGames.Helpers
             priceRange.Add(10000, 22);
 
             return priceRange;
+        }
+
+        public static Dictionary<double, int> SetMetacriticScoreRange()
+        {
+            var metacriticScoreRange = new Dictionary<double, int>();
+            metacriticScoreRange.Add(30, 7);
+            metacriticScoreRange.Add(60, 10);
+            metacriticScoreRange.Add(100, 22);
+
+            return metacriticScoreRange;
+        }
+
+        public static Dictionary<double, int> SetRecommendationsRange()
+        {
+            var recommendationsRange = new Dictionary<double, int>();
+            recommendationsRange.Add(1000, 7);
+            recommendationsRange.Add(10000, 5);
+            recommendationsRange.Add(100000, 3);
+            recommendationsRange.Add(1000000, 2);
+
+            return recommendationsRange;
         }
     }
     
