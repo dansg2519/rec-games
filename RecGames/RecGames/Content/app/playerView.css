@@ -87,3 +87,57 @@
     height: 30px;
     vertical-align: text-bottom;
 }
+
+.form-link {
+    font-size: 24px;
+}
+
+@media (max-width:768px) {
+    .player-avatar {
+        width: 15%;
+        float: left;
+    }
+
+    .player-personaname {
+        font-size: 15px;
+        margin: 0 10px 10px;
+    }
+
+    .player-realname {
+        font-size: 15px;
+        margin: 0 10px 0;
+    }
+
+    .player-characteristic-tag {
+        display: inline;
+        margin: 0 5px 5px;
+    }
+
+    .player-characteristic-container {
+        display: inline;
+        height: 65px;
+    }
+
+    .player-characteristic-title {
+        font-size: 13px;
+        margin: 5px;
+    }
+
+    .form-link {
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    .player-container {
+        padding: 10px
+    }
+
+    .container-title {
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    .container {
+        padding-left: 0;
+    }
+}
