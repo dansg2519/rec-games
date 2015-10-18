@@ -124,7 +124,6 @@ namespace RecGames.Controllers
         {
             var playerTags = new List<string>();
             var ownedGames = myGames["owned_games"]["response"]["games"].ToObject<List<Game>>();
-            var recentlyPlayedGames = myGames["recently_played_games"]["response"]["games"].ToObject<List<Game>>();
 
             foreach (var game in ownedGames)
             {
@@ -135,15 +134,20 @@ namespace RecGames.Controllers
                 }
             }
 
-            foreach (var game in recentlyPlayedGames)
-            {
-                var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
-                foreach (var tag in tags)
+            try {
+                var recentlyPlayedGames = myGames["recently_played_games"]["response"]["games"].ToObject<List<Game>>();
+                foreach (var game in recentlyPlayedGames)
                 {
-                    playerTags.Add(tag.TagName);
+                    var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
+                    foreach (var tag in tags)
+                    {
+                        playerTags.Add(tag.TagName);
+                    }
                 }
+            } catch (NullReferenceException e)
+            {
             }
-
+            
             var topTags = playerTags.GroupBy(x => x)
                                     .ToDictionary(x => x.Key, x => x.Count())
                                     .OrderByDescending(x => x.Value)
