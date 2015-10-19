@@ -52,23 +52,25 @@ namespace RecGames.Helpers
                 }
                 //recommendationScore += game.Recommendations * 0.000015f;
 
-                recommendationScore += game.MetacriticScore * 0.22f;
-/*                var metacriticScoreRange = SetMetacriticScoreRange();
+                var metacriticScoreRange = SetMetacriticScoreRange();
                 if (game.MetacriticScore > 0)
                 {
                     foreach (var metacriticScoreLimit in metacriticScoreRange)
                     {
-                        if (game.MetacriticScore <= metacriticScoreLimit.Key)
+                        if ((game.MetacriticScore / 10) <= metacriticScoreLimit.Key)
                         {
-                            recommendationScore += 300 / metacriticScoreLimit.Value;
+                            //recommendationScore += (game.MetacriticScore/10) * metacriticScoreLimit.Value;
+                            recommendationScore += metacriticScoreLimit.Value * 10;
+
                             break;
                         }
                     }
                 }
                 else
                 {
-                        
-                }*/
+                        recommendationScore += (float)Math.Log10(game.Recommendations);
+                }
+                //recommendationScore += game.MetacriticScore * 0.22f;
 
                 var priceRange = SetPriceRange();
                 foreach (var priceLimit in priceRange)
@@ -187,6 +189,26 @@ namespace RecGames.Helpers
             }
         }
 
+        public static Dictionary<int, int> SetRecommendationsRange()
+        {
+            var recommendationsRange = new Dictionary<int, int>();
+            recommendationsRange.Add(1000, 7);
+            recommendationsRange.Add(10000, 5);
+            recommendationsRange.Add(100000, 3);
+            recommendationsRange.Add(1000000, 2);
+
+            return recommendationsRange;
+        }
+
+        public static Dictionary<int, float> SetMetacriticScoreRange()
+        {
+            var metacriticScoreRange = new Dictionary<int, float>();
+            metacriticScoreRange.Add(3, 0.2f);
+            metacriticScoreRange.Add(6, 0.3f);
+            metacriticScoreRange.Add(10, 0.5f);
+
+            return metacriticScoreRange;
+        }
 
         public static Dictionary<double, int> SetPriceRange()
         {
@@ -200,26 +222,6 @@ namespace RecGames.Helpers
             return priceRange;
         }
 
-        public static Dictionary<double, int> SetMetacriticScoreRange()
-        {
-            var metacriticScoreRange = new Dictionary<double, int>();
-            metacriticScoreRange.Add(30, 7);
-            metacriticScoreRange.Add(60, 10);
-            metacriticScoreRange.Add(100, 22);
-
-            return metacriticScoreRange;
-        }
-
-        public static Dictionary<double, int> SetRecommendationsRange()
-        {
-            var recommendationsRange = new Dictionary<double, int>();
-            recommendationsRange.Add(1000, 7);
-            recommendationsRange.Add(10000, 5);
-            recommendationsRange.Add(100000, 3);
-            recommendationsRange.Add(1000000, 2);
-
-            return recommendationsRange;
-        }
     }
     
 }
