@@ -11,9 +11,11 @@
         $scope.playerOwnedGames = data.owned_games.response.games;
         $scope.playerRecentlyPlayedGames = data.recently_played_games.response.games;
         $scope.tagsText = "Loading Portrait Tags...";
+        $scope.tagsReady = false;
         playerFactory.postPlayerPortrait(data).success(function (dataPost) {
             $scope.playerPortrait = angular.fromJson(dataPost);
             $scope.tagsText = "Your Common Tags:";
+            $scope.tagsReady = true;
             $('.recommend-button').css('z-index', '3');
             $rootScope.getRecommendedGames();
         });

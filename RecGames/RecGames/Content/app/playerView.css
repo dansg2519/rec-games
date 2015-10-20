@@ -4,8 +4,18 @@
     padding-left: 10px;
 }
 
+.player-container {
+    border: 1px solid;
+    background-color: #eee;
+    border-radius: 3px;
+    margin-top: 10px;
+    padding: 20px;
+}
+
 .player-avatar {
-    padding-right: 50px;
+    text-align: center;
+    width: 100%;
+    border: 1px solid #000;
 }
 
 .player-name-container {
@@ -25,15 +35,26 @@
 .player-characteristic-tag {
     font-weight: bold;
     display: flex;
+    background-color: #fff;
+    border: 1px solid;
+    padding-left: 5px;
+    margin-bottom: 5px;
 }
 
 .player-characteristic-container {
     display: inline-block;
-    float: right;
-    margin-right: 50px;
+    border-top: 1px solid #000;
+    width: 100%;
 }
 
+.player-characteristic-title {
+    font-family: 'Open Sans';
+    font-weight: bold;
+}
 
+.player-characteristic-container ul {
+    padding-left: 0;
+}
 .recommend-button-container {
     position: relative;
 }
@@ -52,8 +73,71 @@
     height:35px;
 }
 
-.player-container {
-    border: 1px solid;
-    background-color: #eee;
-    border-radius: 3px;
+.loading-games {
+    text-align: center;
+    display: inline-block;
+    color: #000;
+    font-family: 'Open Sans';
+    font-weight: bold;
+
+}
+
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+    vertical-align: text-bottom;
+}
+
+.form-link {
+    font-size: 24px;
+}
+
+@media (max-width:768px) {
+    .player-avatar {
+        width: 15%;
+        float: left;
+    }
+
+    .player-personaname {
+        font-size: 15px;
+        margin: 0 10px 10px;
+    }
+
+    .player-realname {
+        font-size: 15px;
+        margin: 0 10px 0;
+    }
+
+    .player-characteristic-tag {
+        display: inline;
+        margin: 0 5px 5px;
+    }
+
+    .player-characteristic-container {
+        display: inline;
+        height: 65px;
+    }
+
+    .player-characteristic-title {
+        font-size: 13px;
+        margin: 5px;
+    }
+
+    .form-link {
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    .player-container {
+        padding: 10px
+    }
+
+    .container-title {
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    .container {
+        padding-left: 0;
+    }
 }

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div class="post-container">
+        <a href="{{game.game_steam_url}}" target="_blank">
+            <img src="{{game.header_image}}" class="game-image" />
+            <h3 class="game-title">{{game.game_name}}</h3>
+            <p class="game-description">{{game.description}}</p>
+            <div class="score-container">
+                <h3 class="score-text">Score</h3>
+                <h1 class="score-num">{{game.metacritic_score}}</h1>
+            </div>
+            <p class="justification-text">
+                We are recommeding the game <b>{{game.game_name}}</b> because it has as characteristics like <b>{{game.common_tags}}</b> which you may enjoy and also it has <b>{{game.uncommon_tags}}</b> as characteristics. Besides, this game was <b>recommended by {{game.recommendations}} users</b> and received an average <b>score of {{game.metacritic_score}}</b> by critics. Go to the game's page by clicking on its name.
+            </p>
+            <div class="recommendation-container">
+                <h4 class="users-recommended">{{game.recommendations}} users recommended this game</h4>
+            </div>
+            <div class="price-container">
+                <h1 class="price-text">R$ {{game.price_value}}</h1>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

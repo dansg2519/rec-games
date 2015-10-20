@@ -234,6 +234,7 @@
       <DependentUpon>RecGamesDB.mdf</DependentUpon>
     </Content>
     <Content Include="Content\app\playerView.css" />
+    <Content Include="Content\app\post.css" />
     <Content Include="Content\app\recgames.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -242,7 +243,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\spinner.gif" />
     <Content Include="player.html" />
+    <Content Include="post.html" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
