@@ -57,10 +57,10 @@ namespace RecGames.Helpers
                 {
                     foreach (var metacriticScoreLimit in metacriticScoreRange)
                     {
-                        if ((game.MetacriticScore / 10) <= metacriticScoreLimit.Key)
+                        if (game.MetacriticScore <= metacriticScoreLimit.Key)
                         {
-                            //recommendationScore += (game.MetacriticScore/10) * metacriticScoreLimit.Value;
-                            recommendationScore += metacriticScoreLimit.Value * 10;
+                            recommendationScore += game.MetacriticScore * metacriticScoreLimit.Value;
+                            //recommendationScore += metacriticScoreLimit.Value * 10;
 
                             break;
                         }
@@ -68,7 +68,6 @@ namespace RecGames.Helpers
                 }
                 else
                 {
-                        recommendationScore += (float)Math.Log10(game.Recommendations);
                 }
                 //recommendationScore += game.MetacriticScore * 0.22f;
 
@@ -199,13 +198,13 @@ namespace RecGames.Helpers
 
             return recommendationsRange;
         }
-
+        
         public static Dictionary<int, float> SetMetacriticScoreRange()
         {
             var metacriticScoreRange = new Dictionary<int, float>();
-            metacriticScoreRange.Add(3, 0.2f);
-            metacriticScoreRange.Add(6, 0.3f);
-            metacriticScoreRange.Add(10, 0.5f);
+            metacriticScoreRange.Add(30, 0.11f);
+            metacriticScoreRange.Add(60, 0.17f);
+            metacriticScoreRange.Add(100, 0.22f);
 
             return metacriticScoreRange;
         }
