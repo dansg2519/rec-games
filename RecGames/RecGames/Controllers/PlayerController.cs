@@ -130,7 +130,10 @@ namespace RecGames.Controllers
                 var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
                 foreach (var tag in tags)
                 {
-                    playerTags.Add(tag.TagName);                    
+                    if(tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
+                    {
+                        playerTags.Add(tag.TagName);   
+                    }                                     
                 }
             }
 

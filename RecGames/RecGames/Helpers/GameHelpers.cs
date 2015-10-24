@@ -68,6 +68,7 @@ namespace RecGames.Helpers
                 }
                 else
                 {
+                    recommendationScore += 70 * 0.22f;
                 }
                 //recommendationScore += game.MetacriticScore * 0.22f;
 
