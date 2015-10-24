@@ -42,7 +42,7 @@ namespace RecGames.Controllers
         {
             string playerOwnedGames;
             string recentlyPlayedGames;
-
+            // System.Net.WebException
             using (WebClient client = new WebClient())
             {
                 //steamId = "76561197960435530";
@@ -124,7 +124,7 @@ namespace RecGames.Controllers
         {
             var playerTags = new List<string>();
             var ownedGames = myGames["owned_games"]["response"]["games"].ToObject<List<Game>>();
-
+            // System.DataException ou algo do tipo
             foreach (var game in ownedGames)
             {
                 var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
