@@ -139,12 +139,22 @@ namespace RecGames.Controllers
 
             try {
                 var recentlyPlayedGames = myGames["recently_played_games"]["response"]["games"].ToObject<List<Game>>();
+
                 foreach (var game in recentlyPlayedGames)
                 {
+                    var playTimeTwoWeeks = (double)myGames["recently_played_games"]["response"]["games"][recentlyPlayedGames.FindIndex(g => g == game)]["playtime_2weeks"];
                     var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
                     foreach (var tag in tags)
                     {
-                        playerTags.Add(tag.TagName);
+                        if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
+                        {
+                            playTimeTwoWeeks = 2 * Math.Sqrt(playTimeTwoWeeks / 60);
+                            for (int i = 0; i < (50 + playTimeTwoWeeks); i++)
+                            {
+                                playerTags.Add(tag.TagName);
+
+                            }
+                        }
                     }
                 }
             } catch (NullReferenceException e)
