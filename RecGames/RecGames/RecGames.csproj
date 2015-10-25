@@ -244,6 +244,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\spinner.gif" />
+    <Content Include="images\steamid_help.png" />
     <Content Include="player.html" />
     <Content Include="post.html" />
     <Content Include="Scripts\angular-mocks.js" />

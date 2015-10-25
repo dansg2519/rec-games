@@ -1,7 +1,7 @@
 ﻿.steam-id-form-container {
     text-align: center;
     margin-top: 150px;
-    margin-bottom: 270px;
+    margin-bottom: 280px;
 }
 
 footer {
@@ -13,14 +13,25 @@ footer {
 .steam-id-form-help {
     float: left;
     margin-left: 120px;
+    margin-top: 0;
 }
+
+.form-group {
+    margin-bottom: 0;
+}
+
 
 @media (max-width: 540px) {
     .steam-id-form-help {
         margin: 0 auto;
         font-size: 0.857em;
     }
+
     .steam-id-form-input {
         margin: 0 auto;
+    }
+
+    .steam-id-form-image {
+        width: 100%;
     }
 }
