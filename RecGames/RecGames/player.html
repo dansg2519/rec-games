@@ -25,6 +25,14 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="recent-games-container">
+                        <h4 class="recent-text">{{recentGamesText}}</h4>
+                        <ul>
+                            <li ng-repeat="recentGame in playerRecentlyPlayedGames" class="recent-name">
+                                {{recentGame.name}}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-9">

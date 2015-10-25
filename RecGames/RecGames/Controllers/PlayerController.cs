@@ -64,7 +64,7 @@ namespace RecGames.Controllers
             return Ok(playerOwnedGamesPack);
         }
 
-        /*[HttpGet]
+        [HttpGet]
         [ActionName("RecentlyPlayedGames")]
         public IHttpActionResult GetRecentlyPlayedGames()
         {
@@ -76,7 +76,7 @@ namespace RecGames.Controllers
 
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
             return Ok(recentlyPlayedGamesJson);
-        }*/
+        }
 
         [HttpPost]
         [ActionName("SteamId")]

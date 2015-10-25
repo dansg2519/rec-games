@@ -92,6 +92,32 @@
     font-size: 24px;
 }
 
+.recent-games-container {
+    border-top: 1px solid;
+    margin-top: 5px;
+}
+
+.recent-text, .recent-name {
+    font-weight: bold;
+}
+
+.recent-text {
+    font-family: 'Open Sans';
+}
+
+.recent-name {
+    border: 1px solid;
+    background-color: #fff;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.recent-games-container ul {
+    overflow: auto;
+    height: 100px;
+    padding-left: 0;
+}
+
 @media (max-width:768px) {
     .player-avatar {
         width: 15%;
@@ -139,5 +165,28 @@
 
     .container {
         padding-left: 0;
+    }
+
+    .recent-name {
+        display: inline-block;
+        margin-right: 5px;
+        border: 1px solid;
+        background-color: #fff;
+        padding-right: 5px;
+    }
+
+    .recent-text {
+        font-size: 14px;
+    }
+
+    .recent-games-container ul {
+        overflow: auto;
+        display: block;
+        white-space: nowrap;
+        height: auto;
+    }
+
+    .recent-games-container {
+        border-top: 0;
     }
 }

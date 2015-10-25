@@ -21,11 +21,11 @@
         });
     });
 
-    /*playerFactory.getRecentlyPlayedGames().success(function (data) {
+    playerFactory.getRecentlyPlayedGames().success(function (data) {
         $scope.playerRecentlyPlayedGames = data.response.games;
         $scope.recentGamesText = "Recent Games:";
         if (!data.response.games) {
             $scope.recentGamesText = "No recent Games played.";
         }
-    });*/
+    });
 }]);
