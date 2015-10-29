@@ -108,7 +108,7 @@ a:hover, a:focus {
     .post-container {
         position: relative;
         bottom: 0;
-        padding: 10px;
+        padding: 6px;
     }
 
     .game-title {
@@ -127,12 +127,12 @@ a:hover, a:focus {
     }
 
     .score-container {
-        width: 5em;
+        width: 4.3em;
         height: 3.8em;
         position: absolute;
         bottom: 0;
         right: 0;
-        margin: 10px;
+        margin: 6px;
     }
     .score-text {
         font-size: 1.4em;
@@ -144,19 +144,19 @@ a:hover, a:focus {
     }
 
     .price-container {
-        width: 7em;
+        width: 6em;
         height: 2em;
         float: none;
-        margin: 10px 10px 0;
+        margin: 10px 0 0;
     }
 
     .price-text {
         margin: 0;
-        font-size: 1.6em;
+        font-size: 1.4em;
     }
 
     .recommendation-container {
-        width: 8em;
+        width: 7.4em;
         margin: 10px 0 0;
     }
 

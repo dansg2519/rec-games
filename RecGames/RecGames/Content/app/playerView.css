@@ -1,7 +1,6 @@
 ﻿.app-container {
     margin-bottom: 25px;
     margin-top: 25px;
-    padding-left: 10px;
 }
 
 .player-container {
@@ -90,6 +89,13 @@
 
 .form-link {
     font-size: 24px;
+    color: #f00;
+    text-decoration: underline;
+}
+
+.form-link:hover {
+    color: #e55;
+    text-decoration: underline;
 }
 
 .recent-games-container {
@@ -155,7 +161,8 @@
     }
 
     .player-container {
-        padding: 10px
+        padding: 10px;
+        margin-right: 10px;
     }
 
     .container-title {
@@ -163,8 +170,9 @@
         font-weight: bolder;
     }
 
-    .container {
+    .col-sm-9 .container {
         padding-left: 0;
+        padding-right: 0;
     }
 
     .recent-name {

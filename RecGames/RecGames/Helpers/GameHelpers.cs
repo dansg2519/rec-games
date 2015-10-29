@@ -10,7 +10,7 @@ namespace RecGames.Helpers
 {
     public class GameHelpers
     {
-        private const int TopGamesToRecommend = 5;
+        private const int TopGamesToRecommend = 10;
         public static List<int> CalculateRecommendationScore(List<string> playerPortrait, List<Game> playerNotOwnedGames)
         {
             var gamesRecommendationScores = new Dictionary<int, float>();
