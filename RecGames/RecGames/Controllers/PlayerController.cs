@@ -59,6 +59,11 @@ namespace RecGames.Controllers
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
             JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
 
+            if (playerOwnedGamesJson["response"] == null)
+            {
+                return BadRequest();
+            }
+
             playerOwnedGamesPack.Add("owned_games", playerOwnedGamesJson);
             playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJson);
             return Ok(playerOwnedGamesPack);
@@ -123,18 +128,26 @@ namespace RecGames.Controllers
         public IHttpActionResult PostPlayerPortrait(JObject myGames)
         {
             var playerTags = new List<string>();
-            var ownedGames = myGames["owned_games"]["response"]["games"].ToObject<List<Game>>();
-            // System.DataException ou algo do tipo
-            foreach (var game in ownedGames)
+            try
             {
-                var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
-                foreach (var tag in tags)
+                var ownedGames = myGames["owned_games"]["response"]["games"].ToObject<List<Game>>();
+                // System.DataException ou algo do tipo
+                foreach (var game in ownedGames)
                 {
-                    if(tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
+                    var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
+                    foreach (var tag in tags)
                     {
-                        playerTags.Add(tag.TagName);   
-                    }                                     
+                        if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
+                        {
+                            playerTags.Add(tag.TagName);
+                        }
+                    }
                 }
+
+            }
+            catch (NullReferenceException e)
+            {
+                return BadRequest();
             }
 
             try {

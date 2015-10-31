@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="player-characteristic-container" ng-cloak>
-                        <h4 class="player-characteristic-title">{{tagsText}}</h4>
+                        <h4 class="player-characteristic-title {{tagsClass}}">{{tagsText}}</h4>
                         <img class="loading-spinner" src="images/spinner.gif" ng-hide="tagsReady" />
                         <ul ng-cloak>
                             <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">

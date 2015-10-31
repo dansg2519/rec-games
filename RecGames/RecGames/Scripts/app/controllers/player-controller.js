@@ -19,6 +19,12 @@
             $('.recommend-button').css('z-index', '3');
             $rootScope.getRecommendedGames();
         });
+        playerFactory.postPlayerPortrait(data).error(function (dataPost) {
+            $scope.tagsReady = true;
+            $scope.recommendReady = true;
+            $scope.tagsText = "Unable to retrive your Info. Please, verify if your steam account is private";
+            $scope.tagsClass = "no-tags-error";
+        });
     });
 
     playerFactory.getRecentlyPlayedGames().success(function (data) {

@@ -51,6 +51,10 @@
     font-weight: bold;
 }
 
+.no-tags-error {
+    color: #f00;
+}
+
 .player-characteristic-container ul {
     padding-left: 0;
 }
