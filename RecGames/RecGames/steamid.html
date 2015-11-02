@@ -1,7 +1,9 @@
 ﻿<div class="steam-id-form-container">
     <form name="steamIdForm" novalidate ng-submit="submitSteamId(steamIdForm.steamId)" ng-controller="steamIdController"  class="form-horizontal">
         <label class="control-label col-sm-2" for="steamid">SteamID:</label>
+        <span ng-show="connectionError">Unable to connect to Steam. Please, try again later.</span>
         <span ng-show="steamIdForm.steamId.$error.steamid_invalid">This Steam Id format is invalid!</span>
+        
         <div class="form-group">
             <input type="text" ng-model="steamId" name="steamId" placeholder="Enter your Id or custom URL" class="form-control col-sm-8 steam-id-form-input" required />
             

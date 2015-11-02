@@ -115,7 +115,8 @@ namespace RecGames.Controllers
                 }
                 catch(System.Net.WebException)
                 {
-
+                    Debug.WriteLine("Exception Thrown");
+                    return BadRequest();
                 }
                 
             }
