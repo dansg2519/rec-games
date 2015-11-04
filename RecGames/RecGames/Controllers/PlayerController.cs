@@ -197,7 +197,28 @@ namespace RecGames.Controllers
             } catch (NullReferenceException e)
             {
             }
-            
+
+            try
+            {
+                var wishlistGames = myGames["wishlist_games"].ToList();
+                foreach (var game in wishlistGames)
+                {
+                    var wishlistGame = game.ToString();
+                    var tags = db.Games.Where(g => g.Name == wishlistGame).SelectMany(g => g.Tags).ToList();
+
+                    foreach (var tag in tags)
+                    {
+                        if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
+                        {
+                            playerTags.Add(tag.TagName);
+                        }
+                    }
+                }
+            }
+            catch (NullReferenceException e)
+            {
+            }
+
             var topTags = playerTags.GroupBy(x => x)
                                     .ToDictionary(x => x.Key, x => x.Count())
                                     .OrderByDescending(x => x.Value)

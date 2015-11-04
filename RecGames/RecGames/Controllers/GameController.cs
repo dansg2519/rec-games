@@ -26,6 +26,7 @@ namespace RecGames.Controllers
         {
             var ownedGamesIds = playerData.GetValue("owned_games").Select(o => o.SelectToken("appid").ToObject<int>()).ToList();
             var playerPortrait = playerData.GetValue("player_portrait").Select(p => p.ToString()).ToList();
+            var wishlistGames = playerData.GetValue("wishlist_games").Select(p => p.ToString()).ToList();
 
             //ideia:pegar todos os jogos que o jogador não tem; pegar todos os jogos que não tem nenhuma tag que descrevem o jogador;
             //remover de todos os jogos que não tem, os que não tem nenhuma tag que descrevem o jogador, para assim obter 
