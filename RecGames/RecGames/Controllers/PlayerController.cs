@@ -12,6 +12,7 @@ using System.Web.Script.Serialization;
 using Resources;
 using HtmlAgilityPack;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace RecGames.Controllers
 {
@@ -42,7 +43,8 @@ namespace RecGames.Controllers
         {
             string playerOwnedGames;
             string recentlyPlayedGames;
-            // System.Net.WebException
+            List<string> wishlistGames;
+
             using (WebClient client = new WebClient())
             {
                 //steamId = "76561197960435530";
@@ -54,22 +56,43 @@ namespace RecGames.Controllers
                 recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
             }
 
-            JObject playerOwnedGamesPack = new JObject();
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + SteamId + @"/wishlist/");
 
+                    HtmlDocument htmlDocument = new HtmlDocument();
+                    htmlDocument.LoadHtml(html);
+                    wishlistGames = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']")
+                                                    .Select(h => h.InnerText).ToList();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+            JObject playerOwnedGamesPack = new JObject();
+            
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
             JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
-
             if (playerOwnedGamesJson["response"] == null)
             {
                 return BadRequest();
             }
 
+            var a = JsonConvert.SerializeObject(wishlistGames);
+            JArray wishlistGamesJson = JArray.Parse(a);
+
             playerOwnedGamesPack.Add("owned_games", playerOwnedGamesJson);
             playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJson);
+            playerOwnedGamesPack.Add("wishlist_games", wishlistGamesJson);
+
             return Ok(playerOwnedGamesPack);
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [ActionName("RecentlyPlayedGames")]
         public IHttpActionResult GetRecentlyPlayedGames()
         {
@@ -81,7 +104,7 @@ namespace RecGames.Controllers
 
             JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
             return Ok(recentlyPlayedGamesJson);
-        }
+        }*/
 
         [HttpPost]
         [ActionName("SteamId")]
