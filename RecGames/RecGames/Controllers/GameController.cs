@@ -44,7 +44,13 @@ namespace RecGames.Controllers
             //remove jogos que não são free mas estão com preço 0
             var tagFreeToPlay = db.Tags.Single(t => t.TagName.Equals("Free to Play"));
             playerNotOwnedGames.RemoveAll(g => (g.PriceValue == 0) && !(g.Tags.Contains(tagFreeToPlay)));
-            
+
+            //remove jogos que estão na wishlist
+            foreach (var game in wishlistGames)
+            {
+                playerNotOwnedGames.RemoveAll(g => g.Name == game);
+            }
+
             var gamesIdsToRecommend = GameHelpers.CalculateRecommendationScore(playerPortrait, playerNotOwnedGames);
             var gamesToRecommend = db.Games.Where(g => gamesIdsToRecommend.Contains(g.GameID)).ToList();
             var gamesToRecommendJson = GameHelpers.SetUpGamesToRecommendJson(gamesToRecommend, playerPortrait);

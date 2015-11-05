@@ -13,6 +13,7 @@ using Resources;
 using HtmlAgilityPack;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace RecGames.Controllers
 {
@@ -56,7 +57,7 @@ namespace RecGames.Controllers
                 recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
             }
 
-            using (WebClient client = new WebClient())
+            using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
             {
                 try
                 {
@@ -64,6 +65,7 @@ namespace RecGames.Controllers
 
                     HtmlDocument htmlDocument = new HtmlDocument();
                     htmlDocument.LoadHtml(html);
+
                     wishlistGames = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']")
                                                     .Select(h => h.InnerText).ToList();
                 }
