@@ -11,26 +11,8 @@ namespace RecGames.Helpers
     public class GameHelpers
     {
         private const int TopGamesToRecommend = 10;
+
         public static List<int> CalculateRecommendationScore(List<string> playerPortrait, List<Game> playerNotOwnedGames)
-        {
-            var gamesRecommendationScores = new Dictionary<int, float>();
-            foreach (var game in playerNotOwnedGames)
-            {
-                float recommendationScore = 0.0f;
-                var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
-
-                recommendationScore += tagsMatch * 10.0f;
-                recommendationScore += game.MetacriticScore * 0.25f;
-                recommendationScore += game.Recommendations * 0.000025f;
-
-                gamesRecommendationScores.Add(game.GameID, recommendationScore);
-            }
-            
-            var gamesIdsToRecommend = gamesRecommendationScores.OrderByDescending(p => p.Value).Take(TopGamesToRecommend).Select(p => p.Key).ToList();
-            return gamesIdsToRecommend;
-        }
-
-        public static List<int> CalculateRecommendationScore2(List<string> playerPortrait, List<Game> playerNotOwnedGames)
         {
             var gamesRecommendationScores = new Dictionary<int, float>();
 
@@ -222,6 +204,24 @@ namespace RecGames.Helpers
             return priceRange;
         }
 
+        /*public static List<int> CalculateRecommendationScore(List<string> playerPortrait, List<Game> playerNotOwnedGames)
+        {
+            var gamesRecommendationScores = new Dictionary<int, float>();
+            foreach (var game in playerNotOwnedGames)
+            {
+                float recommendationScore = 0.0f;
+                var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
+        
+                recommendationScore += tagsMatch * 10.0f;
+                recommendationScore += game.MetacriticScore * 0.25f;
+                recommendationScore += game.Recommendations * 0.000025f;
+        
+                gamesRecommendationScores.Add(game.GameID, recommendationScore);
+            }
+        
+            var gamesIdsToRecommend = gamesRecommendationScores.OrderByDescending(p => p.Value).Take(TopGamesToRecommend).Select(p => p.Key).ToList();
+            return gamesIdsToRecommend;
+        }*/
     }
-    
+
 }
