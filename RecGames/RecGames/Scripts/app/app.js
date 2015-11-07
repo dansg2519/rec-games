@@ -1,4 +1,4 @@
-﻿var app = angular.module('RecGamesApp', ['ui.router', 'ngProgress']);
+﻿var app = angular.module('RecGamesApp', ['ui.router', 'ngProgress', 'LocalStorageModule']);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider.state('start', {
@@ -11,5 +11,5 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
 
     $urlRouterProvider.otherwise('/');
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
 }]);

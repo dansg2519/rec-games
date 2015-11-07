@@ -247,6 +247,7 @@
     <Content Include="images\steamid_help.png" />
     <Content Include="player.html" />
     <Content Include="post.html" />
+    <Content Include="Scripts\angular-local-storage.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
