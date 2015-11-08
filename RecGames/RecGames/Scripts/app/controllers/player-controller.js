@@ -9,7 +9,13 @@
 
     playerFactory.getOwnedGames().success(function (data) {
         $scope.playerOwnedGames = data.owned_games.response.games;
+
+        $scope.recentGamesText = "Recent Games:";
+        if (!data.recently_played_games.response.games) {
+            $scope.recentGamesText = "No Games played recently.";
+        }
         $scope.playerRecentlyPlayedGames = data.recently_played_games.response.games;
+
         $scope.tagsText = "Loading Portrait Tags...";
         $scope.tagsReady = false;
         playerFactory.postPlayerPortrait(data).success(function (dataPost) {
@@ -26,12 +32,4 @@
             $scope.tagsClass = "no-tags-error";
         });
     });
-
-    /*playerFactory.getRecentlyPlayedGames().success(function (data) {
-        $scope.playerRecentlyPlayedGames = data.response.games;
-        $scope.recentGamesText = "Recent Games:";
-        if (!data.response.games) {
-            $scope.recentGamesText = "No recent Games played.";
-        }
-    });*/
 }]);

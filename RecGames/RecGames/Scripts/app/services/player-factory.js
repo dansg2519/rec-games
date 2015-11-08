@@ -29,17 +29,6 @@
                 return err;
             });
     }
-
-    /*dataFactory.getRecentlyPlayedGames = function () {
-        return $http.get(urlBase + 'recentlyPlayedGames')
-            .success(function (data) {
-                player['recentlyPlayedGames'] = data;
-                return console.log(data);
-            })
-            .error(function (err) {
-                return err;
-            });
-    }*/
     
     dataFactory.postSteamId = function (steamId) {
         return $http.post(urlBase + 'steamId', JSON.stringify(steamId))

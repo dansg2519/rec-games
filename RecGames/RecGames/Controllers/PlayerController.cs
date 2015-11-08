@@ -14,13 +14,14 @@ using HtmlAgilityPack;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Text;
+using RecGames.Helpers;
 
 namespace RecGames.Controllers
 {
     public class PlayerController : ApiController
     {
-        private static string SteamId = "76561197960435530";
         private const int TopTags = 5;
+        private static string SteamId;
         private RecGameContext db = new RecGameContext();
 
         [HttpGet]
@@ -30,7 +31,6 @@ namespace RecGames.Controllers
             string playerInfo;
             using (WebClient client = new WebClient())
             {
-                //steamId = "76561197960435530";
                 playerInfo = client.DownloadString(@"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Strings.SteamKey + "&steamids=" + SteamId);
             }
 
@@ -44,70 +44,44 @@ namespace RecGames.Controllers
         {
             string playerOwnedGames;
             string recentlyPlayedGames;
-            List<string> wishlistGames;
-
-            using (WebClient client = new WebClient())
-            {
-                //steamId = "76561197960435530";
-                playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
-            }
-
-            using (WebClient client = new WebClient())
-            {
-                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
-            }
+            var wishlistGames = new List<string>();
 
             using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
             {
-                try
-                {
-                    string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + SteamId + @"/wishlist/");
+                playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
+                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
 
+                string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + SteamId + @"/wishlist/");
+                if (html != null)
+                {
                     HtmlDocument htmlDocument = new HtmlDocument();
                     htmlDocument.LoadHtml(html);
 
                     wishlistGames = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']")
-                                                    .Select(h => h.InnerText).ToList();
+                                                .Select(h => h.InnerText).ToList();
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
+                    
             }
 
             JObject playerOwnedGamesPack = new JObject();
             
-            JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
-            JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
-            if (playerOwnedGamesJson["response"] == null)
+            JObject recentlyPlayedGamesJObject = JObject.Parse(recentlyPlayedGames);
+            JObject playerOwnedGamesJObject = JObject.Parse(playerOwnedGames);
+            if (playerOwnedGamesJObject["response"] == null)
             {
                 return BadRequest();
             }
 
-            var a = JsonConvert.SerializeObject(wishlistGames);
-            JArray wishlistGamesJson = JArray.Parse(a);
+            var wishlistGamesJson = JsonConvert.SerializeObject(wishlistGames);
+            JArray wishlistGamesJArray = JArray.Parse(wishlistGamesJson);
 
-            playerOwnedGamesPack.Add("owned_games", playerOwnedGamesJson);
-            playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJson);
-            playerOwnedGamesPack.Add("wishlist_games", wishlistGamesJson);
+            playerOwnedGamesPack.Add("owned_games", playerOwnedGamesJObject);
+            playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJObject);
+            playerOwnedGamesPack.Add("wishlist_games", wishlistGamesJArray);
 
             return Ok(playerOwnedGamesPack);
         }
-
-        /*[HttpGet]
-        [ActionName("RecentlyPlayedGames")]
-        public IHttpActionResult GetRecentlyPlayedGames()
-        {
-            string recentlyPlayedGames;
-            using (WebClient client = new WebClient())
-            {
-                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
-            }
-
-            JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
-            return Ok(recentlyPlayedGamesJson);
-        }*/
-
+        
         [HttpPost]
         [ActionName("SteamId")]
         public IHttpActionResult PostSteamId([FromBody]string steamId)
@@ -140,10 +114,8 @@ namespace RecGames.Controllers
                 }
                 catch(System.Net.WebException)
                 {
-                    Debug.WriteLine("Exception Thrown");
                     return BadRequest();
-                }
-                
+                }                
             }
                 
             return Ok(validSteamId);
@@ -154,72 +126,9 @@ namespace RecGames.Controllers
         public IHttpActionResult PostPlayerPortrait(JObject myGames)
         {
             var playerTags = new List<string>();
-            try
-            {
-                var ownedGames = myGames["owned_games"]["response"]["games"].ToObject<List<Game>>();
-                // System.DataException ou algo do tipo
-                foreach (var game in ownedGames)
-                {
-                    var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
-                    foreach (var tag in tags)
-                    {
-                        if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
-                        {
-                            playerTags.Add(tag.TagName);
-                        }
-                    }
-                }
-
-            }
-            catch (NullReferenceException e)
-            {
-                return BadRequest();
-            }
-
-            try {
-                var recentlyPlayedGames = myGames["recently_played_games"]["response"]["games"].ToObject<List<Game>>();
-
-                foreach (var game in recentlyPlayedGames)
-                {
-                    var playTimeTwoWeeks = (double)myGames["recently_played_games"]["response"]["games"][recentlyPlayedGames.FindIndex(g => g == game)]["playtime_2weeks"];
-                    var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
-                    foreach (var tag in tags)
-                    {
-                        if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
-                        {
-                            playTimeTwoWeeks = 2 * Math.Sqrt(playTimeTwoWeeks / 60);
-                            for (int i = 0; i < (50 + playTimeTwoWeeks); i++)
-                            {
-                                playerTags.Add(tag.TagName);
-
-                            }
-                        }
-                    }
-                }
-            } catch (NullReferenceException e)
-            {
-            }
-
-            try
-            {
-                var wishlistGames = myGames["wishlist_games"].ToList();
-                foreach (var game in wishlistGames)
-                {
-                    var wishlistGame = game.ToString();
-                    var tags = db.Games.Where(g => g.Name == wishlistGame).SelectMany(g => g.Tags).ToList();
-
-                    foreach (var tag in tags)
-                    {
-                        if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
-                        {
-                            playerTags.Add(tag.TagName);
-                        }
-                    }
-                }
-            }
-            catch (NullReferenceException e)
-            {
-            }
+            PlayerHelpers.DefinePortraitByOwnedGames(playerTags, myGames, db);
+            PlayerHelpers.DefinePortraitByRecentlyPlayedGames(playerTags, myGames, db);
+            PlayerHelpers.DefinePortraitByWishListGames(playerTags, myGames, db);
 
             var topTags = playerTags.GroupBy(x => x)
                                     .ToDictionary(x => x.Key, x => x.Count())
