@@ -18,12 +18,19 @@ namespace RecGames.Helpers
 
                 foreach (var game in ownedGames)
                 {
+                    var playTimeForever = (double)myGames["owned_games"]["response"]["games"][ownedGames.FindIndex(g => g == game)]["playtime_forever"];
+
                     var tags = db.Games.Where(g => g.GameID == game.GameID).SelectMany(g => g.Tags).ToList();
                     foreach (var tag in tags)
                     {
                         if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
                         {
-                            playerTags.Add(tag.TagName);
+                            playTimeForever = Math.Sqrt(playTimeForever / 60)/4;
+                            for (int i = 0; i < (1 + playTimeForever); i++)
+                            {
+                                playerTags.Add(tag.TagName);
+
+                            }
                         }
                     }
                 }
