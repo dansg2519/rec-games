@@ -19,7 +19,7 @@ namespace RecGames.Helpers
             foreach (var game in playerNotOwnedGames)
             {
                 float recommendationScore = 0.0f;
-
+                // TO-DO System.Data.Entity.Core.EntityCommandExecutionException
                 var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
                 recommendationScore += tagsMatch * 32f;
 
