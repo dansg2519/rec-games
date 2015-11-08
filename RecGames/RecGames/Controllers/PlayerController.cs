@@ -45,41 +45,57 @@ namespace RecGames.Controllers
             string playerOwnedGames;
             string recentlyPlayedGames;
             var wishlistGames = new List<string>();
-
-            using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
-            {
-                playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
-                recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
-
-                string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + SteamId + @"/wishlist/");
-                if (html != null)
-                {
-                    HtmlDocument htmlDocument = new HtmlDocument();
-                    htmlDocument.LoadHtml(html);
-
-                    wishlistGames = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']")
-                                                .Select(h => h.InnerText).ToList();
-                }
-                    
-            }
-
             JObject playerOwnedGamesPack = new JObject();
+            // System.Net.WebException
+            try
+            {
+                using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
+                {
+                    playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
+
+                    
+
+
+                    JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
+                    if (playerOwnedGamesJson["response"].Count() == 0)
+                    {
+                        Debug.WriteLine("PRIVATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        return Ok();
+                    }
+
+                    playerOwnedGamesPack.Add("owned_games", playerOwnedGamesJson);
+
+                    recentlyPlayedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId);
+
+                    string html = client.DownloadString(@"http://steamcommunity.com/profiles/" + SteamId + @"/wishlist/");
+                    if (html != null)
+                    {
+                        HtmlDocument htmlDocument = new HtmlDocument();
+                        htmlDocument.LoadHtml(html);
+
+                        wishlistGames = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']")
+                                                    .Select(h => h.InnerText).ToList();
+                    }
+
+                }
+
+                
+
+                JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
+
+                var wishlistGamesJson = JsonConvert.SerializeObject(wishlistGames);
+                JArray wishlistGamesJArray = JArray.Parse(wishlistGamesJson);
             
-            JObject recentlyPlayedGamesJObject = JObject.Parse(recentlyPlayedGames);
-            JObject playerOwnedGamesJObject = JObject.Parse(playerOwnedGames);
-            if (playerOwnedGamesJObject["response"] == null)
+                
+                playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJson);
+                playerOwnedGamesPack.Add("wishlist_games", wishlistGamesJson);
+
+                return Ok(playerOwnedGamesPack);
+            }
+            catch(System.Net.WebException e)
             {
                 return BadRequest();
             }
-
-            var wishlistGamesJson = JsonConvert.SerializeObject(wishlistGames);
-            JArray wishlistGamesJArray = JArray.Parse(wishlistGamesJson);
-
-            playerOwnedGamesPack.Add("owned_games", playerOwnedGamesJObject);
-            playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJObject);
-            playerOwnedGamesPack.Add("wishlist_games", wishlistGamesJArray);
-
-            return Ok(playerOwnedGamesPack);
         }
         
         [HttpPost]
@@ -126,10 +142,17 @@ namespace RecGames.Controllers
         public IHttpActionResult PostPlayerPortrait(JObject myGames)
         {
             var playerTags = new List<string>();
-            PlayerHelpers.DefinePortraitByOwnedGames(playerTags, myGames, db);
-            PlayerHelpers.DefinePortraitByRecentlyPlayedGames(playerTags, myGames, db);
-            PlayerHelpers.DefinePortraitByWishListGames(playerTags, myGames, db);
-
+            try
+            {
+                PlayerHelpers.DefinePortraitByOwnedGames(playerTags, myGames, db);
+                PlayerHelpers.DefinePortraitByRecentlyPlayedGames(playerTags, myGames, db);
+                PlayerHelpers.DefinePortraitByWishListGames(playerTags, myGames, db);
+            }
+            catch (NullReferenceException e)
+            {
+                return Ok();
+            }
+            
             var topTags = playerTags.GroupBy(x => x)
                                     .ToDictionary(x => x.Key, x => x.Count())
                                     .OrderByDescending(x => x.Value)

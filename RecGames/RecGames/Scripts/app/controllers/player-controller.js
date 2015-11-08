@@ -8,27 +8,47 @@
     });
 
     playerFactory.getOwnedGames().success(function (data) {
-        $scope.playerOwnedGames = data.owned_games.response.games;
-
-        $scope.recentGamesText = "Recent Games:";
-        if (!data.recently_played_games.response.games) {
-            $scope.recentGamesText = "No Games played recently.";
+        if (data.owned_games) {
+            $scope.playerOwnedGames = data.owned_games.response.games;
         }
-        $scope.playerRecentlyPlayedGames = data.recently_played_games.response.games;
+        
+        $scope.recentGamesText = "Recent Games:";
+        if (data.recently_played_games) {
+            $scope.playerRecentlyPlayedGames = data.recently_played_games.response.games;
+            if (!$scope.playerRecentlyPlayedGames) {
+                $scope.recentGamesText = "No recent Games played.";
+            }
+            
+        }
 
         $scope.tagsText = "Loading Portrait Tags...";
         $scope.tagsReady = false;
-        playerFactory.postPlayerPortrait(data).success(function (dataPost) {
-            $scope.playerPortrait = angular.fromJson(dataPost);
-            $scope.tagsText = "Your Common Tags:";
-            $scope.tagsReady = true;
-            $('.recommend-button').css('z-index', '3');
-            $rootScope.getRecommendedGames();
-        });
-        playerFactory.postPlayerPortrait(data).error(function (dataPost) {
+
+        if ($scope.playerOwnedGames) {
+            console.log("has games");
+            playerFactory.postPlayerPortrait(data).success(function (dataPost) {
+                $scope.playerPortrait = angular.fromJson(dataPost);
+                $scope.tagsText = "Your Common Tags:";
+                $scope.tagsReady = true;
+                $('.recommend-button').css('z-index', '3');
+                $rootScope.getRecommendedGames();
+            });
+        }
+        else {
+            console.log("no games");
+            playerFactory.postPlayerPortrait(data).success(function (dataPost) {
+                $scope.tagsReady = true;
+                $scope.recommendReady = true;
+                $scope.tagsText = "Unable to retrive your Info. Please, verify if your steam account is private";
+                $scope.tagsClass = "no-tags-error";
+            });
+        }
+        playerFactory.getOwnedGames(data).error(function (dataPost) {
+            console.log("error");
             $scope.tagsReady = true;
             $scope.recommendReady = true;
-            $scope.tagsText = "Unable to retrive your Info. Please, verify if your steam account is private";
+            $scope.steamErrorText = "Unable to connect to Steam. Please, try again later.";
+            $scope.tagsText = "Error";
             $scope.tagsClass = "no-tags-error";
         });
     });
