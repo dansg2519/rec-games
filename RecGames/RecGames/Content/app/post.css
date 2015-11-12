@@ -2,19 +2,26 @@
     width: 100%;
     clear: both;
     border: 1px solid #eee;
+    position: relative;
+    padding: 1.5rem;
 }
 
 .game-image {
     width: 320px;
     height: auto;
-    margin: 20px;
     display: inline-block;
+}
+
+.game-info-container {
+    display: inline-block;
+    width: 10em;
+    height: auto;
+    vertical-align: top;
+    margin-left: 24px;
 }
 
 .score-container, .price-container, .recommendation-container {
     background-color: #aa1a00;
-    margin: 20px;
-    border: 1px solid #000;
 }
 
 .score-container {
@@ -26,16 +33,20 @@
 }
 
 .price-container {
-    width: 160px;
-    height: 55px;
+    width: 120px;
+    height: 40px;
     float: right;
     display: inline-block;
-    margin: 10px 20px 20px 0px;
+    margin: 16px;
     text-align: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .price-text {
     margin-top: 6px;
+    font-size: 24px;
 }
 
 .recommendation-container {
@@ -51,19 +62,21 @@
     font-family: 'Open Sans', 'PT Serif';
     color: #990000;
     width: 10em;
+    margin-top: 0;
 }
 
-.game-description {
+.game-developer {
     display: inline-block;
 }
 
 .justification-text {
-    margin: 0px 20px;
+    margin: 24px 0;
     font-weight: bold;
     font-family: 'Open Sans', 'PT Serif';
     color: #bb1a00;
     width: 90%;
     text-decoration: none;
+
 }
 
 a:hover, a:focus {
@@ -79,10 +92,12 @@ a:hover, a:focus {
 .score-text {
     margin-top: 6px;
     margin-bottom: 0;
+    font-size: 16px;
 }
 
 .score-num{
     margin-top: 0;
+    font-size: 24px;
 }
 
 .users-recommended {
@@ -91,6 +106,7 @@ a:hover, a:focus {
     font-weight: bold;
     margin-top: 3px;
     padding: 0 5px 0;
+    font-size: 16px;
 }
 
 .post-container:hover .game-title, 

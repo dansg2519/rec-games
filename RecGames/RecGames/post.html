@@ -8,10 +8,12 @@
     <div class="post-container shadow">
         <a href="{{game.game_steam_url}}" target="_blank">
             <img src="{{game.header_image}}" class="game-image" />
-            <h3 class="game-title">{{game.game_name}}</h3>
-            <p class="game-description">{{game.description}}</p>
+            <div class="game-info-container">
+                <h3 class="game-title">{{game.game_name}}</h3>
+                <p class="game-developer help-block">By {{game.developers}}</p>
+            </div>
             <div class="score-container">
-                <h3 class="score-text">Score</h3>
+                <h3 class="score-text">Critic Score</h3>
                 <h1 class="score-num">{{game.metacritic_score}}</h1>
             </div>
             <p class="justification-text">
