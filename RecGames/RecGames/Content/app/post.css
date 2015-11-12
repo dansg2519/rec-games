@@ -1,6 +1,7 @@
 ﻿.post-container {
     width: 100%;
     clear: both;
+    border: 1px solid #eee;
 }
 
 .game-image {
@@ -11,14 +12,14 @@
 }
 
 .score-container, .price-container, .recommendation-container {
-    background-color: #0094ff;
+    background-color: #aa1a00;
     margin: 20px;
     border: 1px solid #000;
 }
 
 .score-container {
-    width: 90px;
-    height: 90px;
+    width: 75px;
+    height: 75px;
     display: inline-block;
     float: right;
     text-align: center;
@@ -48,7 +49,7 @@
     vertical-align: top;
     font-weight: bold;
     font-family: 'Open Sans', 'PT Serif';
-    color: #0054ff;
+    color: #990000;
     width: 10em;
 }
 
@@ -60,7 +61,7 @@
     margin: 0px 20px;
     font-weight: bold;
     font-family: 'Open Sans', 'PT Serif';
-    color: #0094ff;
+    color: #bb1a00;
     width: 90%;
     text-decoration: none;
 }
@@ -77,6 +78,7 @@ a:hover, a:focus {
 
 .score-text {
     margin-top: 6px;
+    margin-bottom: 0;
 }
 
 .score-num{
@@ -93,13 +95,17 @@ a:hover, a:focus {
 
 .post-container:hover .game-title, 
 .post-container:hover .justification-text {
-    color: #2fcbff;
+    color: #bb0000;
 }
 
 .post-container:hover .score-container, 
 .post-container:hover .recommendation-container, 
 .post-container:hover .price-container {
-    background-color: #2fcbff;
+    background-color: #bb0000;
+}
+
+.post-container:hover {
+       margin-bottom:
 }
 
 @media (max-width: 768px) {
