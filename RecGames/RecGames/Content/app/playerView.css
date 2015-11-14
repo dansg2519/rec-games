@@ -45,6 +45,19 @@
     margin-bottom: 5px;
 }
 
+.player-characteristic-tag a, .recent-name a {
+    color: #333333;
+    width: 100%;
+}
+
+.player-characteristic-tag:hover .player-characteristic-tag,
+.player-characteristic-tag a:hover,
+.recent-name:hover .recent-name,
+.recent-name a:hover {
+    background-color: #333333;
+    color: #fff;
+}
+
 .player-characteristic-container {
     display: inline-block;
     border-top: 1px solid #ccc;

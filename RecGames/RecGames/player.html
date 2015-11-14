@@ -22,8 +22,10 @@
                             <img class="loading-spinner" src="images/spinner.gif" ng-hide="tagsReady" />
                             <ul ng-cloak>
                                 <li ng-repeat="characteristic in playerPortrait" class="player-characteristic-tag">
-                                    <span class=" tag-icon glyphicon glyphicon-tag" aria-hidden="true"></span>
-                                    {{characteristic}}
+                                    <a href="http://store.steampowered.com/tag/en/{{characteristic}}">
+                                        <span class=" tag-icon glyphicon glyphicon-tag" aria-hidden="true"></span>
+                                        {{characteristic}}
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -31,7 +33,9 @@
                             <h4 class="recent-text">{{recentGamesText}}</h4>
                             <ul>
                                 <li ng-repeat="recentGame in playerRecentlyPlayedGames" class="recent-name">
-                                    {{recentGame.name}}
+                                    <a href="http://store.steampowered.com/app/{{recentGame.appid}}">
+                                        {{recentGame.name}}
+                                    </a>
                                 </li>
                             </ul>
                         </div>

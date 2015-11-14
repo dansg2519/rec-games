@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Resources;
+using System.Net;
 
 namespace RecGames.Helpers
 {
@@ -74,7 +75,7 @@ namespace RecGames.Helpers
 
         public static JArray SetUpGamesToRecommendJson(List<Game> gamesToRecommend, List<string> playerPortrait)
         {
-            JArray gamesToRecommendJson = new JArray(gamesToRecommend.Select(g => (
+            JArray gamesToRecommendJson = new JArray(gamesToRecommend.Select(g => (            
                 new JObject(
                     new JProperty("game_name", g.Name),
                     new JProperty("developers", g.Developers),
@@ -202,6 +203,35 @@ namespace RecGames.Helpers
             priceRange.Add(10000, 22);
 
             return priceRange;
+        }
+
+        public static Game gameValues(int id)
+        {
+            string gameInfoJson;
+            Game game = new Game();
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+
+                    gameInfoJson = client.DownloadString(@"http://store.steampowered.com/api/appdetails/?appids=" + id.ToString() + "&cc=br&filters=price_overview,recommendations,metacritic");
+
+                    JObject jObject = JObject.Parse(gameInfoJson);
+                    JObject idObject = (JObject)jObject[id.ToString()];
+                    JObject dataObject = (JObject)idObject["data"];
+
+                    game.MetacriticScore = (int)dataObject["metacritic"]["score"];
+                    game.Recommendations = (int)dataObject["recommendations"]["total"];
+                    game.PriceValue = (double)dataObject["price_overview"]["value"];
+
+                }
+                return game;
+            }
+            catch(System.Net.WebException e)
+            {
+                return null;
+            }
+            
         }
 
         /*public static List<int> CalculateRecommendationScore(List<string> playerPortrait, List<Game> playerNotOwnedGames)
