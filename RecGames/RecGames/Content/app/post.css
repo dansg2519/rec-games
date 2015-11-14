@@ -120,10 +120,6 @@ a:hover, a:focus {
     background-color: #bb0000;
 }
 
-.post-container:hover {
-       margin-bottom:
-}
-
 @media (max-width: 768px) {
 
     .post-container {
@@ -132,8 +128,13 @@ a:hover, a:focus {
         padding: 6px;
     }
 
+
+    .game-info-container {
+        margin-left: 0;
+    }
+
     .game-title {
-        margin: 10px 0;
+        margin: 0;
     }
 
     .game-image {
@@ -142,8 +143,7 @@ a:hover, a:focus {
     }
 
     .justification-text {
-        font-size: 0.9em;
-        margin: 0 0 25px;
+        margin: 0 0 16px;
         width: 100%;
     }
 
@@ -156,19 +156,17 @@ a:hover, a:focus {
         margin: 6px;
     }
     .score-text {
-        font-size: 1.4em;
+        font-size: 12px;
         margin: 0;
     }
-
-    .score-num {
-        font-size: 2em;
-    }
-
+    
     .price-container {
-        width: 6em;
+        width: 7em;
         height: 2em;
         float: none;
-        margin: 10px 0 0;
+        margin: 6px 0.6rem;
+        right: initial;
+        padding: 3px;
     }
 
     .price-text {
