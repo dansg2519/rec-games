@@ -20,7 +20,7 @@ namespace RecGames.Controllers
 {
     public class PlayerController : ApiController
     {
-        private const int TopTags = 5;
+        private const int TopTags = 7;
         private static string SteamId;
         private RecGameContext db = new RecGameContext();
 
@@ -53,9 +53,6 @@ namespace RecGames.Controllers
                 {
                     playerOwnedGames = client.DownloadString(@"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + Strings.SteamKey + "&steamid=" + SteamId + "&include_appinfo=1&include_played_free_games=1&format=json");
 
-                    
-
-
                     JObject playerOwnedGamesJson = JObject.Parse(playerOwnedGames);
                     if (playerOwnedGamesJson["response"].Count() == 0)
                     {
@@ -76,23 +73,19 @@ namespace RecGames.Controllers
                         wishlistGames = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']")
                                                     .Select(h => h.InnerText).ToList();
                     }
-
-                }
-
-                
+                }                
 
                 JObject recentlyPlayedGamesJson = JObject.Parse(recentlyPlayedGames);
 
                 var wishlistGamesJson = JsonConvert.SerializeObject(wishlistGames);
-                JArray wishlistGamesJArray = JArray.Parse(wishlistGamesJson);
-            
+                JArray wishlistGamesJArray = JArray.Parse(wishlistGamesJson);            
                 
                 playerOwnedGamesPack.Add("recently_played_games", recentlyPlayedGamesJson);
                 playerOwnedGamesPack.Add("wishlist_games", wishlistGamesJson);
 
                 return Ok(playerOwnedGamesPack);
             }
-            catch(System.Net.WebException e)
+            catch(System.Net.WebException)
             {
                 return BadRequest();
             }
@@ -148,7 +141,7 @@ namespace RecGames.Controllers
                 PlayerHelpers.DefinePortraitByRecentlyPlayedGames(playerTags, myGames, db);
                 PlayerHelpers.DefinePortraitByWishListGames(playerTags, myGames, db);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return Ok();
             }
