@@ -196,11 +196,11 @@ namespace RecGames.Helpers
         public static Dictionary<double, int> SetPriceRange()
         {
             var priceRange = new Dictionary<double, int>();
-            priceRange.Add(10.99, 5);
-            priceRange.Add(21.24, 7);
-            priceRange.Add(42.48, 10);
-            priceRange.Add(84.96, 15);
-            priceRange.Add(10000, 22);
+            //media de preco dos jogos indies igual a 18.58
+            priceRange.Add(8.58, 7);
+            priceRange.Add(28.58, 5);
+            priceRange.Add(48.58, 10);
+            priceRange.Add(10000, 15);
 
             return priceRange;
         }
