@@ -6,6 +6,10 @@ using System.Linq;
 using System.Web;
 using Resources;
 using System.Net;
+using HtmlAgilityPack;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace RecGames.Helpers
 {
@@ -25,12 +29,33 @@ namespace RecGames.Helpers
                 recommendationScore += tagsMatch * 32f;
 
                 var recommendationsRange = SetRecommendationsRange();
-                foreach (var recommendationsLimit in recommendationsRange)
+                if (game.Recommendations > 0)
                 {
-                    if (game.Recommendations <= recommendationsLimit.Key)
+                    int gamePositiveRecommendation = 0;
+                    using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
                     {
-                        recommendationScore += (float)Math.Log10(game.Recommendations) * recommendationsLimit.Value;
-                        break;
+                        string html = client.DownloadString(@"http://store.steampowered.com/app/" + game.GameID);
+                        if (html != null)
+                        {
+                            HtmlDocument htmlDocument = new HtmlDocument();
+                            htmlDocument.LoadHtml(html);
+
+                            var recommendations = htmlDocument.DocumentNode.SelectNodes("//span[@class='user_reviews_count']");
+                            if (recommendations != null)
+                            {
+                                var totalRecommendations = recommendations.Select(h => h.InnerText).ToList();
+                                gamePositiveRecommendation = int.Parse(Regex.Replace(totalRecommendations[0], "[,()]", ""));
+
+                                foreach (var recommendationsLimit in recommendationsRange)
+                                {
+                                    if (gamePositiveRecommendation <= recommendationsLimit.Key)
+                                    {
+                                        recommendationScore += (float)Math.Log10(gamePositiveRecommendation) * recommendationsLimit.Value;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 //recommendationScore += game.Recommendations * 0.000015f;
@@ -44,7 +69,6 @@ namespace RecGames.Helpers
                         {
                             recommendationScore += game.MetacriticScore * metacriticScoreLimit.Value;
                             //recommendationScore += metacriticScoreLimit.Value * 10;
-
                             break;
                         }
                     }
@@ -63,7 +87,7 @@ namespace RecGames.Helpers
                         recommendationScore += 300 / priceLimit.Value;
                         break;
                     }
-                }                
+                }
                 //recommendationScore += (game.PriceValue == 0) ? (float)(300) : (float)(300 / (game.PriceValue / 100));
 
                 gamesRecommendationScores.Add(game.GameID, recommendationScore);
@@ -75,18 +99,18 @@ namespace RecGames.Helpers
 
         public static JArray SetUpGamesToRecommendJson(List<Game> gamesToRecommend, List<string> playerPortrait)
         {
-            JArray gamesToRecommendJson = new JArray(gamesToRecommend.Select(g => (            
+            JArray gamesToRecommendJson = new JArray(gamesToRecommend.Select(g => (
                 new JObject(
                     new JProperty("game_name", g.Name),
                     new JProperty("developers", g.Developers),
                     new JProperty("genre", g.Genre),
                     new JProperty("publishers", g.Publishers),
                     new JProperty("launch_date", g.LaunchDate),
-                    new JProperty("metacritic_score", g.MetacriticScore != 0 ? g.MetacriticScore.ToString() : "--" ),
+                    new JProperty("metacritic_score", g.MetacriticScore != 0 ? g.MetacriticScore.ToString() : "--"),
                     new JProperty("recommendations", g.Recommendations),
                     new JProperty("total_achievements", g.TotalAchievements),
                     new JProperty("header_image", g.HeaderImage),
-                    new JProperty("price_value", (g.PriceValue != 0 ? string.Format("R${0}", g.PriceValue/ 100): "Free")),
+                    new JProperty("price_value", (g.PriceValue != 0 ? string.Format("R${0}", g.PriceValue / 100) : "Free")),
                     new JProperty("price_currency", g.PriceCurrency),
                     new JProperty("platforms", g.Platforms),
                     new JProperty("game_steam_url", @"http://store.steampowered.com/app/" + g.GameID.ToString()),
@@ -123,7 +147,7 @@ namespace RecGames.Helpers
 
             return platforms;
         }
-        
+
         public static string GameDevelopers(JArray developersArray)
         {
             string developers = String.Empty;
@@ -142,7 +166,8 @@ namespace RecGames.Helpers
                 }
                 return developers;
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 return String.Empty;
             }
         }
@@ -182,7 +207,7 @@ namespace RecGames.Helpers
 
             return recommendationsRange;
         }
-        
+
         public static Dictionary<int, float> SetMetacriticScoreRange()
         {
             var metacriticScoreRange = new Dictionary<int, float>();
@@ -227,11 +252,11 @@ namespace RecGames.Helpers
                 }
                 return game;
             }
-            catch(System.Net.WebException e)
+            catch (System.Net.WebException e)
             {
                 return null;
             }
-            
+
         }
 
         /*public static List<int> CalculateRecommendationScore(List<string> playerPortrait, List<Game> playerNotOwnedGames)
