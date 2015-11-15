@@ -13,6 +13,7 @@ using RecGames.Helpers;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace RecGames.Controllers
 {
@@ -26,8 +27,7 @@ namespace RecGames.Controllers
         {
             var ownedGamesIds = playerData.GetValue("owned_games").Select(o => o.SelectToken("appid").ToObject<int>()).ToList();
             var playerPortrait = playerData.GetValue("player_portrait").Select(p => p.ToString()).ToList();
-            var wishlistGames = playerData.GetValue("wishlist_games").Select(p => p.ToString()).ToList();
-
+            var wishlistGames = Regex.Split(Regex.Replace(playerData.GetValue("wishlist_games").ToString(), "\\[|\\]|\"", string.Empty), ",");
             //ideia:pegar todos os jogos que o jogador não tem; pegar todos os jogos que não tem nenhuma tag que descrevem o jogador;
             //remover de todos os jogos que não tem, os que não tem nenhuma tag que descrevem o jogador, para assim obter 
             //jogos que o jogador não tem mas tem alguma das tags que o descrevem
