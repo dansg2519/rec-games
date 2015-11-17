@@ -42,7 +42,7 @@ namespace RecGames.Helpers
             var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
             if (game.Tags.Any(t => t.TagName.Equals("Indie")))
             {
-                recommendationScore += tagsMatch * 36.5f;
+                recommendationScore += tagsMatch * 34.5f;
             }
             else
             {
