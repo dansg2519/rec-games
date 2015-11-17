@@ -24,77 +24,121 @@ namespace RecGames.Helpers
             foreach (var game in playerNotOwnedGames)
             {
                 float recommendationScore = 0.0f;
-                // TO-DO System.Data.Entity.Core.EntityCommandExecutionException
-                var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
-                recommendationScore += tagsMatch * 32f;
-
-                var recommendationsRange = SetRecommendationsRange();
-                if (game.Recommendations > 0)
-                {
-                    int gamePositiveRecommendation = 0;
-                    using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
-                    {
-                        string html = client.DownloadString(@"http://store.steampowered.com/app/" + game.GameID);
-                        if (html != null)
-                        {
-                            HtmlDocument htmlDocument = new HtmlDocument();
-                            htmlDocument.LoadHtml(html);
-
-                            var recommendations = htmlDocument.DocumentNode.SelectNodes("//span[@class='user_reviews_count']");
-                            if (recommendations != null)
-                            {
-                                var totalRecommendations = recommendations.Select(h => h.InnerText).ToList();
-                                gamePositiveRecommendation = int.Parse(Regex.Replace(totalRecommendations[0], "[,()]", ""));
-
-                                foreach (var recommendationsLimit in recommendationsRange)
-                                {
-                                    if (gamePositiveRecommendation <= recommendationsLimit.Key)
-                                    {
-                                        recommendationScore += (float)Math.Log10(gamePositiveRecommendation) * recommendationsLimit.Value;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                //recommendationScore += game.Recommendations * 0.000015f;
-
-                var metacriticScoreRange = SetMetacriticScoreRange();
-                if (game.MetacriticScore > 0)
-                {
-                    foreach (var metacriticScoreLimit in metacriticScoreRange)
-                    {
-                        if (game.MetacriticScore <= metacriticScoreLimit.Key)
-                        {
-                            recommendationScore += game.MetacriticScore * metacriticScoreLimit.Value;
-                            //recommendationScore += metacriticScoreLimit.Value * 10;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    recommendationScore += 70 * 0.22f;
-                }
-                //recommendationScore += game.MetacriticScore * 0.22f;
-
-                var priceRange = SetPriceRange();
-                foreach (var priceLimit in priceRange)
-                {
-                    if ((game.PriceValue / 100) <= priceLimit.Key)
-                    {
-                        recommendationScore += 300 / priceLimit.Value;
-                        break;
-                    }
-                }
-                //recommendationScore += (game.PriceValue == 0) ? (float)(300) : (float)(300 / (game.PriceValue / 100));
+                recommendationScore = TagsScore(recommendationScore, game, playerPortrait);
+                recommendationScore = PositiveRecommendationScore(recommendationScore, game);
+                recommendationScore = MetacriticScore(recommendationScore, game);
+                recommendationScore = PriceScore(recommendationScore, game);
 
                 gamesRecommendationScores.Add(game.GameID, recommendationScore);
             }
 
             var gamesIdsToRecommend = gamesRecommendationScores.OrderByDescending(p => p.Value).Take(TopGamesToRecommend).Select(p => p.Key).ToList();
             return gamesIdsToRecommend;
+        }
+
+        private static float TagsScore(float recommendationScore, Game game, List<string> playerPortrait)
+        {
+            // TO-DO System.Data.Entity.Core.EntityCommandExecutionException
+            var tagsMatch = game.Tags.Count(t => playerPortrait.Contains(t.TagName));
+            if (game.Tags.Any(t => t.TagName.Equals("Indie")))
+            {
+                recommendationScore += tagsMatch * 36.5f;
+            }
+            else
+            {
+                recommendationScore += tagsMatch * 32f;
+            }
+
+            return recommendationScore;
+        }
+
+        private static float PositiveRecommendationScore(float recommendationScore, Game game)
+        {
+            var recommendationsRange = SetRecommendationsRange();
+            if (game.Recommendations > 0)
+            {
+                foreach (var recommendationsLimit in recommendationsRange)
+                {
+                    if (game.Recommendations <= recommendationsLimit.Key)
+                    {
+                        recommendationScore += (float)Math.Log10(game.Recommendations) * recommendationsLimit.Value;
+                        break;
+                    }
+                }
+            }
+            //recommendationScore += game.Recommendations * 0.000015f;
+            return recommendationScore;
+        }
+
+        private static float MetacriticScore(float recommendationScore, Game game)
+        {
+            var metacriticScoreRange = SetMetacriticScoreRange();
+            if (game.MetacriticScore > 0)
+            {
+                foreach (var metacriticScoreLimit in metacriticScoreRange)
+                {
+                    if (game.MetacriticScore <= metacriticScoreLimit.Key)
+                    {
+                        recommendationScore += game.MetacriticScore * metacriticScoreLimit.Value;
+                        //recommendationScore += metacriticScoreLimit.Value * 10;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                recommendationScore += 70 * 0.22f;
+            }
+            //recommendationScore += game.MetacriticScore * 0.22f;
+            return recommendationScore;
+        }
+
+        private static float PriceScore(float recommendationScore, Game game)
+        {
+            var priceRange = SetPriceRange();
+            foreach (var priceLimit in priceRange)
+            {
+                if ((game.PriceValue / 100) <= priceLimit.Key)
+                {
+                    recommendationScore += 300 / priceLimit.Value;
+                    break;
+                }
+            }
+            //recommendationScore += (game.PriceValue == 0) ? (float)(300) : (float)(300 / (game.PriceValue / 100));
+            return recommendationScore;
+        }
+
+        private static Dictionary<int, int> SetRecommendationsRange()
+        {
+            var recommendationsRange = new Dictionary<int, int>();
+            recommendationsRange.Add(1000, 7);
+            recommendationsRange.Add(10000, 5);
+            recommendationsRange.Add(100000, 3);
+            recommendationsRange.Add(1000000, 2);
+
+            return recommendationsRange;
+        }
+
+        private static Dictionary<int, float> SetMetacriticScoreRange()
+        {
+            var metacriticScoreRange = new Dictionary<int, float>();
+            metacriticScoreRange.Add(30, 0.11f);
+            metacriticScoreRange.Add(60, 0.17f);
+            metacriticScoreRange.Add(100, 0.22f);
+
+            return metacriticScoreRange;
+        }
+
+        private static Dictionary<double, int> SetPriceRange()
+        {
+            var priceRange = new Dictionary<double, int>();
+            //media de preco dos jogos indies igual a 18.58
+            priceRange.Add(8.58, 7);
+            priceRange.Add(28.58, 5);
+            priceRange.Add(48.58, 10);
+            priceRange.Add(10000, 15);
+
+            return priceRange;
         }
 
         public static JArray SetUpGamesToRecommendJson(List<Game> gamesToRecommend, List<string> playerPortrait)
@@ -195,39 +239,6 @@ namespace RecGames.Helpers
             {
                 return String.Empty;
             }
-        }
-
-        public static Dictionary<int, int> SetRecommendationsRange()
-        {
-            var recommendationsRange = new Dictionary<int, int>();
-            recommendationsRange.Add(1000, 7);
-            recommendationsRange.Add(10000, 5);
-            recommendationsRange.Add(100000, 3);
-            recommendationsRange.Add(1000000, 2);
-
-            return recommendationsRange;
-        }
-
-        public static Dictionary<int, float> SetMetacriticScoreRange()
-        {
-            var metacriticScoreRange = new Dictionary<int, float>();
-            metacriticScoreRange.Add(30, 0.11f);
-            metacriticScoreRange.Add(60, 0.17f);
-            metacriticScoreRange.Add(100, 0.22f);
-
-            return metacriticScoreRange;
-        }
-
-        public static Dictionary<double, int> SetPriceRange()
-        {
-            var priceRange = new Dictionary<double, int>();
-            //media de preco dos jogos indies igual a 18.58
-            priceRange.Add(8.58, 7);
-            priceRange.Add(28.58, 5);
-            priceRange.Add(48.58, 10);
-            priceRange.Add(10000, 15);
-
-            return priceRange;
         }
 
         public static Game gameValues(int id)

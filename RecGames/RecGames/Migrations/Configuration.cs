@@ -11,6 +11,7 @@ namespace RecGames.Migrations
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Text;
     using System.Text.RegularExpressions;
 
     internal sealed class Configuration : DbMigrationsConfiguration<RecGames.DAL.RecGameContext>
@@ -36,14 +37,15 @@ namespace RecGames.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            using (WebClient client = new WebClient())
+            using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 }) 
             {
                 List<string> appsId = new List<string>();
                 //saveAppsIds(client, appsId);
+                //saveGamesIds(client, appsId);
 
                 appsId = getAppsId();
-
-                for (int i = 0; i < appsId.Count; i++)
+                
+                for (int i = 4500; i < appsId.Count; i++)
                 {
                     var games = new List<Game>();
                     var tags = new List<Tag>();
@@ -81,13 +83,50 @@ namespace RecGames.Migrations
             }
             appsId = fullList.Distinct().ToList();
 
-            using (var writer = new StreamWriter(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\appsId.txt"))
+            using (var writer = new StreamWriter(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\appsId2.txt"))
             {
                 for (int i = 0; i < appsId.Count; i++)
                 {
                     writer.Write("{0}\n", appsId[i]);
                 }
             }
+        }
+
+        private static void saveGamesIds(WebClient client, List<string> appsId)
+        {
+            using (StreamReader reader = new StreamReader(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\appsId2.txt"))
+            {
+                string[] fileAppsId = reader.ReadToEnd().Split('\n');
+                appsId = fileAppsId.ToList();
+            }
+
+            using (var writer = new StreamWriter(@"C:\Users\Daniel\Coder\C#\rec-games\RecGames\ImportantFiles\gamesId2.txt"))
+            {
+                foreach (var id in appsId)
+                {
+                    try
+                    {
+                        string appDetailsJson = client.DownloadString(@"http://store.steampowered.com/api/appdetails/?appids=" + id);
+                        JObject jObjectAppDetails = JObject.Parse(appDetailsJson);
+                        JObject jObjectApp = (JObject)jObjectAppDetails[id];
+                        JObject jObjectAppData = (JObject)jObjectApp["data"];
+                        bool success = (bool)jObjectApp["success"];
+                        if (success)
+                        {
+                            string appType = (string)jObjectAppData["type"];
+                            if (appType == "game")
+                            {
+                                writer.Write("{0}\n", id);
+                            }
+                        }
+                    }
+                    catch (WebException e)
+                    {
+                        System.Console.WriteLine(e.Message);
+                    }
+                }
+            }
+
         }
 
         private static void getGames(RecGames.DAL.RecGameContext context, WebClient client, List<Game> games, List<Tag> tags, string appsId)
@@ -133,7 +172,25 @@ namespace RecGames.Migrations
 
                         try
                         {
-                            game.Recommendations = (int)jObjectAppData["recommendations"]["total"];
+                            string html = client.DownloadString(@"http://store.steampowered.com/app/" + game.GameID);
+                            if (html != null)
+                            {
+                                HtmlDocument htmlDocument = new HtmlDocument();
+                                htmlDocument.LoadHtml(html);
+
+                                var recommendations = htmlDocument.DocumentNode.SelectNodes("//span[@class='user_reviews_count']");
+                                if (recommendations != null)
+                                {
+                                    var totalRecommendations = recommendations.Select(h => h.InnerText).ToList();
+                                    game.Recommendations = int.Parse(Regex.Replace(totalRecommendations[0], "[,()]", ""));
+
+                                    //game.Recommendations = (int)jObjectAppData["recommendations"]["total"];
+                                }
+                                else
+                                {
+                                    game.Recommendations = default(int);
+                                }
+                            }
                         }
                         catch (NullReferenceException)
                         {
