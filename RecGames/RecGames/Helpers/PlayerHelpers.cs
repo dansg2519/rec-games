@@ -10,6 +10,10 @@ namespace RecGames.Helpers
 {
     public class PlayerHelpers
     {
+        private const int RecentGamesBonus = 10;
+        private const int WishlistGamesBonus = 5;
+        private const int MinutesToHour = 60;
+
         public static void DefinePortraitByOwnedGames(List<string> playerTags, JObject myGames, RecGameContext db)
         {
             if ((int)myGames["owned_games"]["response"]["game_count"] > 0)
@@ -25,7 +29,7 @@ namespace RecGames.Helpers
                     {
                         if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
                         {
-                            playTimeForever = Math.Sqrt(playTimeForever / 60)/4;
+                            playTimeForever = Math.Sqrt(playTimeForever / MinutesToHour)/4;
                             for (int i = 0; i < (1 + playTimeForever); i++)
                             {
                                 playerTags.Add(tag.TagName);
@@ -52,8 +56,8 @@ namespace RecGames.Helpers
                     {
                         if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
                         {
-                            playTimeTwoWeeks = 2 * Math.Sqrt(playTimeTwoWeeks / 60);
-                            for (int i = 0; i < (50 + playTimeTwoWeeks); i++)
+                            playTimeTwoWeeks = 2 * Math.Sqrt(playTimeTwoWeeks / MinutesToHour);
+                            for (int i = 0; i < (RecentGamesBonus + playTimeTwoWeeks); i++)
                             {
                                 playerTags.Add(tag.TagName);
 
@@ -79,7 +83,10 @@ namespace RecGames.Helpers
                     {
                         if (tag.TagName != "Singleplayer" && tag.TagName != "Multiplayer")
                         {
-                            playerTags.Add(tag.TagName);
+                            for (int i = 0; i < WishlistGamesBonus; i++)
+                            {
+                                playerTags.Add(tag.TagName);
+                            }
                         }
                     }
                 }

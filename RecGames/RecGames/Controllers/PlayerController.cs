@@ -29,7 +29,7 @@ namespace RecGames.Controllers
         public IHttpActionResult GetInfo()
         {
             string playerInfo;
-            using (WebClient client = new WebClient())
+            using (WebClient client = new WebClient() { Encoding = Encoding.UTF8 })
             {
                 playerInfo = client.DownloadString(@"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + Strings.SteamKey + "&steamids=" + SteamId);
             }
@@ -70,8 +70,11 @@ namespace RecGames.Controllers
                         HtmlDocument htmlDocument = new HtmlDocument();
                         htmlDocument.LoadHtml(html);
 
-                        wishlistGames = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']")
-                                                    .Select(h => h.InnerText).ToList();
+                        var wishlistNodes = htmlDocument.DocumentNode.SelectNodes("//h4[@class='ellipsis']");
+                        if (wishlistNodes != null)
+                        {
+                            wishlistGames = wishlistNodes.Select(h => h.InnerText).ToList();
+                        }
                     }
                 }                
 
