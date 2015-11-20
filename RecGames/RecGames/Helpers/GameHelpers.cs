@@ -150,7 +150,7 @@ namespace RecGames.Helpers
                     new JProperty("genre", g.Genre),
                     new JProperty("publishers", g.Publishers),
                     new JProperty("launch_date", g.LaunchDate),
-                    new JProperty("metacritic_score", g.MetacriticScore != 0 ? g.MetacriticScore.ToString() : "--"),
+                    new JProperty("metacritic_score", g.MetacriticScore),
                     new JProperty("recommendations", g.Recommendations),
                     new JProperty("total_achievements", g.TotalAchievements),
                     new JProperty("header_image", g.HeaderImage),

@@ -12,9 +12,12 @@
                 <h3 class="game-title">{{game.game_name}}</h3>
                 <p class="game-developer help-block">By {{game.developers}}</p>
             </div>
-            <div class="score-container">
+            <div class="score-container" ng-if="game.metacritic_score !== 0">
                 <h3 class="score-text">Critic Score</h3>
                 <h1 class="score-num">{{game.metacritic_score}}</h1>
+            </div>
+            <div class="score-container" ng-if="game.metacritic_score === 0">
+                <h3 class="score-text">No Critic Score</h3>
             </div>
             <p class="justification-text">
                 We are recommeding the game <ins>{{game.game_name}}</ins> because it has as characteristics like <ins>{{game.common_tags}}</ins> which you may enjoy and also it has <ins>{{game.uncommon_tags}}</ins> as characteristics.
