@@ -13,6 +13,7 @@
         }
         
         $scope.recentGamesText = "Recent Games:";
+        $scope.ownedGamesText = "Owned Games:";
         if (data.recently_played_games) {
             $scope.playerRecentlyPlayedGames = data.recently_played_games.response.games;
             if (!$scope.playerRecentlyPlayedGames) {

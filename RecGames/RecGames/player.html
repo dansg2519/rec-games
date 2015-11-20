@@ -39,6 +39,16 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="owned-games-container">
+                            <h4 class="owned-text">{{ownedGamesText}}</h4>
+                            <ul>
+                                <li ng-repeat="ownedGame in playerOwnedGames" class="owned-name">
+                                    <a href="http://store.steampowered.com/app/{{ownedGame.appid}}">
+                                        {{ownedGame.name}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-9">

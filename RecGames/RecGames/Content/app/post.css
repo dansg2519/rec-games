@@ -50,9 +50,10 @@
 }
 
 .recommendation-container {
-    width: 256px;
+    width: 200px;
     height: 45px;
     display: inline-block;
+    padding: 6px 10px;
 }
 
 .game-title {
@@ -85,7 +86,7 @@ a:hover, a:focus {
 
 .score-num, .score-text, .recommendation-text, .price-text {
     color: #fff;
-    font-weight: bold;
+    font-weight: lighter;
     font-family: 'Open Sans', 'PT Serif';
 }
 
@@ -103,10 +104,10 @@ a:hover, a:focus {
 .users-recommended {
     font-family: 'Open Sans';
     color: #fff;
-    font-weight: bold;
+    font-weight: lighter;
     margin-top: 3px;
-    padding: 0 5px 0;
-    font-size: 16px;
+    font-size: 14px;
+    margin: 0;
 }
 
 .post-container:hover .game-title, 
@@ -161,7 +162,7 @@ a:hover, a:focus {
     }
     
     .price-container {
-        width: 7em;
+        width: 6em;
         height: 2em;
         float: none;
         margin: 6px 0.6rem;
@@ -177,6 +178,7 @@ a:hover, a:focus {
     .recommendation-container {
         width: 7.4em;
         margin: 10px 0 0;
+        padding: 2px;
     }
 
     .users-recommended {

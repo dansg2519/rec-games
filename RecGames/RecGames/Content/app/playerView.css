@@ -45,7 +45,7 @@
     margin-bottom: 5px;
 }
 
-.player-characteristic-tag a, .recent-name a {
+.player-characteristic-tag a, .recent-name a, .owned-name a {
     color: #333333;
     width: 100%;
 }
@@ -53,7 +53,8 @@
 .player-characteristic-tag:hover .player-characteristic-tag,
 .player-characteristic-tag a:hover,
 .recent-name:hover .recent-name,
-.recent-name a:hover {
+.recent-name a:hover,
+.owned-name a:hover {
     background-color: #333333;
     color: #fff;
 }
@@ -122,27 +123,27 @@
     text-decoration: underline;
 }
 
-.recent-games-container {
+.recent-games-container, .owned-games-container {
     border-top: 1px solid #ccc;
     margin-top: 5px;
 }
 
 
-.recent-text {
+.recent-text, .owned-text {
     font-family: 'Open Sans';
     font-size: 15px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.recent-name {
+.recent-name, .owned-name {
     border-bottom: 1px solid #eee;
     background-color: #fff;
     display: flex;
     margin-bottom: 5px;
 }
 
-.recent-games-container ul {
+.recent-games-container ul, .owned-games-container ul {
     overflow: auto;
     height: 100px;
     padding-left: 0;
@@ -209,26 +210,26 @@
         padding-right: 0;
     }
 
-    .recent-name {
+    .recent-name, .owned-name {
         display: inline-block;
         margin-right: 5px;
-        border: 1px solid;
+        border-right: 1px solid #eee;
         background-color: #fff;
         padding-right: 5px;
     }
 
-    .recent-text {
+    .recent-text, .owned-text {
         font-size: 14px;
     }
 
-    .recent-games-container ul {
+    .recent-games-container ul, .owned-games-container ul {
         overflow: auto;
         display: block;
         white-space: nowrap;
         height: auto;
     }
 
-    .recent-games-container {
+    .recent-games-container, .owned-games-container {
         border-top: 0;
     }
 }
