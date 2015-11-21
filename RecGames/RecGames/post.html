@@ -28,7 +28,7 @@
                 </li>
             </ul>
             <div class="other-tags">
-                <button class="other-tags-button tag-button-{{$index}}" ng-click="showTags($index)">Other tags</button>
+                <button class="other-tags-button tag-button-{{$index}} btn btn-primary" ng-click="showTags($index)">Other tags</button>
                 <ul class="other-tags-list-{{$index}}" style="display: none;">
                     <li ng-repeat="tag in game.uncommon_tags">
                         <span class=" tag-icon glyphicon glyphicon-tag" aria-hidden="true"></span>
