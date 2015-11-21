@@ -33,9 +33,7 @@
                             <h4 class="recent-text">{{recentGamesText}}</h4>
                             <ul>
                                 <li ng-repeat="recentGame in playerRecentlyPlayedGames" class="recent-name">
-                                    <a href="http://store.steampowered.com/app/{{recentGame.appid}}">
-                                        {{recentGame.name}}
-                                    </a>
+                                    {{recentGame.name}}
                                 </li>
                             </ul>
                         </div>
@@ -43,9 +41,7 @@
                             <h4 class="owned-text">{{ownedGamesText}}</h4>
                             <ul>
                                 <li ng-repeat="ownedGame in playerOwnedGames" class="owned-name">
-                                    <a href="http://store.steampowered.com/app/{{ownedGame.appid}}">
-                                        {{ownedGame.name}}
-                                    </a>
+                                    {{ownedGame.name}}
                                 </li>
                             </ul>
                         </div>

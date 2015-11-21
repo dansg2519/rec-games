@@ -248,4 +248,13 @@
     .recent-games-container, .owned-games-container {
         border-top: 0;
     }
+
+    .fixed {
+        position: fixed;
+        top:51px; 
+        width: 92%;
+        background-color: #fff;
+        border-bottom: 1px solid #dddddd;
+        z-index: 1020;
+    }
 }

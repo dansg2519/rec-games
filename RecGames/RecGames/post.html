@@ -13,11 +13,11 @@
                 <p class="game-developer help-block">By {{game.developers}}</p>
             </div>
         </a>
-        <div class="score-container" ng-if="game.metacritic_score !== 0">
+        <div class="score-container gradient-background" ng-if="game.metacritic_score !== 0">
             <h3 class="score-text">Critic Score</h3>
             <h1 class="score-num">{{game.metacritic_score}}</h1>
         </div>
-        <div class="score-container" ng-if="game.metacritic_score === 0">
+        <div class="score-container gradient-background" ng-if="game.metacritic_score === 0">
             <h3 class="score-text">No Critic Score</h3>
         </div>
         <div class="game-tags">
@@ -28,7 +28,7 @@
                 </li>
             </ul>
             <div class="other-tags">
-                <button class="other-tags-button tag-button-{{$index}} btn btn-primary" ng-click="showTags($index)">Other tags</button>
+                <button class="other-tags-button tag-button-{{$index}} btn btn-default btn-xs" ng-click="showTags($index)">More tags</button>
                 <ul class="other-tags-list-{{$index}}" style="display: none;">
                     <li ng-repeat="tag in game.uncommon_tags">
                         <span class=" tag-icon glyphicon glyphicon-tag" aria-hidden="true"></span>
@@ -37,10 +37,10 @@
                 </ul>
             </div>   
         </div>
-        <div class="recommendation-container">
+        <div class="recommendation-container gradient-background">
             <h4 class="users-recommended">{{game.recommendations}} users recommended this game</h4>
         </div>
-        <div class="price-container">
+        <div class="price-container gradient-background">
             <h1 class="price-text">{{game.price_value}}</h1>
         </div>
     </div>
