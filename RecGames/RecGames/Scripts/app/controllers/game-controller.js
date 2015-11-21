@@ -11,5 +11,9 @@
             $scope.recommendReady = true;
         });
     }
+
+    $scope.showTags = function (index) {
+        $(".other-tags-list-" + index).toggle();
+    }
 }]);
 

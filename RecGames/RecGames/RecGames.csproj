@@ -258,6 +258,7 @@
     <Content Include="Scripts\app\controllers\game-controller.js" />
     <Content Include="Scripts\app\controllers\player-controller.js" />
     <Content Include="Scripts\app\controllers\steamid-controller.js" />
+    <Content Include="Scripts\app\fixed_recommendation_text.js" />
     <Content Include="Scripts\app\services\game-factory.js" />
     <Content Include="Scripts\app\services\player-factory.js" />
     <Content Include="Scripts\bootstrap.js" />

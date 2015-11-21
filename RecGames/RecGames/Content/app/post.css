@@ -70,14 +70,23 @@
     display: inline-block;
 }
 
-.justification-text {
+.game-tags {
     margin: 24px 0;
-    font-weight: bold;
     font-family: 'Open Sans', 'PT Serif';
-    color: #bb1a00;
     width: 90%;
     text-decoration: none;
 
+}
+
+.game-tags ul {
+    padding-left: 0;
+}
+
+.game-tags li {
+    display: inline-block;
+    padding: 2px;
+    margin-right: 10px;
+    margin-top: 6px;
 }
 
 a:hover, a:focus {
@@ -110,8 +119,7 @@ a:hover, a:focus {
     margin: 0;
 }
 
-.post-container:hover .game-title, 
-.post-container:hover .justification-text {
+.post-container:hover .game-title {
     color: #bb0000;
 }
 
@@ -143,7 +151,7 @@ a:hover, a:focus {
         margin: 0 auto;
     }
 
-    .justification-text {
+    .game-tags {
         margin: 0 0 16px;
         width: 100%;
     }

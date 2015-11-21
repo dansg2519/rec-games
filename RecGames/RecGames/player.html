@@ -49,11 +49,22 @@
                                 </li>
                             </ul>
                         </div>
+                        <!--<div class="wishlist-games-container">
+                            <h4 class="wishlist-text">{{wishlistGamesText}}</h4>
+                            <ul>
+                                <li ng-repeat="wishlistGame in playerWishlistGames track by $index" class="wishlist-name">
+                                    <p ng-model="">{{wishlistGame}}</p>
+                                </li>
+                            </ul>
+                        </div>-->
                     </div>
                 </div>
                 <div class="col-sm-9">
                     <div class="container">
-                        <h4 class="container-title">Recommended Games:</h4>
+                        <div class="recommendation-text-fixed-container">
+                            <h4 class="container-title">We are recommending the games below beacause they have some characteristics based on your common tags from your most played owned games, your recent games and your wishlist games.</h4>
+                        </div>
+                        
                         <table class="table">
                             <tbody>
                                 <tr ng-hide="recommendReady">

@@ -14,12 +14,21 @@
         
         $scope.recentGamesText = "Recent Games:";
         $scope.ownedGamesText = "Owned Games:";
+        $scope.wishlistGamesText = "Wishlist Games:"
         if (data.recently_played_games) {
             $scope.playerRecentlyPlayedGames = data.recently_played_games.response.games;
             if (!$scope.playerRecentlyPlayedGames) {
                 $scope.recentGamesText = "No recent Games played.";
             }
             
+        }
+
+        if (data.wishlist_games) {
+            console.log(data.wishlist_games);
+            $scope.playerWishlistGames = data.wishlist_games;
+        }
+        else {
+            $scope.wishlistGamesText = "No games on wishlist."
         }
 
         $scope.tagsText = "Loading Portrait Tags...";

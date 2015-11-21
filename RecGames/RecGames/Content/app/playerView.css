@@ -45,7 +45,7 @@
     margin-bottom: 5px;
 }
 
-.player-characteristic-tag a, .recent-name a, .owned-name a {
+.player-characteristic-tag a, .recent-name a, .owned-name a, .wishlist-name {
     color: #333333;
     width: 100%;
 }
@@ -129,21 +129,23 @@
 }
 
 
-.recent-text, .owned-text {
+.recent-text, .owned-text, .wishlist-text {
     font-family: 'Open Sans';
     font-size: 15px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.recent-name, .owned-name {
+.recent-name, .owned-name, .wishlist-name {
     border-bottom: 1px solid #eee;
     background-color: #fff;
     display: flex;
     margin-bottom: 5px;
 }
 
-.recent-games-container ul, .owned-games-container ul {
+.recent-games-container ul,
+.owned-games-container ul,
+.wishlist-games-container ul {
     overflow: auto;
     height: 100px;
     padding-left: 0;
@@ -153,6 +155,20 @@
   -webkit-box-shadow: 3px 3px 5px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
   -moz-box-shadow:    3px 3px 5px 2px #ccc;  /* Firefox 3.5 - 3.6 */
   box-shadow:         3px 3px 5px 2px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.fixed {
+    position: fixed;
+    top:51px; 
+    width: 55.6%;
+    background-color: #fff;
+    border-bottom: 1px solid #dddddd;
+    z-index: 1020;
+}
+
+.container-title {
+    font-family: 'Open Sans';
+    font-weight: bold;
 }
 
 @media (max-width:768px) {
