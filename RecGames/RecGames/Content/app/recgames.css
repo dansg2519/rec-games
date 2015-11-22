@@ -1,4 +1,12 @@
-﻿.steam-id-form-container {
+﻿@import url('recgames.css');
+.header_about_app {
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+    color: #000;
+}
+
+.steam-id-form-container {
     text-align: center;
     margin-top: 150px;
     margin-bottom: 280px;
