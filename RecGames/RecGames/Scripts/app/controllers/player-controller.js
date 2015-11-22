@@ -25,7 +25,8 @@
 
         if (data.wishlist_games) {
             console.log(data.wishlist_games);
-            $scope.playerWishlistGames = data.wishlist_games;
+            $scope.playerWishlistGames = data.wishlist_games.replace(/\"/g, "")
+                .replace("[", "").replace("]", "").split(',');
         }
         else {
             $scope.wishlistGamesText = "No games on wishlist."
